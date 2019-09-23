@@ -10,19 +10,19 @@
 <title>Vue入门与实践(三) Vue-Router与页面实战 - Harvie&#39;s House</title>
 
 
-    <meta name="description" content="Vue-Router官方路由管理器  主要功能：嵌套的路由/试图表，模块化基于组件的路由配置，基于Vue.js过度系统的视图效果，细粒度的导航控制，自动激活的CSS class链接  使用流程：  安装：在项目根目录下执行 1npm install vue-router --save-dev  编写路由配置文件：在src/router下创建index.js文件存放路由配置 123456789101">
+    <meta name="description" content="Vue-Router官方路由管理器  主要功能：嵌套的路由/试图表，模块化基于组件的路由配置，基于Vue.js过度系统的视图效果，细粒度的导航控制，自动激活的CSS class链接">
 <meta name="keywords" content="Vue,前端">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Vue入门与实践(三) Vue-Router与页面实战">
 <meta property="og:url" content="https://HarvieNotFraid.github.io/2019/09/23/vue3/index.html">
 <meta property="og:site_name" content="Harvie&#39;s House">
-<meta property="og:description" content="Vue-Router官方路由管理器  主要功能：嵌套的路由/试图表，模块化基于组件的路由配置，基于Vue.js过度系统的视图效果，细粒度的导航控制，自动激活的CSS class链接  使用流程：  安装：在项目根目录下执行 1npm install vue-router --save-dev  编写路由配置文件：在src/router下创建index.js文件存放路由配置 123456789101">
+<meta property="og:description" content="Vue-Router官方路由管理器  主要功能：嵌套的路由/试图表，模块化基于组件的路由配置，基于Vue.js过度系统的视图效果，细粒度的导航控制，自动激活的CSS class链接">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://harvienotfraid.github.io/images/vue/1.jpg">
-<meta property="og:updated_time" content="2019-09-23T16:39:40.577Z">
+<meta property="og:updated_time" content="2019-09-23T16:55:51.266Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue入门与实践(三) Vue-Router与页面实战">
-<meta name="twitter:description" content="Vue-Router官方路由管理器  主要功能：嵌套的路由/试图表，模块化基于组件的路由配置，基于Vue.js过度系统的视图效果，细粒度的导航控制，自动激活的CSS class链接  使用流程：  安装：在项目根目录下执行 1npm install vue-router --save-dev  编写路由配置文件：在src/router下创建index.js文件存放路由配置 123456789101">
+<meta name="twitter:description" content="Vue-Router官方路由管理器  主要功能：嵌套的路由/试图表，模块化基于组件的路由配置，基于Vue.js过度系统的视图效果，细粒度的导航控制，自动激活的CSS class链接">
 <meta name="twitter:image" content="https://harvienotfraid.github.io/images/vue/1.jpg">
 
 
@@ -121,6 +121,10 @@
             <div class="navbar-end">
                 
                 
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
                 
                 <a class="navbar-item search" title="搜索" href="javascript:;">
                     <i class="fas fa-search"></i>
@@ -152,7 +156,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    12 分钟 读完 (大约 1763 个字)
+                    12 分钟 读完 (大约 1764 个字)
                 </span>
                 
                 
@@ -168,6 +172,7 @@
             <h1 id="Vue-Router"><a href="#Vue-Router" class="headerlink" title="Vue-Router"></a>Vue-Router</h1><p>官方路由管理器</p>
 <ol>
 <li><p>主要功能：嵌套的路由/试图表，模块化基于组件的路由配置，基于Vue.js过度系统的视图效果，细粒度的导航控制，自动激活的CSS class链接</p>
+<a id="more"></a>
 </li>
 <li><p>使用流程：</p>
 <ol>
@@ -467,6 +472,105 @@
 </div>
     
         
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#Vue-Router">
+        <span class="has-mr-6">1</span>
+        <span>Vue-Router</span>
+        </a></li><li>
+        <a class="is-flex" href="#登录页面实战">
+        <span class="has-mr-6">2</span>
+        <span>登录页面实战</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#创建项目">
+        <span class="has-mr-6">2.1</span>
+        <span>创建项目</span>
+        </a></li><li>
+        <a class="is-flex" href="#安装Vue-Router依赖，见上方流程">
+        <span class="has-mr-6">2.2</span>
+        <span>安装Vue-Router依赖，见上方流程</span>
+        </a></li><li>
+        <a class="is-flex" href="#安装Element-ui依赖">
+        <span class="has-mr-6">2.3</span>
+        <span>安装Element-ui依赖</span>
+        </a></li><li>
+        <a class="is-flex" href="#创建src-views用于存放页面组件">
+        <span class="has-mr-6">2.4</span>
+        <span>创建src/views用于存放页面组件</span>
+        </a></li><li>
+        <a class="is-flex" href="#编写router-index-js配置路由跳转信息">
+        <span class="has-mr-6">2.5</span>
+        <span>编写router/index.js配置路由跳转信息</span>
+        </a></li><li>
+        <a class="is-flex" href="#在项目根目录运行项目">
+        <span class="has-mr-6">2.6</span>
+        <span>在项目根目录运行项目</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#首页导航栏多页面实战">
+        <span class="has-mr-6">3</span>
+        <span>首页导航栏多页面实战</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#嵌套路由-子路由">
+        <span class="has-mr-6">3.1</span>
+        <span>嵌套路由(子路由)</span>
+        </a></li><li>
+        <a class="is-flex" href="#编写子路由展示的页面">
+        <span class="has-mr-6">3.2</span>
+        <span>编写子路由展示的页面</span>
+        </a></li><li>
+        <a class="is-flex" href="#修改router-index-js配置嵌套路由路径">
+        <span class="has-mr-6">3.3</span>
+        <span>修改router/index.js配置嵌套路由路径</span>
+        </a></li><li>
+        <a class="is-flex" href="#修改views-Main-vue采用Element-Container布局容器组件">
+        <span class="has-mr-6">3.4</span>
+        <span>修改views/Main.vue采用Element-Container布局容器组件</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#路由传递参数">
+        <span class="has-mr-6">4</span>
+        <span>路由传递参数</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#路径参数">
+        <span class="has-mr-6">4.1</span>
+        <span>路径参数</span>
+        </a></li><li>
+        <a class="is-flex" href="#属性-Props-参数">
+        <span class="has-mr-6">4.2</span>
+        <span>属性(Props)参数</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#重定向路由组件">
+        <span class="has-mr-6">5</span>
+        <span>重定向路由组件</span>
+        </a></li><li>
+        <a class="is-flex" href="#路径路由模式">
+        <span class="has-mr-6">6</span>
+        <span>路径路由模式</span>
+        </a></li><li>
+        <a class="is-flex" href="#404-空页面路由">
+        <span class="has-mr-6">7</span>
+        <span>404-空页面路由</span>
+        </a></li><li>
+        <a class="is-flex" href="#路由钩子函数">
+        <span class="has-mr-6">8</span>
+        <span>路由钩子函数</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#组件内的钩子函数">
+        <span class="has-mr-6">8.1</span>
+        <span>组件内的钩子函数</span>
+        </a></li><li>
+        <a class="is-flex" href="#实例">
+        <span class="has-mr-6">8.2</span>
+        <span>实例</span>
+        </a></li></ul></li></ul>
+        </div>
+    </div>
+</div>
+
     
         
 
