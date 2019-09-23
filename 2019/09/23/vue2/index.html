@@ -7,20 +7,23 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>testImg - Harvie&#39;s House</title>
+<title>Vue入门与实践(二) Vue核心概念与官方脚手架介绍 - Harvie&#39;s House</title>
 
 
-    <meta name="keywords" content="Harvie,IT">
+    <meta name="description" content="Vue组件的三大核心 computed-计算属性：用于将不经常变化的计算结果进行缓存，不像调用方法每次都要进行计算，计算属性只有关联的属性值变化且自身被调用时才进行计算，节约系统开销 slot-插槽：用于组件组合场景进行内容分发，父组件可以通过具名插槽分发数据给子组件不同的插槽，子组件也可以通过作用域插槽分发数据给父组件的插槽 methods-自定义事件：子组件可以通过自定义事件更改父组件中的Vu">
+<meta name="keywords" content="Vue,前端">
 <meta property="og:type" content="article">
-<meta property="og:title" content="testImg">
-<meta property="og:url" content="https://HarvieNotFraid.github.io/2019/09/23/testImg/index.html">
+<meta property="og:title" content="Vue入门与实践(二) Vue核心概念与官方脚手架介绍">
+<meta property="og:url" content="https://HarvieNotFraid.github.io/2019/09/23/vue2/index.html">
 <meta property="og:site_name" content="Harvie&#39;s House">
+<meta property="og:description" content="Vue组件的三大核心 computed-计算属性：用于将不经常变化的计算结果进行缓存，不像调用方法每次都要进行计算，计算属性只有关联的属性值变化且自身被调用时才进行计算，节约系统开销 slot-插槽：用于组件组合场景进行内容分发，父组件可以通过具名插槽分发数据给子组件不同的插槽，子组件也可以通过作用域插槽分发数据给父组件的插槽 methods-自定义事件：子组件可以通过自定义事件更改父组件中的Vu">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://harvienotfraid.github.io/images/testImg/2.jpg">
-<meta property="og:updated_time" content="2019-09-22T16:25:18.099Z">
+<meta property="og:image" content="https://harvienotfraid.github.io/images/vue/1.jpg">
+<meta property="og:updated_time" content="2019-09-23T15:57:44.528Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="testImg">
-<meta name="twitter:image" content="https://harvienotfraid.github.io/images/testImg/2.jpg">
+<meta name="twitter:title" content="Vue入门与实践(二) Vue核心概念与官方脚手架介绍">
+<meta name="twitter:description" content="Vue组件的三大核心 computed-计算属性：用于将不经常变化的计算结果进行缓存，不像调用方法每次都要进行计算，计算属性只有关联的属性值变化且自身被调用时才进行计算，节约系统开销 slot-插槽：用于组件组合场景进行内容分发，父组件可以通过具名插槽分发数据给子组件不同的插槽，子组件也可以通过作用域插槽分发数据给父组件的插槽 methods-自定义事件：子组件可以通过自定义事件更改父组件中的Vu">
+<meta name="twitter:image" content="https://harvienotfraid.github.io/images/vue/1.jpg">
 
 
 
@@ -90,7 +93,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/HarvieNotFraid.png" alt="testImg" height="28">
+                <img src="/images/HarvieNotFraid.png" alt="Vue入门与实践(二) Vue核心概念与官方脚手架介绍" height="28">
             
             </a>
         </div>
@@ -111,7 +114,7 @@
                 href="/tags">Tags</a>
                 
                 <a class="navbar-item"
-                href="https://harviealwayshere.github.io/">Old Blog</a>
+                href="https://harviealwayshere.github.io/">Pre-Blog</a>
                 
             </div>
             
@@ -135,7 +138,7 @@
     
     <div class="card-image">
         <span  class="image is-7by1">
-            <img class="thumbnail" src="/images/testImg/2.jpg" alt="testImg">
+            <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(二) Vue核心概念与官方脚手架介绍">
         </span>
     </div>
     
@@ -143,13 +146,13 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-09-22T16:21:54.000Z">2019-09-23</time>
+                <time class="level-item has-text-grey" datetime="2019-09-23T15:43:12.000Z">2019-09-23</time>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    几秒 读完 (大约 3 个字)
+                    3 分钟 读完 (大约 415 个字)
                 </span>
                 
                 
@@ -158,12 +161,41 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                testImg
+                Vue入门与实践(二) Vue核心概念与官方脚手架介绍
             
         </h1>
         <div class="content">
-            <p><img src="/images/testImg/2.jpg" alt></p>
+            <h1 id="Vue组件的三大核心"><a href="#Vue组件的三大核心" class="headerlink" title="Vue组件的三大核心"></a>Vue组件的三大核心</h1><ol>
+<li><strong>computed-计算属性：</strong>用于将<strong>不经常变化的计算结果进行缓存</strong>，不像调用方法每次都要进行计算，计算属性只有关联的属性值变化且自身被调用时才进行计算，节约系统开销</li>
+<li><strong>slot-插槽：</strong>用于组件组合场景进行<strong>内容分发</strong>，父组件可以通过具名插槽分发数据给子组件不同的插槽，子组件也可以通过作用域插槽分发数据给父组件的插槽</li>
+<li><strong>methods-自定义事件：</strong>子组件可以通过自定义事件更改父组件中的Vue实例的数据，通过方法中执行<strong>this.$emit(“父组件方法名”,传递的参数)</strong>调用父组件中的方法更改Vue实例的数据</li>
+</ol>
+<h1 id="Vue-cli"><a href="#Vue-cli" class="headerlink" title="Vue-cli"></a>Vue-cli</h1><p>Vue官方脚手架，用于快速生成vue项目模板</p>
+<ol>
+<li><p>主要功能：统一目录结构，本地调试，热部署，单元测试，集成打包上线</p>
+</li>
+<li><p>项目目录结构</p>
+<p><img src="/images/vue/5.png" alt></p>
+<p>其中package.json中包含</p>
+<ol>
+<li>scripts-封装vue常用命令</li>
+<li>dependencies-生产环境依赖</li>
+<li>devDependencies-开发环境依赖</li>
+</ol>
+</li>
+<li><p>src/main.js：项目入口文件</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//ES6写法，等同于require("vue"),require是NodeJS提供的模块加载器</span></span><br><span class="line"><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">"vue"</span>;</span><br><span class="line"><span class="hljs-keyword">import</span> App <span class="hljs-keyword">from</span> <span class="hljs-string">"./App"</span>; <span class="hljs-comment">//上同，./表示当前目录</span></span><br><span class="line"> </span><br><span class="line">Vue.config.productionTip = <span class="hljs-literal">false</span>; <span class="hljs-comment">//关闭浏览器关于环境的提示</span></span><br><span class="line"> </span><br><span class="line"><span class="hljs-keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="hljs-string">"#app"</span>, <span class="hljs-comment">//查找index.html中id为app的元素进行挂载</span></span><br><span class="line">  components: &#123; App &#125;, <span class="hljs-comment">//声明引入组件App</span></span><br><span class="line">  template: <span class="hljs-string">"&lt;App/&gt;"</span> <span class="hljs-comment">//模板，会将挂载元素替换为&lt;App/&gt;</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+</ol>
 
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Vue/">Vue</a>, <a class="has-link-grey -link" href="/tags/前端/">前端</a>
+                </div>
+            </div>
         </div>
         
         
@@ -178,10 +210,17 @@
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/09/23/vue3/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Vue入门与实践(三) Vue-Router与页面实战</span>
+            </a>
+        </div>
+        
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2019/09/16/hello-world/">
-                <span class="level-item">Hello World</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/09/23/vue1/">
+                <span class="level-item">Vue入门与实践(一) 介绍Vue</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -234,7 +273,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        2
+                        5
                     </p>
                 </div>
             </div>
@@ -254,7 +293,7 @@
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        0
+                        2
                     </p>
                 </div>
             </div>
@@ -342,6 +381,15 @@
 </div>
     
         
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
+    </div>
+</div>
+
     
     
         <div class="column-right-shadow is-hidden-widescreen ">
@@ -355,16 +403,73 @@
         
         <article class="media">
             
-            <a href="/2019/09/23/testImg/" class="media-left">
+            <a href="/2019/09/23/vue4/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/testImg/2.jpg" alt="testImg">
+                    <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(四) Vuex">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-22T16:21:54.000Z">2019-09-23</time></div>
-                    <a href="/2019/09/23/testImg/" class="title has-link-black-ter is-size-6 has-text-weight-normal">testImg</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-23T15:43:30.000Z">2019-09-23</time></div>
+                    <a href="/2019/09/23/vue4/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Vue入门与实践(四) Vuex</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/09/23/vue3/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(三) Vue-Router与页面实战">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-23T15:43:26.000Z">2019-09-23</time></div>
+                    <a href="/2019/09/23/vue3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Vue入门与实践(三) Vue-Router与页面实战</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/09/23/vue2/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(二) Vue核心概念与官方脚手架介绍">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-23T15:43:12.000Z">2019-09-23</time></div>
+                    <a href="/2019/09/23/vue2/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Vue入门与实践(二) Vue核心概念与官方脚手架介绍</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/09/23/vue1/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(一) 介绍Vue">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-23T15:12:18.000Z">2019-09-23</time></div>
+                    <a href="/2019/09/23/vue1/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Vue入门与实践(一) 介绍Vue</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -409,7 +514,7 @@
                     <span class="level-item">九月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -426,6 +531,20 @@
                 标签
             </h3>
             <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue/">
+                        <span class="tag">Vue</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/前端/">
+                        <span class="tag">前端</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
                 
             </div>
         </div>
@@ -452,16 +571,73 @@
         
         <article class="media">
             
-            <a href="/2019/09/23/testImg/" class="media-left">
+            <a href="/2019/09/23/vue4/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/testImg/2.jpg" alt="testImg">
+                    <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(四) Vuex">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-22T16:21:54.000Z">2019-09-23</time></div>
-                    <a href="/2019/09/23/testImg/" class="title has-link-black-ter is-size-6 has-text-weight-normal">testImg</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-23T15:43:30.000Z">2019-09-23</time></div>
+                    <a href="/2019/09/23/vue4/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Vue入门与实践(四) Vuex</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/09/23/vue3/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(三) Vue-Router与页面实战">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-23T15:43:26.000Z">2019-09-23</time></div>
+                    <a href="/2019/09/23/vue3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Vue入门与实践(三) Vue-Router与页面实战</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/09/23/vue2/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(二) Vue核心概念与官方脚手架介绍">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-23T15:43:12.000Z">2019-09-23</time></div>
+                    <a href="/2019/09/23/vue2/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Vue入门与实践(二) Vue核心概念与官方脚手架介绍</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/09/23/vue1/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(一) 介绍Vue">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-23T15:12:18.000Z">2019-09-23</time></div>
+                    <a href="/2019/09/23/vue1/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Vue入门与实践(一) 介绍Vue</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -506,7 +682,7 @@
                     <span class="level-item">九月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -523,6 +699,20 @@
                 标签
             </h3>
             <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue/">
+                        <span class="tag">Vue</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/前端/">
+                        <span class="tag">前端</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
                 
             </div>
         </div>
@@ -541,7 +731,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/HarvieNotFraid.png" alt="testImg" height="28">
+                    <img src="/images/HarvieNotFraid.png" alt="Vue入门与实践(二) Vue核心概念与官方脚手架介绍" height="28">
                 
                 </a>
                 <p class="is-size-7">
@@ -573,7 +763,7 @@
                 </p>
                 
                 <p class="control">
-                    <a class="button is-white is-large" target="_blank" title="Old Blog" href="https://harviealwayshere.github.io/">
+                    <a class="button is-white is-large" target="_blank" title="Pre-Blog" href="https://harviealwayshere.github.io/">
                         
                         <i class="fab fa-creative-commons-by"></i>
                         
