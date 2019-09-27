@@ -10,16 +10,19 @@
 <title>Vue入门与实践(四) Vuex - Harvie&#39;s House</title>
 
 
-    <meta name="keywords" content="Vue,前端">
+    <meta name="description" content="核心思想集中式存储、管理应用的所有组件的状态(数据)，并以相应的规则保证状态以一种可预测的方式发生变化">
+<meta name="keywords" content="Vue,前端">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Vue入门与实践(四) Vuex">
 <meta property="og:url" content="https://HarvieNotFraid.github.io/2019/09/23/vue4/index.html">
 <meta property="og:site_name" content="Harvie&#39;s House">
+<meta property="og:description" content="核心思想集中式存储、管理应用的所有组件的状态(数据)，并以相应的规则保证状态以一种可预测的方式发生变化">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://harvienotfraid.github.io/images/vue/1.jpg">
-<meta property="og:updated_time" content="2019-09-23T16:55:32.239Z">
+<meta property="og:updated_time" content="2019-09-27T15:20:53.653Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue入门与实践(四) Vuex">
+<meta name="twitter:description" content="核心思想集中式存储、管理应用的所有组件的状态(数据)，并以相应的规则保证状态以一种可预测的方式发生变化">
 <meta name="twitter:image" content="https://harvienotfraid.github.io/images/vue/1.jpg">
 
 
@@ -153,7 +156,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    几秒 读完 (大约 1 个字)
+                    7 分钟 读完 (大约 1123 个字)
                 </span>
                 
                 
@@ -166,7 +169,51 @@
             
         </h1>
         <div class="content">
-            <a id="more"></a>
+            <h2 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a><strong>核心思想</strong></h2><p>集中式存储、管理应用的所有组件的状态(数据)，并以相应的规则保证状态以一种可预测的方式发生变化</p>
+<a id="more"></a>
+
+<h2 id="在vue-cli中安装、配置与基本使用"><a href="#在vue-cli中安装、配置与基本使用" class="headerlink" title="在vue-cli中安装、配置与基本使用"></a><strong>在vue-cli中安装、配置与基本使用</strong></h2><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a><strong>安装</strong></h4><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install vuex --save</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a><strong>配置</strong></h4><p>在src/store/index.js编写配置文件</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">"vue"</span>;</span><br><span class="line"><span class="hljs-keyword">import</span> Vuex <span class="hljs-keyword">from</span> <span class="hljs-string">"vuex"</span>;</span><br><span class="line">Vue.use(Vuex);</span><br><span class="line"> </span><br><span class="line"><span class="hljs-keyword">const</span> store = <span class="hljs-keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">  <span class="hljs-comment">//store.state获取状态</span></span><br><span class="line">  state: &#123;</span><br><span class="line">    count: <span class="hljs-number">0</span></span><br><span class="line">  &#125;,</span><br><span class="line">  mutations: &#123;</span><br><span class="line">    <span class="hljs-comment">//store.commit('increment')触发状态变更</span></span><br><span class="line">    increment(state) &#123;</span><br><span class="line">      state.count++;</span><br><span class="line">    &#125;,</span><br><span class="line">    decrement: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.count--</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> store;</span><br></pre></td></tr></table></figure>
+
+<p>在src/main.js入口文件中在App上加载配置文件</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> store <span class="hljs-keyword">from</span> <span class="hljs-string">"./store"</span>; <span class="hljs-comment">//引入配置文件</span></span><br><span class="line"> </span><br><span class="line"><span class="hljs-keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="hljs-string">"#app"</span>,</span><br><span class="line">  router,</span><br><span class="line">  store,  <span class="hljs-comment">//加载配置文件</span></span><br><span class="line">  components: &#123; App &#125;,</span><br><span class="line">  template: <span class="hljs-string">"&lt;App/&gt;"</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>在子组件中使用</p>
+<figure class="highlight html hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>计数器：&#123;&#123;count&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"increment"</span>&gt;</span>+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="line">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"decrement"</span>&gt;</span>-<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span></span><br><span class="line"><span class="hljs-javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span></span><br><span class="line"><span class="hljs-javascript">  name: <span class="hljs-string">"UserList"</span>,</span></span><br><span class="line">  computed: &#123;</span><br><span class="line">    count() &#123;</span><br><span class="line"><span class="hljs-javascript">      <span class="hljs-comment">//this.$store获取状态数据</span></span></span><br><span class="line"><span class="hljs-javascript">      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.$store.state.count;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    increment() &#123;</span><br><span class="line"><span class="hljs-javascript">      <span class="hljs-comment">//this.$store.commit("methodName")触发状态数据变更</span></span></span><br><span class="line"><span class="hljs-javascript">      <span class="hljs-keyword">this</span>.$store.commit(<span class="hljs-string">"increment"</span>);</span></span><br><span class="line">    &#125;,</span><br><span class="line">decrement() &#123;</span><br><span class="line"><span class="hljs-javascript">      <span class="hljs-comment">//this.$store.commit("methodName")触发状态数据变更</span></span></span><br><span class="line"><span class="hljs-javascript">      <span class="hljs-keyword">this</span>.$store.commit(<span class="hljs-string">"decrement"</span>);</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">scoped</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a><strong>核心概念</strong></h2><h4 id="State"><a href="#State" class="headerlink" title="State"></a><strong>State</strong></h4><p>单一状态树，用来保存全部状态</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">src/store/index.js-&gt;保存状态</span><br><span class="line">  state: &#123;</span><br><span class="line">    count: <span class="hljs-number">0</span>,</span><br><span class="line">    userInfo: &#123;</span><br><span class="line">      userName: <span class="hljs-string">"harvie"</span>,</span><br><span class="line">      userPassword: <span class="hljs-string">"wade777"</span>,</span><br><span class="line">      userHobby: [<span class="hljs-string">"Basketball"</span>, <span class="hljs-string">"Football"</span>, <span class="hljs-string">"Game"</span>],</span><br><span class="line">      userFriend: &#123;</span><br><span class="line">        userName: <span class="hljs-string">"ryan"</span>,</span><br><span class="line">        userHobby: [<span class="hljs-string">"Basketball"</span>, <span class="hljs-string">"Football"</span>, <span class="hljs-string">"Game"</span>]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">子组件获取(计算属性)</span><br><span class="line"><span class="hljs-keyword">import</span> &#123; mapState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">"vuex"</span>;</span><br><span class="line">...</span><br><span class="line">computed: &#123;</span><br><span class="line">  <span class="hljs-comment">//计算属性直接获取</span></span><br><span class="line">  count() &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.$store.state.count;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="hljs-comment">//mapState插件快速获取</span></span><br><span class="line">  ...mapState(&#123;</span><br><span class="line">    userInfoFromSate: <span class="hljs-string">"userInfo"</span>,</span><br><span class="line">    userNameFromState: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.userInfo.userName</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Getter"><a href="#Getter" class="headerlink" title="Getter"></a><strong>Getter</strong></h4><p>状态的计算属性</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">src/store/index.js</span><br><span class="line">  state: &#123;</span><br><span class="line">    todos: [<span class="hljs-string">"Basketball"</span>, <span class="hljs-string">"Football"</span>, <span class="hljs-string">"Game"</span>, <span class="hljs-string">"Program"</span>]</span><br><span class="line">  &#125;,</span><br><span class="line">  getters: &#123;</span><br><span class="line">    todosOutSite: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="hljs-keyword">return</span> state.todos.filter(<span class="hljs-function"><span class="hljs-params">todo</span> =&gt;</span> todo.length &gt; <span class="hljs-number">4</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    todosCount: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="hljs-keyword">return</span> state.todos.length;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">子组件使用</span><br><span class="line"><span class="hljs-keyword">import</span> &#123; mapGetters &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">"vuex"</span>;</span><br><span class="line">...</span><br><span class="line">computed: &#123;</span><br><span class="line">  <span class="hljs-comment">//获取store.getter状态计算属性</span></span><br><span class="line">  ...mapGetters(&#123;</span><br><span class="line">    todosOutSite: <span class="hljs-string">"todosOutSite"</span>,</span><br><span class="line">    todosCount: <span class="hljs-string">"todosCount"</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Mutation"><a href="#Mutation" class="headerlink" title="Mutation"></a><strong>Mutation</strong></h4><p>更改state的方法，类似事件，可提交对象，需要遵循Vue的响应规则(初始化所需属性/对象添加新属性要使用Vue.set()方法)，必须是同步函数</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">src/store/index.js</span><br><span class="line">state: &#123;</span><br><span class="line">  userInfo: &#123;</span><br><span class="line">    userName: <span class="hljs-string">"harvie"</span>,</span><br><span class="line">    userPassword: <span class="hljs-string">"wade777"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br><span class="line">mutations: &#123;</span><br><span class="line">  changeUserNameAndPassword(state, playload) &#123;</span><br><span class="line">    state.userInfo.userName = playload.userName;</span><br><span class="line">    state.userInfo.userPassword = playload.userPassword;</span><br><span class="line">    Vue.set(state.userInfo, <span class="hljs-string">"userNameBak"</span>, playload.userName);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">子组件使用</span><br><span class="line">onSubmit() &#123;</span><br><span class="line">  <span class="hljs-keyword">this</span>.$store.commit(<span class="hljs-string">"changeUserNameAndPassword"</span>, &#123;</span><br><span class="line">    userName: <span class="hljs-keyword">this</span>.form.name,</span><br><span class="line">    userPassword: <span class="hljs-keyword">this</span>.form.password</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Action"><a href="#Action" class="headerlink" title="Action"></a><strong>Action</strong></h4><p>可执行异步操作、分发(调用)多重mutation、并且action可以相互组合使用(Promise保证组合action的调用顺序)</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">src/store/index.js</span><br><span class="line">actions: &#123;</span><br><span class="line">  <span class="hljs-comment">//异步action</span></span><br><span class="line">  actionA(context, playload) &#123;</span><br><span class="line">    <span class="hljs-comment">//Promise保证异步操作完成后可回调</span></span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="hljs-comment">//执行耗时的异步操作</span></span><br><span class="line">      setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"执行increment"</span>);</span><br><span class="line">        context.commit(<span class="hljs-string">"increment"</span>, playload);</span><br><span class="line">        resolve(); <span class="hljs-comment">//回调函数</span></span><br><span class="line">      &#125;, <span class="hljs-number">5000</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="hljs-comment">//组合action：actionA-&gt;actionB</span></span><br><span class="line">  actionB(context, playload) &#123;</span><br><span class="line">    <span class="hljs-comment">//Promise保证异步actionA-&gt;actionB的执行顺序</span></span><br><span class="line">    <span class="hljs-keyword">return</span> context.dispatch(<span class="hljs-string">"actionA"</span>, playload).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"执行decrement"</span>);</span><br><span class="line">      context.commit(<span class="hljs-string">"decrement"</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">子组件使用</span><br><span class="line">countAction() &#123;</span><br><span class="line">  <span class="hljs-keyword">this</span>.$store.dispatch(<span class="hljs-string">"actionB"</span>, &#123; <span class="hljs-attr">n</span>: <span class="hljs-number">100</span> &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Module"><a href="#Module" class="headerlink" title="Module"></a><strong>Module</strong></h4><p>单一状态树下所有状态集中在一个store对象比较复杂臃肿，因此可以将store分割成module，每个module拥有自己的state/mutation/action/getter/module</p>
+<ol>
+<li><p>划分模块并引入</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">src/store/<span class="hljs-built_in">module</span>/moduleName.js</span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="line">    state: &#123;&#125;,</span><br><span class="line">    getters: &#123;&#125;,</span><br><span class="line">    mutations: &#123;&#125;,</span><br><span class="line">    actions: &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">src/store/index.js</span><br><span class="line"><span class="hljs-keyword">import</span> PersonModule <span class="hljs-keyword">from</span> <span class="hljs-string">"./module/PersonModule"</span>;</span><br><span class="line"> </span><br><span class="line"><span class="hljs-keyword">const</span> store = <span class="hljs-keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">  modules: &#123;</span><br><span class="line">    person: PersonModule</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>子组件调用模块：模块内部的state默认是局部的属于模块本身，但是模块内部的getters/mutations/actions默认是注册在全局命名空间的，因此子组件可以直接对名称相同的mutation/action进行同步调用，但是子组件调用state需要指定模块名称</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">子组件调用state需要指明moduleName</span><br><span class="line">computed: &#123;</span><br><span class="line">  count() &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.$store.state.person.count;</span><br><span class="line">  &#125;,</span><br><span class="line">  personName() &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.$store.state.person.userInfo.userName;</span><br><span class="line">  &#125;,</span><br><span class="line">  animalName() &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.$store.state.animal.animalName;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="hljs-comment">//mapState插件快速获取</span></span><br><span class="line">  ...mapState(&#123;</span><br><span class="line">    userInfoFromSate: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.person.userInfo,</span><br><span class="line">    userNameFromState: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.person.userInfo.userName</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">子组件调用getter/mutations/actions直接调用</span><br><span class="line">computed: &#123;</span><br><span class="line">  <span class="hljs-comment">//调用getters</span></span><br><span class="line">  ...mapGetters(&#123;</span><br><span class="line">    todosOutSite: <span class="hljs-string">"todosOutSite"</span>,</span><br><span class="line">    todosCount: <span class="hljs-string">"todosCount"</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;,</span><br><span class="line">methods: &#123;</span><br><span class="line">  <span class="hljs-comment">//调用mutations</span></span><br><span class="line">  increment() &#123;</span><br><span class="line">    <span class="hljs-keyword">this</span>.$store.commit(<span class="hljs-string">"increment"</span>, &#123; <span class="hljs-attr">n</span>: <span class="hljs-number">1</span> &#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="hljs-comment">//调用actions</span></span><br><span class="line">  countAction() &#123;</span><br><span class="line">    <span class="hljs-keyword">this</span>.$store.dispatch(<span class="hljs-string">"actionB"</span>, &#123; <span class="hljs-attr">n</span>: <span class="hljs-number">100</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>模块调用模块：由于模块内部state是局部的，getters(state,getters,rootState)/actions(state,commit,rootState)可以通过显示指定rootState参数访问根节点的state</p>
+</li>
+<li><p>命名空间：模块可以通过添加namespaced使其getter/action/mutation自动根据模块注册的路径调整命名</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">模块开启命名空间</span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="line">    namespaced: <span class="hljs-literal">true</span>,</span><br><span class="line">    <span class="hljs-comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">子组件调用加上/模块名前缀</span><br><span class="line">computed: &#123;</span><br><span class="line">  <span class="hljs-comment">//调用getters</span></span><br><span class="line">  ...mapGetters(&#123;</span><br><span class="line">    todosOutSite: <span class="hljs-string">"person/todosOutSite"</span>,</span><br><span class="line">    todosCount: <span class="hljs-string">"person/todosCount"</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;,</span><br><span class="line">methods: &#123;</span><br><span class="line">  <span class="hljs-comment">//调用mutations</span></span><br><span class="line">  increment() &#123;</span><br><span class="line">    <span class="hljs-keyword">this</span>.$store.commit(<span class="hljs-string">"person/increment"</span>, &#123; <span class="hljs-attr">n</span>: <span class="hljs-number">1</span> &#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="hljs-comment">//调用actions</span></span><br><span class="line">  countAction() &#123;</span><br><span class="line">    <span class="hljs-keyword">this</span>.$store.dispatch(<span class="hljs-string">"person/actionB"</span>, &#123; <span class="hljs-attr">n</span>: <span class="hljs-number">100</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>命名空间的模块的action的全局注册与分发</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">action分发全局action/mutation：添加参数&#123;<span class="hljs-attr">root</span>:<span class="hljs-literal">true</span>&#125;</span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="line">    namespaced: <span class="hljs-literal">true</span>,</span><br><span class="line">    <span class="hljs-comment">// ...</span></span><br><span class="line">    actions: &#123;</span><br><span class="line">        callAction(context,playload) &#123;</span><br><span class="line">            context.commit(<span class="hljs-string">"mutationName"</span>, playload, &#123;<span class="hljs-attr">root</span>: <span class="hljs-literal">true</span>&#125;);</span><br><span class="line">            context.dispatch(<span class="hljs-string">"actionName"</span>,playload, &#123;<span class="hljs-attr">root</span>: <span class="hljs-literal">true</span>&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">action注册全局：添加root:<span class="hljs-literal">true</span>并用handle方法处理逻辑</span><br><span class="line">actions: &#123;</span><br><span class="line">  actionName: &#123;</span><br><span class="line">    root: <span class="hljs-literal">true</span>,</span><br><span class="line">    handler(namespacedContext, payload) &#123;&#125; <span class="hljs-comment">// -&gt; 'someAction'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+
         </div>
         
         <div class="level is-size-7 is-uppercase">
@@ -192,8 +239,8 @@
         
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2019/09/23/vue3/">
-                <span class="level-item">Vue入门与实践(三) Vue-Router与页面实战</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/09/23/vue2/">
+                <span class="level-item">Vue入门与实践(二) Vue核心概念与官方脚手架介绍</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -305,7 +352,47 @@
             <h3 class="menu-label">
                 目录
             </h3>
-            
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#核心思想">
+        <span class="has-mr-6">1</span>
+        <span>核心思想</span>
+        </a></li><li>
+        <a class="is-flex" href="#在vue-cli中安装、配置与基本使用">
+        <span class="has-mr-6">2</span>
+        <span>在vue-cli中安装、配置与基本使用</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#安装">
+        <span class="has-mr-6">2.1</span>
+        <span>安装</span>
+        </a></li><li>
+        <a class="is-flex" href="#配置">
+        <span class="has-mr-6">2.2</span>
+        <span>配置</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#核心概念">
+        <span class="has-mr-6">3</span>
+        <span>核心概念</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#State">
+        <span class="has-mr-6">3.1</span>
+        <span>State</span>
+        </a></li><li>
+        <a class="is-flex" href="#Getter">
+        <span class="has-mr-6">3.2</span>
+        <span>Getter</span>
+        </a></li><li>
+        <a class="is-flex" href="#Mutation">
+        <span class="has-mr-6">3.3</span>
+        <span>Mutation</span>
+        </a></li><li>
+        <a class="is-flex" href="#Action">
+        <span class="has-mr-6">3.4</span>
+        <span>Action</span>
+        </a></li><li>
+        <a class="is-flex" href="#Module">
+        <span class="has-mr-6">3.5</span>
+        <span>Module</span>
+        </a></li></ul></li></ul>
         </div>
     </div>
 </div>
@@ -406,25 +493,6 @@
         
         <article class="media">
             
-            <a href="/2019/09/23/vue3/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(三) Vue-Router与页面实战">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-23T15:43:26.000Z">2019-09-23</time></div>
-                    <a href="/2019/09/23/vue3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Vue入门与实践(三) Vue-Router与页面实战</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
             <a href="/2019/09/23/vue2/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(二) Vue核心概念与官方脚手架介绍">
@@ -435,6 +503,25 @@
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-23T15:43:12.000Z">2019-09-23</time></div>
                     <a href="/2019/09/23/vue2/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Vue入门与实践(二) Vue核心概念与官方脚手架介绍</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/09/23/vue3/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(三) Vue-Router">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-23T15:42:30.000Z">2019-09-23</time></div>
+                    <a href="/2019/09/23/vue3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Vue入门与实践(三) Vue-Router</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -574,25 +661,6 @@
         
         <article class="media">
             
-            <a href="/2019/09/23/vue3/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(三) Vue-Router与页面实战">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-23T15:43:26.000Z">2019-09-23</time></div>
-                    <a href="/2019/09/23/vue3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Vue入门与实践(三) Vue-Router与页面实战</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
             <a href="/2019/09/23/vue2/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(二) Vue核心概念与官方脚手架介绍">
@@ -603,6 +671,25 @@
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-23T15:43:12.000Z">2019-09-23</time></div>
                     <a href="/2019/09/23/vue2/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Vue入门与实践(二) Vue核心概念与官方脚手架介绍</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/09/23/vue3/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(三) Vue-Router">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-23T15:42:30.000Z">2019-09-23</time></div>
+                    <a href="/2019/09/23/vue3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Vue入门与实践(三) Vue-Router</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
