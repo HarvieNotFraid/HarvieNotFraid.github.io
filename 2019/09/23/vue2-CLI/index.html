@@ -7,22 +7,23 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>标签: Vue - Harvie&#39;s House</title>
+<title>Vue入门与实践(二) Vue核心概念与官方脚手架介绍 - Harvie&#39;s House</title>
 
 
-    <meta name="description" content="Programmer/Game/Basketball/Life">
-<meta name="keywords" content="Harvie,IT">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Harvie&#39;s House">
-<meta property="og:url" content="https://HarvieNotFraid.github.io/tags/Vue/index.html">
+    <meta name="description" content="Vue组件的三大核心 computed-计算属性：用于将不经常变化的计算结果进行缓存，不像调用方法每次都要进行计算，计算属性只有关联的属性值变化且自身被调用时才进行计算，节约系统开销 slot-插槽：用于组件组合场景进行内容分发，父组件可以通过具名插槽分发数据给子组件不同的插槽，子组件也可以通过作用域插槽分发数据给父组件的插槽 methods-自定义事件：子组件可以通过自定义事件更改父组件中的Vu">
+<meta name="keywords" content="Vue,前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue入门与实践(二) Vue核心概念与官方脚手架介绍">
+<meta property="og:url" content="https://HarvieNotFraid.github.io/2019/09/23/vue2-CLI/index.html">
 <meta property="og:site_name" content="Harvie&#39;s House">
-<meta property="og:description" content="Programmer/Game/Basketball/Life">
+<meta property="og:description" content="Vue组件的三大核心 computed-计算属性：用于将不经常变化的计算结果进行缓存，不像调用方法每次都要进行计算，计算属性只有关联的属性值变化且自身被调用时才进行计算，节约系统开销 slot-插槽：用于组件组合场景进行内容分发，父组件可以通过具名插槽分发数据给子组件不同的插槽，子组件也可以通过作用域插槽分发数据给父组件的插槽 methods-自定义事件：子组件可以通过自定义事件更改父组件中的Vu">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://harvienotfraid.github.io/images/og_image.png">
+<meta property="og:image" content="https://harvienotfraid.github.io/images/vue/1.jpg">
+<meta property="og:updated_time" content="2019-09-23T16:55:11.604Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Harvie&#39;s House">
-<meta name="twitter:description" content="Programmer/Game/Basketball/Life">
-<meta name="twitter:image" content="https://harvienotfraid.github.io/images/og_image.png">
+<meta name="twitter:title" content="Vue入门与实践(二) Vue核心概念与官方脚手架介绍">
+<meta name="twitter:description" content="Vue组件的三大核心 computed-计算属性：用于将不经常变化的计算结果进行缓存，不像调用方法每次都要进行计算，计算属性只有关联的属性值变化且自身被调用时才进行计算，节约系统开销 slot-插槽：用于组件组合场景进行内容分发，父组件可以通过具名插槽分发数据给子组件不同的插槽，子组件也可以通过作用域插槽分发数据给父组件的插槽 methods-自定义事件：子组件可以通过自定义事件更改父组件中的Vu">
+<meta name="twitter:image" content="https://harvienotfraid.github.io/images/vue/1.jpg">
 
 
 
@@ -92,7 +93,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/HarvieNotFraid.png" alt="Harvie&#39;s House" height="28">
+                <img src="/images/HarvieNotFraid.png" alt="Vue入门与实践(二) Vue核心概念与官方脚手架介绍" height="28">
             
             </a>
         </div>
@@ -120,6 +121,10 @@
             <div class="navbar-end">
                 
                 
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
                 
                 <a class="navbar-item search" title="搜索" href="javascript:;">
                     <i class="fas fa-search"></i>
@@ -134,130 +139,11 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
-    <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">Vue</a></li>
-        </ul>
-        </nav>
-    </div>
-</div>
-
-    <div class="card">
     
     <div class="card-image">
-        <a href="/2019/09/23/vue4-Vuex/" class="image is-7by1">
-            <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(四) Vuex">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-09-23T15:44:30.000Z">2019-09-23</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    7 分钟 读完 (大约 1123 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/09/23/vue4-Vuex/">Vue入门与实践(四) Vuex</a>
-            
-        </h1>
-        <div class="content">
-            <h2 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a><strong>核心思想</strong></h2><p>集中式存储、管理应用的所有组件的状态(数据)，并以相应的规则保证状态以一种可预测的方式发生变化</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/09/23/vue4-Vuex/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2019/09/23/vue3-VueRouter/" class="image is-7by1">
-            <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(三) Vue-Router">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-09-23T15:43:30.000Z">2019-09-23</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    12 分钟 读完 (大约 1754 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/09/23/vue3-VueRouter/">Vue入门与实践(三) Vue-Router</a>
-            
-        </h1>
-        <div class="content">
-            <h2 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a><strong>主要功能</strong></h2><p>嵌套的路由/试图表，模块化基于组件的路由配置，基于Vue.js过度系统的视图效果，细粒度的导航控制，自动激活的CSS class链接</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/09/23/vue3-VueRouter/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2019/09/23/vue2-CLI/" class="image is-7by1">
+        <span  class="image is-7by1">
             <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(二) Vue核心概念与官方脚手架介绍">
-        </a>
+        </span>
     </div>
     
     <div class="card-content article ">
@@ -279,7 +165,7 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/09/23/vue2-CLI/">Vue入门与实践(二) Vue核心概念与官方脚手架介绍</a>
+                Vue入门与实践(二) Vue核心概念与官方脚手架介绍
             
         </h1>
         <div class="content">
@@ -288,16 +174,36 @@
 <li><strong>slot-插槽：</strong>用于组件组合场景进行<strong>内容分发</strong>，父组件可以通过具名插槽分发数据给子组件不同的插槽，子组件也可以通过作用域插槽分发数据给父组件的插槽</li>
 <li><strong>methods-自定义事件：</strong>子组件可以通过自定义事件更改父组件中的Vue实例的数据，通过方法中执行<strong>this.$emit(“父组件方法名”,传递的参数)</strong>调用父组件中的方法更改Vue实例的数据</li>
 </ol>
+<a id="more"></a>
+
+<h1 id="Vue-cli"><a href="#Vue-cli" class="headerlink" title="Vue-cli"></a>Vue-cli</h1><p>Vue官方脚手架，用于快速生成vue项目模板</p>
+<ol>
+<li><p>主要功能：统一目录结构，本地调试，热部署，单元测试，集成打包上线</p>
+</li>
+<li><p>项目目录结构</p>
+<p><img src="/images/vue/5.png" alt></p>
+<p>其中package.json中包含</p>
+<ol>
+<li>scripts-封装vue常用命令</li>
+<li>dependencies-生产环境依赖</li>
+<li>devDependencies-开发环境依赖</li>
+</ol>
+</li>
+<li><p>src/main.js：项目入口文件</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//ES6写法，等同于require("vue"),require是NodeJS提供的模块加载器</span></span><br><span class="line"><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">"vue"</span>;</span><br><span class="line"><span class="hljs-keyword">import</span> App <span class="hljs-keyword">from</span> <span class="hljs-string">"./App"</span>; <span class="hljs-comment">//上同，./表示当前目录</span></span><br><span class="line"> </span><br><span class="line">Vue.config.productionTip = <span class="hljs-literal">false</span>; <span class="hljs-comment">//关闭浏览器关于环境的提示</span></span><br><span class="line"> </span><br><span class="line"><span class="hljs-keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="hljs-string">"#app"</span>, <span class="hljs-comment">//查找index.html中id为app的元素进行挂载</span></span><br><span class="line">  components: &#123; App &#125;, <span class="hljs-comment">//声明引入组件App</span></span><br><span class="line">  template: <span class="hljs-string">"&lt;App/&gt;"</span> <span class="hljs-comment">//模板，会将挂载元素替换为&lt;App/&gt;</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+</ol>
+
         </div>
         
-        
-        <div class="level is-mobile">
+        <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/09/23/vue2-CLI/#more">阅读更多</a>
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Vue/">Vue</a>, <a class="has-link-grey -link" href="/tags/前端/">前端</a>
                 </div>
             </div>
         </div>
+        
         
         
     </div>
@@ -307,68 +213,26 @@
 
 
 
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2019/09/23/vue1-概述/" class="image is-7by1">
-            <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(一) 概述">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-09-23T15:12:18.000Z">2019-09-23</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    5 分钟 读完 (大约 768 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/09/23/vue1-概述/">Vue入门与实践(一) 概述</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="Vue的架构设计"><a href="#Vue的架构设计" class="headerlink" title="Vue的架构设计"></a>Vue的架构设计</h1><p>MVVM(Model-View-ViewModel)：一种软件架构设计模式，思想是<strong>事件驱动编程</strong>，核心是通过ViewModel层向上与View层双向绑定、向下与Model层通过接口进行数据交互，实现View与Model层的解耦，而<strong>Vue.js就是MVVM中ViewModel层的实现者</strong></p>
-<ul>
-<li><p>通过Data Bindings观察Model中的数据变化并对View层对应数据进行更新</p>
-</li>
-<li><p>通过DOM Listeners监听View中的数据变化并通知Model层数据的改变</p>
-</li>
-</ul>
-<p><img src="/images/vue/2.png" alt></p>
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/09/23/vue3-VueRouter/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Vue入门与实践(三) Vue-Router</span>
+            </a>
         </div>
         
         
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/09/23/vue1-概述/#more">阅读更多</a>
-                </div>
-            </div>
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/09/23/vue1-概述/">
+                <span class="level-item">Vue入门与实践(一) 概述</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
         </div>
-        
         
     </div>
 </div>
-
-
-
-
-
-
 
 
 </div>
@@ -468,6 +332,25 @@
 </div>
     
         
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#Vue组件的三大核心">
+        <span class="has-mr-6">1</span>
+        <span>Vue组件的三大核心</span>
+        </a></li><li>
+        <a class="is-flex" href="#Vue-cli">
+        <span class="has-mr-6">2</span>
+        <span>Vue-cli</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
+
     
         
 
@@ -923,7 +806,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/HarvieNotFraid.png" alt="Harvie&#39;s House" height="28">
+                    <img src="/images/HarvieNotFraid.png" alt="Vue入门与实践(二) Vue核心概念与官方脚手架介绍" height="28">
                 
                 </a>
                 <p class="is-size-7">

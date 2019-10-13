@@ -7,23 +7,23 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>Vue入门与实践(二) Vue核心概念与官方脚手架介绍 - Harvie&#39;s House</title>
+<title>设计模式（三）创建型模式 - Harvie&#39;s House</title>
 
 
-    <meta name="description" content="Vue组件的三大核心 computed-计算属性：用于将不经常变化的计算结果进行缓存，不像调用方法每次都要进行计算，计算属性只有关联的属性值变化且自身被调用时才进行计算，节约系统开销 slot-插槽：用于组件组合场景进行内容分发，父组件可以通过具名插槽分发数据给子组件不同的插槽，子组件也可以通过作用域插槽分发数据给父组件的插槽 methods-自定义事件：子组件可以通过自定义事件更改父组件中的Vu">
-<meta name="keywords" content="Vue,前端">
+    <meta name="description" content="设计模式分类图">
+<meta name="keywords" content="设计模式,Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vue入门与实践(二) Vue核心概念与官方脚手架介绍">
-<meta property="og:url" content="https://HarvieNotFraid.github.io/2019/09/23/vue2/index.html">
+<meta property="og:title" content="设计模式（三）创建型模式">
+<meta property="og:url" content="https://HarvieNotFraid.github.io/2019/10/09/designPattern3-创建型模式/index.html">
 <meta property="og:site_name" content="Harvie&#39;s House">
-<meta property="og:description" content="Vue组件的三大核心 computed-计算属性：用于将不经常变化的计算结果进行缓存，不像调用方法每次都要进行计算，计算属性只有关联的属性值变化且自身被调用时才进行计算，节约系统开销 slot-插槽：用于组件组合场景进行内容分发，父组件可以通过具名插槽分发数据给子组件不同的插槽，子组件也可以通过作用域插槽分发数据给父组件的插槽 methods-自定义事件：子组件可以通过自定义事件更改父组件中的Vu">
+<meta property="og:description" content="设计模式分类图">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://harvienotfraid.github.io/images/vue/1.jpg">
-<meta property="og:updated_time" content="2019-09-23T16:55:11.604Z">
+<meta property="og:image" content="https://harvienotfraid.github.io/images/designPattern/designPattern.png">
+<meta property="og:updated_time" content="2019-10-13T15:11:45.660Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Vue入门与实践(二) Vue核心概念与官方脚手架介绍">
-<meta name="twitter:description" content="Vue组件的三大核心 computed-计算属性：用于将不经常变化的计算结果进行缓存，不像调用方法每次都要进行计算，计算属性只有关联的属性值变化且自身被调用时才进行计算，节约系统开销 slot-插槽：用于组件组合场景进行内容分发，父组件可以通过具名插槽分发数据给子组件不同的插槽，子组件也可以通过作用域插槽分发数据给父组件的插槽 methods-自定义事件：子组件可以通过自定义事件更改父组件中的Vu">
-<meta name="twitter:image" content="https://harvienotfraid.github.io/images/vue/1.jpg">
+<meta name="twitter:title" content="设计模式（三）创建型模式">
+<meta name="twitter:description" content="设计模式分类图">
+<meta name="twitter:image" content="https://harvienotfraid.github.io/images/designPattern/designPattern.png">
 
 
 
@@ -93,7 +93,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/HarvieNotFraid.png" alt="Vue入门与实践(二) Vue核心概念与官方脚手架介绍" height="28">
+                <img src="/images/HarvieNotFraid.png" alt="设计模式（三）创建型模式" height="28">
             
             </a>
         </div>
@@ -142,7 +142,7 @@
     
     <div class="card-image">
         <span  class="image is-7by1">
-            <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(二) Vue核心概念与官方脚手架介绍">
+            <img class="thumbnail" src="/images/designPattern/designPattern.png" alt="设计模式（三）创建型模式">
         </span>
     </div>
     
@@ -150,13 +150,13 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-09-23T15:43:12.000Z">2019-09-23</time>
+                <time class="level-item has-text-grey" datetime="2019-10-08T16:19:56.000Z">2019-10-09</time>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 416 个字)
+                    10 分钟 读完 (大约 1558 个字)
                 </span>
                 
                 
@@ -165,33 +165,202 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                Vue入门与实践(二) Vue核心概念与官方脚手架介绍
+                设计模式（三）创建型模式
             
         </h1>
         <div class="content">
-            <h1 id="Vue组件的三大核心"><a href="#Vue组件的三大核心" class="headerlink" title="Vue组件的三大核心"></a>Vue组件的三大核心</h1><ol>
-<li><strong>computed-计算属性：</strong>用于将<strong>不经常变化的计算结果进行缓存</strong>，不像调用方法每次都要进行计算，计算属性只有关联的属性值变化且自身被调用时才进行计算，节约系统开销</li>
-<li><strong>slot-插槽：</strong>用于组件组合场景进行<strong>内容分发</strong>，父组件可以通过具名插槽分发数据给子组件不同的插槽，子组件也可以通过作用域插槽分发数据给父组件的插槽</li>
-<li><strong>methods-自定义事件：</strong>子组件可以通过自定义事件更改父组件中的Vue实例的数据，通过方法中执行<strong>this.$emit(“父组件方法名”,传递的参数)</strong>调用父组件中的方法更改Vue实例的数据</li>
-</ol>
-<a id="more"></a>
+            <h2 id="设计模式分类图"><a href="#设计模式分类图" class="headerlink" title="设计模式分类图"></a><strong>设计模式分类图</strong></h2><div align="center">
 
-<h1 id="Vue-cli"><a href="#Vue-cli" class="headerlink" title="Vue-cli"></a>Vue-cli</h1><p>Vue官方脚手架，用于快速生成vue项目模板</p>
-<ol>
-<li><p>主要功能：统一目录结构，本地调试，热部署，单元测试，集成打包上线</p>
-</li>
-<li><p>项目目录结构</p>
-<p><img src="/images/vue/5.png" alt></p>
-<p>其中package.json中包含</p>
-<ol>
-<li>scripts-封装vue常用命令</li>
-<li>dependencies-生产环境依赖</li>
-<li>devDependencies-开发环境依赖</li>
+<p><img src="/images/designPattern/1.png" alt></p>
+</div>
+
+ <a id="more"></a>
+
+<hr>
+<h2 id="Factory-Method-工厂方法"><a href="#Factory-Method-工厂方法" class="headerlink" title="Factory Method-工厂方法"></a><strong>Factory Method-工厂方法</strong></h2><h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a><strong>问题</strong></h4><p>用户使用对象并不需要在意对象的生产细节</p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a><strong>解决方案</strong></h4><p>定义一个创建产品对象的工厂接口，将产品对象的实际创建工作推迟到具体子工厂类当中</p>
+<ul>
+<li><strong>结构图</strong></li>
+</ul>
+<div align="center">
+
+<p><img src="/images/designPattern/11.png" alt> </p>
+</div>
+
+<ul>
+<li><strong>主要角色</strong><ol>
+<li><strong>Abstract Factory-抽象工厂</strong>：接口，定义创建产品的方法，调用者通过其方法访问具体工厂创建产品</li>
+<li><strong>Concrete Factory-具体工厂</strong>：类，实现抽象工厂接口，完成具体产品的创建</li>
+<li><strong>Abstract Product-抽象产品</strong>：接口，定义产品的规范，如产品特性和功能</li>
+<li><strong>Concrete Factory-具体产品</strong>：类，实现抽象产品接口，与具体工厂对应，由具体工厂创建</li>
 </ol>
 </li>
-<li><p>src/main.js：项目入口文件</p>
-<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//ES6写法，等同于require("vue"),require是NodeJS提供的模块加载器</span></span><br><span class="line"><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">"vue"</span>;</span><br><span class="line"><span class="hljs-keyword">import</span> App <span class="hljs-keyword">from</span> <span class="hljs-string">"./App"</span>; <span class="hljs-comment">//上同，./表示当前目录</span></span><br><span class="line"> </span><br><span class="line">Vue.config.productionTip = <span class="hljs-literal">false</span>; <span class="hljs-comment">//关闭浏览器关于环境的提示</span></span><br><span class="line"> </span><br><span class="line"><span class="hljs-keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="hljs-string">"#app"</span>, <span class="hljs-comment">//查找index.html中id为app的元素进行挂载</span></span><br><span class="line">  components: &#123; App &#125;, <span class="hljs-comment">//声明引入组件App</span></span><br><span class="line">  template: <span class="hljs-string">"&lt;App/&gt;"</span> <span class="hljs-comment">//模板，会将挂载元素替换为&lt;App/&gt;</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="效果"><a href="#效果" class="headerlink" title="效果"></a><strong>效果</strong></h4><ul>
+<li><p><strong>优点</strong></p>
+<ol>
+<li>用户不需要在意对象的创建细节(类名、创建参数等)，只需要在意所需产品对应的具体工厂即可</li>
+<li>开闭原则：系统加入新产品不需要修改现有的抽象类和实现类，只需要增加实现对应抽象类的具体工厂类和产品类即可</li>
 </ol>
+</li>
+<li><p><strong>缺点</strong></p>
+<p>类数较多，增加系统的复杂度</p>
+</li>
+</ul>
+<hr>
+<h2 id="Abstract-Factory-抽象工厂"><a href="#Abstract-Factory-抽象工厂" class="headerlink" title="Abstract Factory-抽象工厂"></a><strong>Abstract Factory-抽象工厂</strong></h2><h4 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a><strong>问题</strong></h4><p>工厂方法只能生产一类产品，不能生产一族产品</p>
+<div align="center">
+
+<p><img src="/images/designPattern/12.png" alt> </p>
+</div>
+
+
+<h4 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a><strong>解决方案</strong></h4><p>定义一个创建多种产品对象的工厂接口</p>
+<ul>
+<li><strong>结构图</strong></li>
+</ul>
+<div align="center">
+
+<p><img src="/images/designPattern/13.png" alt> </p>
+</div>
+
+<h4 id="效果-1"><a href="#效果-1" class="headerlink" title="效果"></a><strong>效果</strong></h4><ul>
+<li><p><strong>优点</strong></p>
+<ol>
+<li>客户端不依赖产品实例的创建细节和内部结构</li>
+<li>可用于创建不同场景的对象，如不同操作系统的视窗构件(Button和Text构件在Windows和Linux中的实现不同)</li>
+</ol>
+</li>
+<li><p><strong>缺点</strong></p>
+<p>产品族增加一个种类产品时，所有工厂类需要进行修改，不满足开闭原则</p>
+</li>
+</ul>
+<hr>
+<h2 id="Singleton-单例"><a href="#Singleton-单例" class="headerlink" title="Singleton-单例"></a><strong>Singleton-单例</strong></h2><h4 id="问题-2"><a href="#问题-2" class="headerlink" title="问题"></a><strong>问题</strong></h4><p>某些类对象多次创建浪费系统资源、数据内容难以保持一致(成员属性值遗失)</p>
+<h4 id="解决方案-2"><a href="#解决方案-2" class="headerlink" title="解决方案"></a><strong>解决方案</strong></h4><p>保证单例类只有一个实例对象，该对象由单例类创建，并对外提供一个访问该对象的全局访问点</p>
+<ul>
+<li><strong>结构图</strong></li>
+</ul>
+<div align="center">
+
+<p><img src="/images/designPattern/14.png" alt> </p>
+</div> 
+
+<ul>
+<li><strong>主要特点</strong><ol>
+<li>构造函数私有化</li>
+<li>存在静态全局访问实例对象方法</li>
+</ol>
+</li>
+<li><strong>实现方式</strong><ol>
+<li><strong>懒汉式：</strong>类加载时没有生成单例，第一次调用getInstance()时才创建单例<ul>
+<li>Instance实例需要添加volatile关键字保证线程同步</li>
+<li>getInstance()方法需要添加synchronized保证线程安全</li>
+</ul>
+</li>
+<li><strong>饿汉式：</strong>类加载时就创建一个单例，线程安全<ul>
+<li>Instance=new Singleton()</li>
+<li>Instance前添加final关键字保证初始化后常量不变</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="效果-2"><a href="#效果-2" class="headerlink" title="效果"></a><strong>效果</strong></h4><ul>
+<li><p><strong>优点</strong></p>
+<p>节约系统资源，严格控制用户访问实例，实例数据一致</p>
+</li>
+<li><p><strong>缺点</strong></p>
+<ol>
+<li>无抽象层，单例类较难拓展</li>
+<li>垃圾回收机制重新实例化单例类则会遗失先前持有数据</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h2 id="Prototype-原型"><a href="#Prototype-原型" class="headerlink" title="Prototype-原型"></a><strong>Prototype-原型</strong></h2><h4 id="问题-3"><a href="#问题-3" class="headerlink" title="问题"></a><strong>问题</strong></h4><p>需要创建大量相同/相似的对象，构造函数创建较为繁琐并且浪费资源</p>
+<h4 id="解决方案-3"><a href="#解决方案-3" class="headerlink" title="解决方案"></a><strong>解决方案</strong></h4><p>将一个已经创建的实例作为原型，通过复制该原型对象来创建一个和原型相同或相似的新对象</p>
+<ul>
+<li><strong>结构图</strong></li>
+</ul>
+<div align="center">
+
+<p><img src="/images/designPattern/15.png" alt> </p>
+</div> 
+
+<ul>
+<li><p><strong>实现方式</strong></p>
+<ol>
+<li><p><strong>Java对象的克隆</strong>：Java中的Object类提供的clone()方法，原型类需要实现Cloneable接口覆盖基类的clone()方法</p>
+<ol>
+<li>implements Cloneable</li>
+<li>Objetc clone() throws CloneNotSupportedException{return (Realizetype)super.clone();}</li>
+</ol>
+</li>
+<li><p><strong>浅克隆</strong>：克隆对象的基本数据类型的变量都会重新创建，而引用类型指向的还是原对象所指向的</p>
+</li>
+<li><p><strong>深克隆</strong>：克隆对象基本数据类型还有引用类型，都是重新创建的</p>
+<ul>
+<li>覆盖的clone()方法内除了调用基类的colne()方法克隆自身，克隆出的新对象还需要调用引用对象的clone()赋值给自身的成员引用对象</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p><strong>拓展</strong></p>
+<p>由于克隆对象可能成员方法的实现细节与原对象可能不同，因此可以增加原型管理器PrototypeManager 来保存多种实现同一接口的不同成员方法的克隆原型</p>
+</li>
+</ul>
+<div align="center">
+
+<p><img src="/images/designPattern/16.png" alt> </p>
+</div> 
+
+<h4 id="效果-3"><a href="#效果-3" class="headerlink" title="效果"></a><strong>效果</strong></h4><ul>
+<li><p><strong>优点</strong></p>
+<p>简化对象创建过程，对于层级复杂、属性较多的对象可以提高对象生成效率</p>
+</li>
+<li><p><strong>缺点</strong></p>
+<p>对象包含的所有对象都需要实现克隆方法，增加代码量，增加系统复杂度</p>
+</li>
+</ul>
+<hr>
+<h2 id="Builder-建造者"><a href="#Builder-建造者" class="headerlink" title="Builder-建造者"></a><strong>Builder-建造者</strong></h2><h4 id="问题-4"><a href="#问题-4" class="headerlink" title="问题"></a><strong>问题</strong></h4><p>创建复杂对象的各个部分频繁变化，但复杂对象的组成部分是不变的</p>
+<h4 id="解决方案-4"><a href="#解决方案-4" class="headerlink" title="解决方案"></a><strong>解决方案</strong></h4><p>将一个复杂对象的构造与它的表示分离，使同样的构建过程可以创建不同的表示，即将产品不变的部分(产品的构造)和变化的部分(产品的组成部分)分离</p>
+<ul>
+<li><strong>结构图</strong></li>
+</ul>
+<div align="center">
+
+<p><img src="/images/designPattern/17.png" alt> </p>
+</div> 
+
+<ul>
+<li><p><strong>构件流程</strong></p>
+<ol>
+<li><strong>建造者Builder</strong>：选择具体建造者创造，具体建造者决定复杂对象的细节组成部分</li>
+<li><strong>指挥者Director</strong>：通过Builder创建指挥者，用于Product的构建(new)与组装(set)</li>
+<li><strong>复杂对象Product</strong>：通过Director.construct()生产得到产品</li>
+</ol>
+</li>
+<li><p><strong>拓展</strong></p>
+<p>如果创建的产品种类只有一种，只需要一个具体的建造者，可以省略抽象建造者和指挥者角色，简化系统</p>
+</li>
+</ul>
+<h4 id="效果-4"><a href="#效果-4" class="headerlink" title="效果"></a><strong>效果</strong></h4><ul>
+<li><p><strong>优点</strong></p>
+<ol>
+<li>用户不需要知道产品内部组成细节，使用相同的创建过程可创建不同部件的复杂对象</li>
+<li>每个建造者相对独立，增加新的创建者无需修改原有代码，符合开闭原则</li>
+<li>可以更加精细控制产品构建过程(Builder)，将复杂产品的构建分解在不同的方法中</li>
+</ol>
+</li>
+<li><p><strong>缺点</strong></p>
+<ol>
+<li>复杂对象的组成部分必须相同，使用范围有限制</li>
+<li>产品的内部变化复杂，会增加很多的建造者类，增加系统复杂度</li>
+</ol>
+</li>
+</ul>
 
         </div>
         
@@ -199,7 +368,7 @@
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/Vue/">Vue</a>, <a class="has-link-grey -link" href="/tags/前端/">前端</a>
+                    <a class="has-link-grey -link" href="/tags/Java/">Java</a>, <a class="has-link-grey -link" href="/tags/设计模式/">设计模式</a>
                 </div>
             </div>
         </div>
@@ -217,16 +386,16 @@
     <div class="level post-navigation is-flex-wrap is-mobile">
         
         <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/09/23/vue4/">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/10/09/designPattern4-结构型模式/">
                 <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">Vue入门与实践(四) Vuex</span>
+                <span class="level-item">设计模式（四）结构型模式</span>
             </a>
         </div>
         
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2019/09/23/vue3/">
-                <span class="level-item">Vue入门与实践(三) Vue-Router</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/10/08/designPattern2-UML/">
+                <span class="level-item">设计模式（二）UML统一建模语言：可视化设计</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -279,7 +448,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        5
+                        9
                     </p>
                 </div>
             </div>
@@ -299,7 +468,7 @@
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        2
+                        4
                     </p>
                 </div>
             </div>
@@ -339,14 +508,90 @@
                 目录
             </h3>
             <ul class="menu-list"><li>
-        <a class="is-flex" href="#Vue组件的三大核心">
+        <a class="is-flex" href="#设计模式分类图">
         <span class="has-mr-6">1</span>
-        <span>Vue组件的三大核心</span>
+        <span>设计模式分类图</span>
         </a></li><li>
-        <a class="is-flex" href="#Vue-cli">
+        <a class="is-flex" href="#Factory-Method-工厂方法">
         <span class="has-mr-6">2</span>
-        <span>Vue-cli</span>
-        </a></li></ul>
+        <span>Factory Method-工厂方法</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#问题">
+        <span class="has-mr-6">2.1</span>
+        <span>问题</span>
+        </a></li><li>
+        <a class="is-flex" href="#解决方案">
+        <span class="has-mr-6">2.2</span>
+        <span>解决方案</span>
+        </a></li><li>
+        <a class="is-flex" href="#效果">
+        <span class="has-mr-6">2.3</span>
+        <span>效果</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#Abstract-Factory-抽象工厂">
+        <span class="has-mr-6">3</span>
+        <span>Abstract Factory-抽象工厂</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#问题-1">
+        <span class="has-mr-6">3.1</span>
+        <span>问题</span>
+        </a></li><li>
+        <a class="is-flex" href="#解决方案-1">
+        <span class="has-mr-6">3.2</span>
+        <span>解决方案</span>
+        </a></li><li>
+        <a class="is-flex" href="#效果-1">
+        <span class="has-mr-6">3.3</span>
+        <span>效果</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#Singleton-单例">
+        <span class="has-mr-6">4</span>
+        <span>Singleton-单例</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#问题-2">
+        <span class="has-mr-6">4.1</span>
+        <span>问题</span>
+        </a></li><li>
+        <a class="is-flex" href="#解决方案-2">
+        <span class="has-mr-6">4.2</span>
+        <span>解决方案</span>
+        </a></li><li>
+        <a class="is-flex" href="#效果-2">
+        <span class="has-mr-6">4.3</span>
+        <span>效果</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#Prototype-原型">
+        <span class="has-mr-6">5</span>
+        <span>Prototype-原型</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#问题-3">
+        <span class="has-mr-6">5.1</span>
+        <span>问题</span>
+        </a></li><li>
+        <a class="is-flex" href="#解决方案-3">
+        <span class="has-mr-6">5.2</span>
+        <span>解决方案</span>
+        </a></li><li>
+        <a class="is-flex" href="#效果-3">
+        <span class="has-mr-6">5.3</span>
+        <span>效果</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#Builder-建造者">
+        <span class="has-mr-6">6</span>
+        <span>Builder-建造者</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#问题-4">
+        <span class="has-mr-6">6.1</span>
+        <span>问题</span>
+        </a></li><li>
+        <a class="is-flex" href="#解决方案-4">
+        <span class="has-mr-6">6.2</span>
+        <span>解决方案</span>
+        </a></li><li>
+        <a class="is-flex" href="#效果-4">
+        <span class="has-mr-6">6.3</span>
+        <span>效果</span>
+        </a></li></ul></li></ul>
         </div>
     </div>
 </div>
@@ -411,7 +656,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
+        <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
     </div>
 </div>
 
@@ -428,16 +673,16 @@
         
         <article class="media">
             
-            <a href="/2019/09/23/vue4/" class="media-left">
+            <a href="/2019/10/09/designPattern5-行为型模式/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(四) Vuex">
+                    <img class="thumbnail" src="/images/designPattern/designPattern.png" alt="设计模式（五）行为型模式">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-23T15:43:30.000Z">2019-09-23</time></div>
-                    <a href="/2019/09/23/vue4/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Vue入门与实践(四) Vuex</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-08T16:23:56.000Z">2019-10-09</time></div>
+                    <a href="/2019/10/09/designPattern5-行为型模式/" class="title has-link-black-ter is-size-6 has-text-weight-normal">设计模式（五）行为型模式</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -447,16 +692,16 @@
         
         <article class="media">
             
-            <a href="/2019/09/23/vue2/" class="media-left">
+            <a href="/2019/10/09/designPattern4-结构型模式/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(二) Vue核心概念与官方脚手架介绍">
+                    <img class="thumbnail" src="/images/designPattern/designPattern.png" alt="设计模式（四）结构型模式">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-23T15:43:12.000Z">2019-09-23</time></div>
-                    <a href="/2019/09/23/vue2/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Vue入门与实践(二) Vue核心概念与官方脚手架介绍</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-08T16:21:56.000Z">2019-10-09</time></div>
+                    <a href="/2019/10/09/designPattern4-结构型模式/" class="title has-link-black-ter is-size-6 has-text-weight-normal">设计模式（四）结构型模式</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -466,16 +711,16 @@
         
         <article class="media">
             
-            <a href="/2019/09/23/vue3/" class="media-left">
+            <a href="/2019/10/09/designPattern3-创建型模式/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(三) Vue-Router">
+                    <img class="thumbnail" src="/images/designPattern/designPattern.png" alt="设计模式（三）创建型模式">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-23T15:42:30.000Z">2019-09-23</time></div>
-                    <a href="/2019/09/23/vue3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Vue入门与实践(三) Vue-Router</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-08T16:19:56.000Z">2019-10-09</time></div>
+                    <a href="/2019/10/09/designPattern3-创建型模式/" class="title has-link-black-ter is-size-6 has-text-weight-normal">设计模式（三）创建型模式</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -485,16 +730,16 @@
         
         <article class="media">
             
-            <a href="/2019/09/23/vue1/" class="media-left">
+            <a href="/2019/10/08/designPattern2-UML/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(一) 介绍Vue">
+                    <img class="thumbnail" src="/images/designPattern/designPattern.png" alt="设计模式（二）UML统一建模语言：可视化设计">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-23T15:12:18.000Z">2019-09-23</time></div>
-                    <a href="/2019/09/23/vue1/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Vue入门与实践(一) 介绍Vue</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-08T15:52:13.000Z">2019-10-08</time></div>
+                    <a href="/2019/10/08/designPattern2-UML/" class="title has-link-black-ter is-size-6 has-text-weight-normal">设计模式（二）UML统一建模语言：可视化设计</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -504,16 +749,16 @@
         
         <article class="media">
             
-            <a href="/2019/09/16/hello-world/" class="media-left">
+            <a href="/2019/10/08/designPattern1-概述/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/helloworld/1.jpg" alt="Hello World">
+                    <img class="thumbnail" src="/images/designPattern/designPattern.png" alt="设计模式（一）概述">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-16T15:56:29.215Z">2019-09-16</time></div>
-                    <a href="/2019/09/16/hello-world/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Hello World</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-08T15:10:02.000Z">2019-10-08</time></div>
+                    <a href="/2019/10/08/designPattern1-概述/" class="title has-link-black-ter is-size-6 has-text-weight-normal">设计模式（一）概述</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -534,12 +779,23 @@
         <ul class="menu-list">
         
         <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
             <a class="level is-marginless" href="/archives/2019/09/">
                 <span class="level-start">
                     <span class="level-item">九月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">5</span>
+                    <span class="level-item tag">4</span>
                 </span>
             </a>
         </li>
@@ -558,6 +814,13 @@
             <div class="field is-grouped is-grouped-multiline">
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/Vue/">
                         <span class="tag">Vue</span>
                         <span class="tag is-grey">4</span>
@@ -568,6 +831,13 @@
                     <a class="tags has-addons" href="/tags/前端/">
                         <span class="tag">前端</span>
                         <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/设计模式/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">5</span>
                     </a>
                 </div>
                 
@@ -596,16 +866,16 @@
         
         <article class="media">
             
-            <a href="/2019/09/23/vue4/" class="media-left">
+            <a href="/2019/10/09/designPattern5-行为型模式/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(四) Vuex">
+                    <img class="thumbnail" src="/images/designPattern/designPattern.png" alt="设计模式（五）行为型模式">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-23T15:43:30.000Z">2019-09-23</time></div>
-                    <a href="/2019/09/23/vue4/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Vue入门与实践(四) Vuex</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-08T16:23:56.000Z">2019-10-09</time></div>
+                    <a href="/2019/10/09/designPattern5-行为型模式/" class="title has-link-black-ter is-size-6 has-text-weight-normal">设计模式（五）行为型模式</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -615,16 +885,16 @@
         
         <article class="media">
             
-            <a href="/2019/09/23/vue2/" class="media-left">
+            <a href="/2019/10/09/designPattern4-结构型模式/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(二) Vue核心概念与官方脚手架介绍">
+                    <img class="thumbnail" src="/images/designPattern/designPattern.png" alt="设计模式（四）结构型模式">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-23T15:43:12.000Z">2019-09-23</time></div>
-                    <a href="/2019/09/23/vue2/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Vue入门与实践(二) Vue核心概念与官方脚手架介绍</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-08T16:21:56.000Z">2019-10-09</time></div>
+                    <a href="/2019/10/09/designPattern4-结构型模式/" class="title has-link-black-ter is-size-6 has-text-weight-normal">设计模式（四）结构型模式</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -634,16 +904,16 @@
         
         <article class="media">
             
-            <a href="/2019/09/23/vue3/" class="media-left">
+            <a href="/2019/10/09/designPattern3-创建型模式/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(三) Vue-Router">
+                    <img class="thumbnail" src="/images/designPattern/designPattern.png" alt="设计模式（三）创建型模式">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-23T15:42:30.000Z">2019-09-23</time></div>
-                    <a href="/2019/09/23/vue3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Vue入门与实践(三) Vue-Router</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-08T16:19:56.000Z">2019-10-09</time></div>
+                    <a href="/2019/10/09/designPattern3-创建型模式/" class="title has-link-black-ter is-size-6 has-text-weight-normal">设计模式（三）创建型模式</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -653,16 +923,16 @@
         
         <article class="media">
             
-            <a href="/2019/09/23/vue1/" class="media-left">
+            <a href="/2019/10/08/designPattern2-UML/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(一) 介绍Vue">
+                    <img class="thumbnail" src="/images/designPattern/designPattern.png" alt="设计模式（二）UML统一建模语言：可视化设计">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-23T15:12:18.000Z">2019-09-23</time></div>
-                    <a href="/2019/09/23/vue1/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Vue入门与实践(一) 介绍Vue</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-08T15:52:13.000Z">2019-10-08</time></div>
+                    <a href="/2019/10/08/designPattern2-UML/" class="title has-link-black-ter is-size-6 has-text-weight-normal">设计模式（二）UML统一建模语言：可视化设计</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -672,16 +942,16 @@
         
         <article class="media">
             
-            <a href="/2019/09/16/hello-world/" class="media-left">
+            <a href="/2019/10/08/designPattern1-概述/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/helloworld/1.jpg" alt="Hello World">
+                    <img class="thumbnail" src="/images/designPattern/designPattern.png" alt="设计模式（一）概述">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-16T15:56:29.215Z">2019-09-16</time></div>
-                    <a href="/2019/09/16/hello-world/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Hello World</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-08T15:10:02.000Z">2019-10-08</time></div>
+                    <a href="/2019/10/08/designPattern1-概述/" class="title has-link-black-ter is-size-6 has-text-weight-normal">设计模式（一）概述</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -702,12 +972,23 @@
         <ul class="menu-list">
         
         <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
             <a class="level is-marginless" href="/archives/2019/09/">
                 <span class="level-start">
                     <span class="level-item">九月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">5</span>
+                    <span class="level-item tag">4</span>
                 </span>
             </a>
         </li>
@@ -726,6 +1007,13 @@
             <div class="field is-grouped is-grouped-multiline">
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/Vue/">
                         <span class="tag">Vue</span>
                         <span class="tag is-grey">4</span>
@@ -736,6 +1024,13 @@
                     <a class="tags has-addons" href="/tags/前端/">
                         <span class="tag">前端</span>
                         <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/设计模式/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">5</span>
                     </a>
                 </div>
                 
@@ -756,7 +1051,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/HarvieNotFraid.png" alt="Vue入门与实践(二) Vue核心概念与官方脚手架介绍" height="28">
+                    <img src="/images/HarvieNotFraid.png" alt="设计模式（三）创建型模式" height="28">
                 
                 </a>
                 <p class="is-size-7">

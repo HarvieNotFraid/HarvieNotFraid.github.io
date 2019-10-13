@@ -7,22 +7,23 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>标签: Vue - Harvie&#39;s House</title>
+<title>设计模式（一）概述 - Harvie&#39;s House</title>
 
 
-    <meta name="description" content="Programmer/Game/Basketball/Life">
-<meta name="keywords" content="Harvie,IT">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Harvie&#39;s House">
-<meta property="og:url" content="https://HarvieNotFraid.github.io/tags/Vue/index.html">
+    <meta name="description" content="基本要素 PatternName-名称：有助于理解、记忆、讨论该设计模式  Problem-问题：描述应用设计模式的环境  Solution-解决方案：描述设计模式的组成成分、相互关系、职责与协作方式  Consequence-效果：描述设计模式的应用效果和性能需求，包括时间、空间、灵活性、拓展性等问题">
+<meta name="keywords" content="设计模式,Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式（一）概述">
+<meta property="og:url" content="https://HarvieNotFraid.github.io/2019/10/08/designPattern1-概述/index.html">
 <meta property="og:site_name" content="Harvie&#39;s House">
-<meta property="og:description" content="Programmer/Game/Basketball/Life">
+<meta property="og:description" content="基本要素 PatternName-名称：有助于理解、记忆、讨论该设计模式  Problem-问题：描述应用设计模式的环境  Solution-解决方案：描述设计模式的组成成分、相互关系、职责与协作方式  Consequence-效果：描述设计模式的应用效果和性能需求，包括时间、空间、灵活性、拓展性等问题">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://harvienotfraid.github.io/images/og_image.png">
+<meta property="og:image" content="https://harvienotfraid.github.io/images/designPattern/designPattern.png">
+<meta property="og:updated_time" content="2019-10-08T15:52:47.621Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Harvie&#39;s House">
-<meta name="twitter:description" content="Programmer/Game/Basketball/Life">
-<meta name="twitter:image" content="https://harvienotfraid.github.io/images/og_image.png">
+<meta name="twitter:title" content="设计模式（一）概述">
+<meta name="twitter:description" content="基本要素 PatternName-名称：有助于理解、记忆、讨论该设计模式  Problem-问题：描述应用设计模式的环境  Solution-解决方案：描述设计模式的组成成分、相互关系、职责与协作方式  Consequence-效果：描述设计模式的应用效果和性能需求，包括时间、空间、灵活性、拓展性等问题">
+<meta name="twitter:image" content="https://harvienotfraid.github.io/images/designPattern/designPattern.png">
 
 
 
@@ -92,7 +93,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/HarvieNotFraid.png" alt="Harvie&#39;s House" height="28">
+                <img src="/images/HarvieNotFraid.png" alt="设计模式（一）概述" height="28">
             
             </a>
         </div>
@@ -120,6 +121,10 @@
             <div class="navbar-end">
                 
                 
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
                 
                 <a class="navbar-item search" title="搜索" href="javascript:;">
                     <i class="fas fa-search"></i>
@@ -134,35 +139,24 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
-    <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">Vue</a></li>
-        </ul>
-        </nav>
-    </div>
-</div>
-
-    <div class="card">
     
     <div class="card-image">
-        <a href="/2019/09/23/vue4-Vuex/" class="image is-7by1">
-            <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(四) Vuex">
-        </a>
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/images/designPattern/designPattern.png" alt="设计模式（一）概述">
+        </span>
     </div>
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-09-23T15:44:30.000Z">2019-09-23</time>
+                <time class="level-item has-text-grey" datetime="2019-10-08T15:10:02.000Z">2019-10-08</time>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    7 分钟 读完 (大约 1123 个字)
+                    10 分钟 读完 (大约 1462 个字)
                 </span>
                 
                 
@@ -171,194 +165,161 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/09/23/vue4-Vuex/">Vue入门与实践(四) Vuex</a>
+                设计模式（一）概述
             
         </h1>
         <div class="content">
-            <h2 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a><strong>核心思想</strong></h2><p>集中式存储、管理应用的所有组件的状态(数据)，并以相应的规则保证状态以一种可预测的方式发生变化</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/09/23/vue4-Vuex/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2019/09/23/vue3-VueRouter/" class="image is-7by1">
-            <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(三) Vue-Router">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-09-23T15:43:30.000Z">2019-09-23</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    12 分钟 读完 (大约 1754 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/09/23/vue3-VueRouter/">Vue入门与实践(三) Vue-Router</a>
-            
-        </h1>
-        <div class="content">
-            <h2 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a><strong>主要功能</strong></h2><p>嵌套的路由/试图表，模块化基于组件的路由配置，基于Vue.js过度系统的视图效果，细粒度的导航控制，自动激活的CSS class链接</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/09/23/vue3-VueRouter/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2019/09/23/vue2-CLI/" class="image is-7by1">
-            <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(二) Vue核心概念与官方脚手架介绍">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-09-23T15:43:12.000Z">2019-09-23</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    3 分钟 读完 (大约 416 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/09/23/vue2-CLI/">Vue入门与实践(二) Vue核心概念与官方脚手架介绍</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="Vue组件的三大核心"><a href="#Vue组件的三大核心" class="headerlink" title="Vue组件的三大核心"></a>Vue组件的三大核心</h1><ol>
-<li><strong>computed-计算属性：</strong>用于将<strong>不经常变化的计算结果进行缓存</strong>，不像调用方法每次都要进行计算，计算属性只有关联的属性值变化且自身被调用时才进行计算，节约系统开销</li>
-<li><strong>slot-插槽：</strong>用于组件组合场景进行<strong>内容分发</strong>，父组件可以通过具名插槽分发数据给子组件不同的插槽，子组件也可以通过作用域插槽分发数据给父组件的插槽</li>
-<li><strong>methods-自定义事件：</strong>子组件可以通过自定义事件更改父组件中的Vue实例的数据，通过方法中执行<strong>this.$emit(“父组件方法名”,传递的参数)</strong>调用父组件中的方法更改Vue实例的数据</li>
-</ol>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/09/23/vue2-CLI/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2019/09/23/vue1-概述/" class="image is-7by1">
-            <img class="thumbnail" src="/images/vue/1.jpg" alt="Vue入门与实践(一) 概述">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-09-23T15:12:18.000Z">2019-09-23</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    5 分钟 读完 (大约 768 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/09/23/vue1-概述/">Vue入门与实践(一) 概述</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="Vue的架构设计"><a href="#Vue的架构设计" class="headerlink" title="Vue的架构设计"></a>Vue的架构设计</h1><p>MVVM(Model-View-ViewModel)：一种软件架构设计模式，思想是<strong>事件驱动编程</strong>，核心是通过ViewModel层向上与View层双向绑定、向下与Model层通过接口进行数据交互，实现View与Model层的解耦，而<strong>Vue.js就是MVVM中ViewModel层的实现者</strong></p>
-<ul>
-<li><p>通过Data Bindings观察Model中的数据变化并对View层对应数据进行更新</p>
+            <h2 id="基本要素"><a href="#基本要素" class="headerlink" title="基本要素"></a><strong>基本要素</strong></h2><ul>
+<li><p>PatternName-名称：有助于理解、记忆、讨论该设计模式</p>
 </li>
-<li><p>通过DOM Listeners监听View中的数据变化并通知Model层数据的改变</p>
+<li><p>Problem-问题：描述应用设计模式的环境</p>
+</li>
+<li><p>Solution-解决方案：描述设计模式的组成成分、相互关系、职责与协作方式</p>
+</li>
+<li><p>Consequence-效果：描述设计模式的应用效果和性能需求，包括时间、空间、灵活性、拓展性等问题</p>
 </li>
 </ul>
-<p><img src="/images/vue/2.png" alt></p>
+<a id="more"></a>
+
+<hr>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a><strong>分类</strong></h2><h4 id="功能分类"><a href="#功能分类" class="headerlink" title="功能分类"></a><strong>功能分类</strong></h4><ul>
+<li><p>创建型：如何创建对象，将对象的创建和使用分离</p>
+</li>
+<li><p>结构型：如何将类/对象按照布局组成更大的结构</p>
+</li>
+<li><p>行为型：类/对象之间如何相互写作完成大型任务，以及如何配分职责</p>
+</li>
+</ul>
+<h4 id="范围分类"><a href="#范围分类" class="headerlink" title="范围分类"></a><strong>范围分类</strong></h4><ul>
+<li><p>类模式：用于处理类与子类的关系，继承实现，静态关系</p>
+</li>
+<li><p>对象模式：用于处理对象与对象的关系，组合/聚合实现，动态关系</p>
+</li>
+</ul>
+<h4 id="分类图"><a href="#分类图" class="headerlink" title="分类图"></a><strong>分类图</strong></h4><div align="center">
+
+<p><img src="/images/designPattern/1.png" alt></p>
+</div>
+
+<hr>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a><strong>概述</strong></h2><h4 id="创建型模式"><a href="#创建型模式" class="headerlink" title="创建型模式"></a><strong>创建型模式</strong></h4><ol>
+<li><p><strong>Factory Method-工厂方法</strong></p>
+<p>定义一个用于创建产品的接口，由子类决定生产什么产品</p>
+</li>
+<li><p><strong>Singleton-单例</strong></p>
+<p>某类只能生成一个实例，并提供一个全局访问点供外部获取该实例，可拓展成有限多例模式</p>
+</li>
+<li><p><strong>Prototype-原型</strong></p>
+<p>以一个对象为原型通过克隆复制出多个新实例</p>
+</li>
+<li><p><strong>Abstract Factory-抽象工厂</strong></p>
+<p>提供一个创建产品族的接口，其每个子类可以生产一系列相关的产品</p>
+</li>
+<li><p><strong>Builder-建造者</strong></p>
+<p>将一个复杂对象分解成多个简单部分，根据不同需要分别创建，最后构成复杂对象</p>
+</li>
+</ol>
+<h4 id="结构型模式"><a href="#结构型模式" class="headerlink" title="结构型模式"></a><strong>结构型模式</strong></h4><ol>
+<li><p><strong>Adapter-适配器</strong></p>
+<p>将一个类的接口转换成客户希望的另一个接口，使得多个类可以通过该接口兼容工作</p>
+</li>
+<li><p><strong>Proxy-代理</strong></p>
+<p>为对象提供代理，从而限制、增强或修改该对象的一些特性</p>
+</li>
+<li><p><strong>Bridge-桥接</strong></p>
+<p>用组合代替继承关系分离抽象和实现，降低耦合度</p>
+</li>
+<li><p><strong>Decorator-装饰</strong></p>
+<p>动态给对象增加额外的功能</p>
+</li>
+<li><p><strong>Facade-外观</strong></p>
+<p>为多个复杂子系统提供一个一致的接口便于访问</p>
+</li>
+<li><p><strong>Flyweight-享元</strong></p>
+<p>共享技术支持大量细粒度对象的复用</p>
+</li>
+<li><p><strong>Composite-组合</strong></p>
+<p>将对象组合成树状结构，使用户对单个对象和组合对象具有一致的访问性</p>
+</li>
+</ol>
+<h4 id="行为型模式"><a href="#行为型模式" class="headerlink" title="行为型模式"></a><strong>行为型模式</strong></h4><ol>
+<li><p><strong>Template Method-模板方法</strong></p>
+<p>定义一个操作中的算法框架而特定步骤的实现放在子类实现</p>
+</li>
+<li><p><strong>Interpreter-解释器</strong></p>
+<p>提供如何定义语言的文法和对语言句子解释的方法</p>
+</li>
+<li><p><strong>Strategy-策略</strong></p>
+<p>封装一系列算法，并定义统一的算法接口使它们相互替换不会影响到使用算法的客户</p>
+</li>
+<li><p><strong>Command-命令</strong></p>
+<p>将请求封装成对象，使发出请求和执行请求的职责分割</p>
+</li>
+<li><p><strong>Chain of Responsibility-职责链</strong></p>
+<p>将请求在对象中链式传播直到被响应，降低对象之间的耦合</p>
+</li>
+<li><p><strong>State-状态</strong></p>
+<p>对象在内部状态改变时会相应改变行为能力</p>
+</li>
+<li><p><strong>Observer-观察者</strong></p>
+<p>在一对多的对象间，当一个对象发生改变会通知并影响到其他对象行为</p>
+</li>
+<li><p><strong>Mediator-中介者</strong></p>
+<p>定义对象之间的中介对象简化交互过程，降低对象间的耦合度</p>
+</li>
+<li><p><strong>Iterator-迭代器</strong></p>
+<p>提供一种顺序访问聚合对象数据的方法而不暴露对象的内部表示</p>
+</li>
+<li><p><strong>Visitor-访问者</strong></p>
+<p>不改变集合元素的情况下，为一个集合中的每个元素提供多种访问方式</p>
+</li>
+<li><p><strong>Memento-备忘录</strong></p>
+<p>不破坏封装的情况下，获取并保存一个对象的内部状态并可恢复</p>
+</li>
+</ol>
+<hr>
+<h2 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a><strong>设计原则</strong></h2><p>提高系统的可维护性、可拓展性、可复用性，增加开发效率</p>
+<ol>
+<li><p><strong>(Open Closed Principle,OCP)-开闭原则</strong></p>
+<p>软件实体应当对拓展开放，对修改关闭</p>
+</li>
+<li><p><strong>(Liskov Substitution Principle,LSP)-里氏替换原则</strong></p>
+<p>继承必须确保超类所拥有的性质在子类仍然成立</p>
+<p>核心：子类可以拓展父类的功能，但尽量不要改变(重写)父类的方法</p>
+</li>
+<li><p><strong>(Dependence Inversion Principle,DIP)-依赖倒置原则</strong></p>
+<p>高层模块不应该依赖低层模块，两者都应该依赖其抽象；抽象不应该依赖细节，细节应该依赖抽象</p>
+<p>核心：面向接口编程替代面向实现编程，降低类间的耦合度</p>
+</li>
+<li><p><strong>(Single Responsibility Principle,SRP)-单一职责原则</strong></p>
+<p>一个类应该有且仅有一个引起它变化的原因，否则类应该被拆分</p>
+<p>核心：控制类的粒度大小、将对象解耦、提高其内聚性</p>
+</li>
+<li><p><strong>(Interface Segregation Principle,ISP)-接口隔离原则</strong></p>
+<p>客户端不应该被迫依赖于它不使用的方法，一个类对另一个类的依赖应该建立在最小的接口上</p>
+<p>核心：接口尽量小，一个接口只有一个职责，降低类对接口的依赖性</p>
+</li>
+<li><p><strong>(Law of Demeter,LoD)-迪米特法则(最少知识原则)</strong></p>
+<p>如果两个软件实体无须直接通信，那么就不应当发生直接的相互调用，可以通过第三方转发该调用</p>
+<p>核心：对象除了访问成员对象、创建的对象、方法参数的对象外，不直接访问其他对象</p>
+</li>
+<li><p><strong>(Composite Reuse Principle,CRP)-合成复用原则</strong></p>
+<p>软件复用时，组合/聚合等关联关系&gt;继承关系</p>
+<p>核心：通过将对象声明成成员对象进行调用其功能达到复用</p>
+</li>
+</ol>
+
         </div>
         
-        
-        <div class="level is-mobile">
+        <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/09/23/vue1-概述/#more">阅读更多</a>
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Java/">Java</a>, <a class="has-link-grey -link" href="/tags/设计模式/">设计模式</a>
                 </div>
             </div>
         </div>
+        
         
         
     </div>
@@ -368,7 +329,26 @@
 
 
 
-
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/10/08/designPattern2-UML/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">设计模式（二）UML统一建模语言：可视化设计</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/09/23/vue4-Vuex/">
+                <span class="level-item">Vue入门与实践(四) Vuex</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
 
 
 </div>
@@ -468,6 +448,57 @@
 </div>
     
         
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#基本要素">
+        <span class="has-mr-6">1</span>
+        <span>基本要素</span>
+        </a></li><li>
+        <a class="is-flex" href="#分类">
+        <span class="has-mr-6">2</span>
+        <span>分类</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#功能分类">
+        <span class="has-mr-6">2.1</span>
+        <span>功能分类</span>
+        </a></li><li>
+        <a class="is-flex" href="#范围分类">
+        <span class="has-mr-6">2.2</span>
+        <span>范围分类</span>
+        </a></li><li>
+        <a class="is-flex" href="#分类图">
+        <span class="has-mr-6">2.3</span>
+        <span>分类图</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#概述">
+        <span class="has-mr-6">3</span>
+        <span>概述</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#创建型模式">
+        <span class="has-mr-6">3.1</span>
+        <span>创建型模式</span>
+        </a></li><li>
+        <a class="is-flex" href="#结构型模式">
+        <span class="has-mr-6">3.2</span>
+        <span>结构型模式</span>
+        </a></li><li>
+        <a class="is-flex" href="#行为型模式">
+        <span class="has-mr-6">3.3</span>
+        <span>行为型模式</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#设计原则">
+        <span class="has-mr-6">4</span>
+        <span>设计原则</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
+
     
         
 
@@ -923,7 +954,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/HarvieNotFraid.png" alt="Harvie&#39;s House" height="28">
+                    <img src="/images/HarvieNotFraid.png" alt="设计模式（一）概述" height="28">
                 
                 </a>
                 <p class="is-size-7">
