@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.9.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>RocketMQ的安装与使用 - Harvie&#39;s House</title>
+
+
+    <meta name="description" content="RocketMQ安装">
+<meta name="keywords" content="RocketMQ,SpringBoot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RocketMQ的安装与使用">
+<meta property="og:url" content="https://HarvieNotFraid.github.io/2019/11/03/RocketMQ/index.html">
+<meta property="og:site_name" content="Harvie&#39;s House">
+<meta property="og:description" content="RocketMQ安装">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://harvienotfraid.github.io/images/RocketMQ/1.png">
+<meta property="og:updated_time" content="2019-11-03T15:25:55.841Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RocketMQ的安装与使用">
+<meta name="twitter:description" content="RocketMQ安装">
+<meta name="twitter:image" content="https://harvienotfraid.github.io/images/RocketMQ/1.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/polygon.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/HarvieNotFraid.png" alt="RocketMQ的安装与使用" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">Home</a>
+                
+                <a class="navbar-item"
+                href="/archives">Archives</a>
+                
+                <a class="navbar-item"
+                href="/categories">Categories</a>
+                
+                <a class="navbar-item"
+                href="/tags">Tags</a>
+                
+                <a class="navbar-item"
+                href="https://harviealwayshere.github.io/">Pre-Blog</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/images/RocketMQ/1.png" alt="RocketMQ的安装与使用">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-11-03T15:09:20.000Z">2019-11-03</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    15 分钟 读完 (大约 2218 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                RocketMQ的安装与使用
+            
+        </h1>
+        <div class="content">
+            <h2 id="RocketMQ安装"><a href="#RocketMQ安装" class="headerlink" title="RocketMQ安装"></a><strong>RocketMQ安装</strong></h2><a id="more"></a>
+
+<h4 id="添加Maven依赖"><a href="#添加Maven依赖" class="headerlink" title="添加Maven依赖"></a><strong>添加Maven依赖</strong></h4><figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span></span><br><span class="line">	<span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.rocketmq<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span></span><br><span class="line">	<span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>rocketmq-client<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>4.3.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="消息示例-Topic"><a href="#消息示例-Topic" class="headerlink" title="消息示例(Topic)"></a><strong>消息示例(Topic)</strong></h2><h4 id="消息生产者"><a href="#消息生产者" class="headerlink" title="消息生产者"></a><strong>消息生产者</strong></h4><p>RocketMQ可通过三种方式发送消息</p>
+<ul>
+<li><p>Reliable Synchronous-可靠同步，主要用于重要通知的业务场景，如SMS通知等</p>
+<p>相关要点注意</p>
+<ul>
+<li>setVipChannelEnabled(false)：不设置可能造成[org.apache.rocketmq.remoting.exception.RemotingTooMuchRequestException: sendDefaultImpl call timeout]异常，发送消息失败</li>
+<li>Topic：需要提前配置好，不设置可能造成[org.apache.rocketmq.client.exception.MQClientException: No route info of this topic, TopicTest]异常，发送消息失败</li>
+<li>发送多条消息不建议使用SendResult.getSendStatus()作为业务逻辑处理的判断依据，因为当消息发送成功并通过RPC回调到程序上下文中时，其状态还未返回，容易造成程序异常崩溃</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//通过ProducerGroupName初始化消息生产者</span></span><br><span class="line">DefaultMQProducer producer = <span class="hljs-keyword">new</span> DefaultMQProducer(<span class="hljs-string">"RocketMqTest"</span>);</span><br><span class="line"><span class="hljs-comment">//设置MQ的NameSrv服务地址</span></span><br><span class="line">producer.setNamesrvAddr(<span class="hljs-string">"100.75.186.165:4308"</span>);</span><br><span class="line"><span class="hljs-comment">//关闭VIP通道，避免发送消息失败</span></span><br><span class="line">producer.setVipChannelEnabled(<span class="hljs-keyword">false</span>);</span><br><span class="line"><span class="hljs-comment">//启动生产者实例</span></span><br><span class="line">producer.start();</span><br><span class="line"><span class="hljs-comment">//创建消息对象，包括Topic、Tag、Key和传递的数据</span></span><br><span class="line">Message msg = <span class="hljs-keyword">new</span> Message(<span class="hljs-string">"TopicTest"</span>, <span class="hljs-string">"TagTest"</span>, <span class="hljs-string">"KeyTest"</span>,data.getBytes(RemotingHelper.DEFAULT_CHARSET));</span><br><span class="line"><span class="hljs-comment">//Reliable Synchronous方式发送消息到NameSrv下的某个broker实例并得到返回结果</span></span><br><span class="line">SendResult sendResult = producer.send(msg);</span><br><span class="line"><span class="hljs-comment">//关闭生产者实例</span></span><br><span class="line">producer.shutdown();</span><br><span class="line"><span class="hljs-comment">//返回消息的响应</span></span><br><span class="line"><span class="hljs-keyword">return</span> sendResult;</span><br></pre></td></tr></table></figure>
+
+<p>发送消息后可以在RocketMQ控制台查看发送到消息队列的消息</p>
+<p><img src="/images/RocketMQ/2.png" alt></p>
+<p>发送消息的响应格式为</p>
+<figure class="highlight json hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="hljs-attr">"sendStatus"</span>: <span class="hljs-string">"SEND_OK"</span>,</span><br><span class="line">    <span class="hljs-attr">"msgId"</span>: <span class="hljs-string">"0AC85B0F4A0C18B4AAC2507EF13B0000"</span>,</span><br><span class="line">    <span class="hljs-attr">"messageQueue"</span>: &#123;</span><br><span class="line">        <span class="hljs-attr">"topic"</span>: <span class="hljs-string">"TopicTest"</span>,</span><br><span class="line">        <span class="hljs-attr">"brokerName"</span>: <span class="hljs-string">"broker-b"</span>,</span><br><span class="line">        <span class="hljs-attr">"queueId"</span>: <span class="hljs-number">5</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="hljs-attr">"queueOffset"</span>: <span class="hljs-number">0</span>,</span><br><span class="line">    <span class="hljs-attr">"offsetMsgId"</span>: <span class="hljs-string">"644BBAA2000010D4000000000000FE71"</span>,</span><br><span class="line">    <span class="hljs-attr">"regionId"</span>: <span class="hljs-string">"DefaultRegion"</span>,</span><br><span class="line">    <span class="hljs-attr">"traceOn"</span>: <span class="hljs-literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Reliable Asynchronous-可靠异步，主要用于时间敏感的业务场景</li>
+</ul>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">DefaultMQProducer producer = <span class="hljs-keyword">new</span> DefaultMQProducer(<span class="hljs-string">"RocketMqProducerGroupTest"</span>);</span><br><span class="line">producer.setNamesrvAddr(<span class="hljs-string">"100.75.186.165:4308"</span>);</span><br><span class="line">producer.setVipChannelEnabled(<span class="hljs-keyword">false</span>);</span><br><span class="line">producer.setRetryTimesWhenSendAsyncFailed(<span class="hljs-number">1</span>);  <span class="hljs-comment">//异步发送消息可设置失败重试次数</span></span><br><span class="line">producer.start();</span><br><span class="line">Message msg = <span class="hljs-keyword">new</span> Message(<span class="hljs-string">"TopicTest"</span>, <span class="hljs-string">"TagTest"</span>, <span class="hljs-string">"KeyTest"</span>, data.getBytes(RemotingHelper.DEFAULT_CHARSET));</span><br><span class="line">producer.send(msg, <span class="hljs-keyword">new</span> SendCallback() &#123;  <span class="hljs-comment">//异步发送消息可设置回调函数</span></span><br><span class="line">    <span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onSuccess</span><span class="hljs-params">(SendResult sendResult)</span> </span>&#123;  <span class="hljs-comment">//发送成功</span></span><br><span class="line">        System.out.printf(sendResult.getMsgId());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onException</span><span class="hljs-params">(Throwable e)</span> </span>&#123;  <span class="hljs-comment">//发送异常</span></span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">producer.shutdown();</span><br></pre></td></tr></table></figure>
+
+<p>不知道为什么一直报错org.apache.rocketmq.client.exception.MQClientException: No route info of this topic, TopicTest，以后有时间解决</p>
+<ul>
+<li>One-Way Transmission：单向传输，主要用于中等(Moderate)可靠性的传输场景，如日志收集等</li>
+</ul>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">DefaultMQProducer producer = <span class="hljs-keyword">new</span> DefaultMQProducer(<span class="hljs-string">"RocketMqProducerGroupTest"</span>);</span><br><span class="line">producer.setNamesrvAddr(<span class="hljs-string">"100.75.186.165:4308"</span>);</span><br><span class="line">producer.setVipChannelEnabled(<span class="hljs-keyword">false</span>);</span><br><span class="line">producer.start();</span><br><span class="line">Message msg = <span class="hljs-keyword">new</span> Message(<span class="hljs-string">"TopicTest"</span>, <span class="hljs-string">"TagTest"</span>, <span class="hljs-string">"KeyTest"</span>,data.getBytes(RemotingHelper.DEFAULT_CHARSET));</span><br><span class="line">producer.sendOneway(msg);  <span class="hljs-comment">//单向传输发送消息，无响应信息</span></span><br><span class="line">producer.shutdown();</span><br></pre></td></tr></table></figure>
+
+<h4 id="消息消费者"><a href="#消息消费者" class="headerlink" title="消息消费者"></a><strong>消息消费者</strong></h4><ul>
+<li>如果使用SpringBoot可以在消费者方法上加上<strong>@PostConstruct</strong>注解使类被初始化时会自动调用该方法</li>
+</ul>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//通过ConsumerGroupName初始化消息消费者</span></span><br><span class="line">DefaultMQPushConsumer consumer = <span class="hljs-keyword">new</span> DefaultMQPushConsumer(<span class="hljs-string">"RocketMqConsumerGroupTest"</span>);</span><br><span class="line"><span class="hljs-comment">//设置MQ的NameSrv服务地址</span></span><br><span class="line">consumer.setNamesrvAddr(<span class="hljs-string">"100.75.186.165:4308"</span>);</span><br><span class="line"><span class="hljs-comment">//关闭VIP通道</span></span><br><span class="line">consumer.setVipChannelEnabled(<span class="hljs-keyword">false</span>);</span><br><span class="line"><span class="hljs-comment">//消费消息方式 consumerGroup第一次启动 CONSUME_FROM_FIRST_OFFSET从消息队列头部消费</span></span><br><span class="line">consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);</span><br><span class="line"><span class="hljs-comment">//广播模式消费消息</span></span><br><span class="line">consumer.setMessageModel(MessageModel.BROADCASTING);</span><br><span class="line"><span class="hljs-comment">//设置订阅的Topic</span></span><br><span class="line">consumer.subscribe(<span class="hljs-string">"TopicTest"</span>, <span class="hljs-string">"*"</span>);</span><br><span class="line"><span class="hljs-comment">//注册监听</span></span><br><span class="line">consumer.registerMessageListener(<span class="hljs-keyword">new</span> MessageListenerConcurrently() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">//重写获取消息后的回调函数</span></span><br><span class="line">    <span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> ConsumeConcurrentlyStatus <span class="hljs-title">consumeMessage</span><span class="hljs-params">(List&lt;MessageExt&gt; msgs, ConsumeConcurrentlyContext context)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-comment">//相关业务逻辑</span></span><br><span class="line">        System.out.printf(<span class="hljs-string">"%s Receive New Messages: %s %n"</span>, Thread.currentThread().getName(), msgs);</span><br><span class="line">        <span class="hljs-comment">//返回消费成功标识</span></span><br><span class="line">        <span class="hljs-keyword">return</span> ConsumeConcurrentlyStatus.CONSUME_SUCCESS;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="hljs-comment">//启动消息消费者</span></span><br><span class="line">consumer.start();</span><br><span class="line">System.out.printf(<span class="hljs-string">"Consumer Started.%n"</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>MessageExt</strong>数据结构JSON化输出</li>
+</ul>
+<figure class="highlight json hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="hljs-attr">"queueId"</span>: <span class="hljs-number">11</span>,</span><br><span class="line">    <span class="hljs-attr">"flag"</span>: <span class="hljs-number">0</span>,</span><br><span class="line">    <span class="hljs-attr">"sysFlag"</span>: <span class="hljs-number">0</span>,</span><br><span class="line">    <span class="hljs-attr">"keys"</span>: <span class="hljs-string">"KeyTest"</span>,</span><br><span class="line">    <span class="hljs-attr">"delayTimeLevel"</span>: <span class="hljs-number">0</span>,</span><br><span class="line">    <span class="hljs-attr">"msgId"</span>: <span class="hljs-string">"0AC85B0F4A7C18B4AAC2509FEA880001"</span>,</span><br><span class="line">    <span class="hljs-attr">"body"</span>: [<span class="hljs-number">68</span>,<span class="hljs-number">97</span>,<span class="hljs-number">116</span>,<span class="hljs-number">97</span>,<span class="hljs-number">32</span>,<span class="hljs-number">70</span>,<span class="hljs-number">114</span>,<span class="hljs-number">111</span>,<span class="hljs-number">109</span>,<span class="hljs-number">32</span>,<span class="hljs-number">80</span>,<span class="hljs-number">114</span>,<span class="hljs-number">111</span>,<span class="hljs-number">100</span>,<span class="hljs-number">117</span>,<span class="hljs-number">99</span>,<span class="hljs-number">101</span>,<span class="hljs-number">114</span>],</span><br><span class="line">    <span class="hljs-attr">"waitStoreMsgOK"</span>: <span class="hljs-literal">true</span>,</span><br><span class="line">    <span class="hljs-attr">"bodyCRC"</span>: <span class="hljs-number">610674504</span>,</span><br><span class="line">    <span class="hljs-attr">"queueOffset"</span>: <span class="hljs-number">0</span>,</span><br><span class="line">    <span class="hljs-attr">"storeSize"</span>: <span class="hljs-number">196</span>,</span><br><span class="line">    <span class="hljs-attr">"bornHostString"</span>: <span class="hljs-string">"10.200.91.15"</span>,</span><br><span class="line">    <span class="hljs-attr">"bornTimestamp"</span>: <span class="hljs-number">1571211857544</span>,</span><br><span class="line">    <span class="hljs-attr">"reconsumeTimes"</span>: <span class="hljs-number">0</span>,</span><br><span class="line">    <span class="hljs-attr">"storeTimestamp"</span>: <span class="hljs-number">1571211857534</span>,</span><br><span class="line">    <span class="hljs-attr">"bornHostBytes"</span>: &#123;</span><br><span class="line">        <span class="hljs-attr">"array"</span>: <span class="hljs-string">"CshbDwAA9j8="</span>,</span><br><span class="line">        <span class="hljs-attr">"limit"</span>: <span class="hljs-number">8</span>,</span><br><span class="line">        <span class="hljs-attr">"position"</span>: <span class="hljs-number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="hljs-attr">"bornHost"</span>: &#123;</span><br><span class="line">        <span class="hljs-attr">"address"</span>: <span class="hljs-string">"10.200.91.15"</span>,</span><br><span class="line">        <span class="hljs-attr">"port"</span>: <span class="hljs-number">63039</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="hljs-attr">"tags"</span>: <span class="hljs-string">"TagTest"</span>,</span><br><span class="line">    <span class="hljs-attr">"preparedTransactionOffset"</span>: <span class="hljs-number">0</span>,</span><br><span class="line">    <span class="hljs-attr">"storeHostBytes"</span>: &#123;</span><br><span class="line">        <span class="hljs-attr">"array"</span>: <span class="hljs-string">"ZEu6oQAAENQ="</span>,</span><br><span class="line">        <span class="hljs-attr">"limit"</span>: <span class="hljs-number">8</span>,</span><br><span class="line">        <span class="hljs-attr">"position"</span>: <span class="hljs-number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="hljs-attr">"bornHostNameString"</span>: <span class="hljs-string">"IQSZ-D0479.cmrh.com"</span>,</span><br><span class="line">    <span class="hljs-attr">"commitLogOffset"</span>: <span class="hljs-number">71597</span>,</span><br><span class="line">    <span class="hljs-attr">"topic"</span>: <span class="hljs-string">"TopicTest"</span>,</span><br><span class="line">    <span class="hljs-attr">"offsetMsgId"</span>: <span class="hljs-string">"644BBAA1000010D400000000000117AD"</span>,</span><br><span class="line">    <span class="hljs-attr">"storeHost"</span>: &#123;</span><br><span class="line">        <span class="hljs-attr">"address"</span>: <span class="hljs-string">"100.75.186.161"</span>,</span><br><span class="line">        <span class="hljs-attr">"port"</span>: <span class="hljs-number">4308</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="hljs-attr">"properties"</span>: &#123;</span><br><span class="line">        <span class="hljs-attr">"MIN_OFFSET"</span>: <span class="hljs-string">"0"</span>,</span><br><span class="line">        <span class="hljs-attr">"MAX_OFFSET"</span>: <span class="hljs-string">"1"</span>,</span><br><span class="line">        <span class="hljs-attr">"KEYS"</span>: <span class="hljs-string">"KeyTest"</span>,</span><br><span class="line">        <span class="hljs-attr">"CONSUME_START_TIME"</span>: <span class="hljs-string">"1571211857550"</span>,</span><br><span class="line">        <span class="hljs-attr">"UNIQ_KEY"</span>: <span class="hljs-string">"0AC85B0F4A7C18B4AAC2509FEA880001"</span>,</span><br><span class="line">        <span class="hljs-attr">"WAIT"</span>: <span class="hljs-string">"true"</span>,</span><br><span class="line">        <span class="hljs-attr">"TAGS"</span>: <span class="hljs-string">"TagTest"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>ConsumeConcurrentlyContext</strong>数据结构JSON化输出</li>
+</ul>
+<figure class="highlight json hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="hljs-attr">"ackIndex"</span>: <span class="hljs-number">2147483647</span>,</span><br><span class="line">    <span class="hljs-attr">"delayLevelWhenNextConsume"</span>: <span class="hljs-number">0</span>,</span><br><span class="line">    <span class="hljs-attr">"messageQueue"</span>: &#123;</span><br><span class="line">        <span class="hljs-attr">"queueId"</span>: <span class="hljs-number">11</span>,</span><br><span class="line">        <span class="hljs-attr">"topic"</span>: <span class="hljs-string">"TopicTest"</span>,</span><br><span class="line">        <span class="hljs-attr">"brokerName"</span>: <span class="hljs-string">"broker-a"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将消息中的<strong>内容解码输出</strong></li>
+</ul>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//Data From Producer</span></span><br><span class="line"><span class="hljs-keyword">new</span> String(MessageExtObject.getBody(), Charset.forName(RemotingHelper.DEFAULT_CHARSET));</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="顺序消息-Queue"><a href="#顺序消息-Queue" class="headerlink" title="顺序消息(Queue)"></a><strong>顺序消息(Queue)</strong></h2><p>RocketMQ提供MessageQueue采用FIFO方式发送顺序消息，原理是通过<strong>指定QueueId</strong></p>
+<ul>
+<li>生产者：将部分需要顺序消费的消息发往同一个Topic下的同一个MessageQueue</li>
+<li>消费者：按顺序消费同一个Topic下的同一个MessageQueue里的消息(同一个Topic的不同MessageQueue可以并发消费)</li>
+</ul>
+<h4 id="顺序消息生产者"><a href="#顺序消息生产者" class="headerlink" title="顺序消息生产者"></a><strong>顺序消息生产者</strong></h4><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Message msg = <span class="hljs-keyword">new</span> Message(<span class="hljs-string">"TopicTest"</span>, <span class="hljs-string">"TagTest"</span>, <span class="hljs-string">"KeyTest"</span>,(data+i).getBytes(RemotingHelper.DEFAULT_CHARSET));</span><br><span class="line">SendResult sendResult = producer.send(msg, <span class="hljs-keyword">new</span> MessageQueueSelector() &#123;</span><br><span class="line">    <span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> MessageQueue <span class="hljs-title">select</span><span class="hljs-params">(List&lt;MessageQueue&gt; mqs, Message msg, Object arg)</span> </span>&#123;</span><br><span class="line">        Integer id = (Integer) arg;</span><br><span class="line">        <span class="hljs-keyword">int</span> index = id % mqs.size();  <span class="hljs-comment">//mqs.size()是该Topic下的queue数量</span></span><br><span class="line">        <span class="hljs-keyword">return</span> mqs.get(index);  <span class="hljs-comment">//根据index标识该消息发送到的queue</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;, <span class="hljs-number">1</span>);  <span class="hljs-comment">//这里的参数是select方法的arg参数 即同一批需要顺序消费的消息的Integer标识,如订单ID</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="顺序消息消费者"><a href="#顺序消息消费者" class="headerlink" title="顺序消息消费者"></a><strong>顺序消息消费者</strong></h4><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//设置线程数 保证同一个Topic下的同一个MessageQueue里的消息不被并发消费</span></span><br><span class="line">consumer.setConsumeThreadMin(<span class="hljs-number">1</span>);</span><br><span class="line">consumer.setConsumeThreadMax(<span class="hljs-number">1</span>);</span><br><span class="line"><span class="hljs-comment">//并发消费</span></span><br><span class="line"><span class="hljs-comment">//consumer.registerMessageListener(new MessageListenerConcurrently() &#123;</span></span><br><span class="line"><span class="hljs-comment">//    @Override</span></span><br><span class="line"><span class="hljs-comment">//    public ConsumeConcurrentlyStatus consumeMessage(List&lt;MessageExt&gt; msgs, ConsumeConcurrentlyContext context) &#123;</span></span><br><span class="line"><span class="hljs-comment">//        return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;</span></span><br><span class="line"><span class="hljs-comment">//    &#125;</span></span><br><span class="line"><span class="hljs-comment">//&#125;);</span></span><br><span class="line"><span class="hljs-comment">//顺序消费</span></span><br><span class="line">consumer.registerMessageListener(<span class="hljs-keyword">new</span> MessageListenerOrderly() &#123;</span><br><span class="line">    <span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> ConsumeOrderlyStatus <span class="hljs-title">consumeMessage</span><span class="hljs-params">(List&lt;MessageExt&gt; msgs, ConsumeOrderlyContext context)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> ConsumeOrderlyStatus.SUCCESS;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>可以看到消息均发送到queueId为1的MessageQueue队列中被顺序消费</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Fetch Msg Topic : TopicTest</span><br><span class="line">Fetch Msg brokerName : broker-a</span><br><span class="line">Fetch Msg queueId : 1  //MessageQueueId</span><br><span class="line">Fetch Msg Body : Data From Producer0</span><br><span class="line">Fetch Msg Tags : TagTest</span><br><span class="line"></span><br><span class="line">Fetch Msg Topic : TopicTest</span><br><span class="line">Fetch Msg brokerName : broker-a</span><br><span class="line">Fetch Msg queueId : 1  //MessageQueueId</span><br><span class="line">Fetch Msg Body : Data From Producer1</span><br><span class="line">Fetch Msg Tags : TagTest</span><br><span class="line"></span><br><span class="line">Fetch Msg Topic : TopicTest</span><br><span class="line">Fetch Msg brokerName : broker-a</span><br><span class="line">Fetch Msg queueId : 1  //MessageQueueId</span><br><span class="line">Fetch Msg Body : Data From Producer2</span><br><span class="line">Fetch Msg Tags : TagTest</span><br></pre></td></tr></table></figure>
+
+<h4 id="MessageQuese概念"><a href="#MessageQuese概念" class="headerlink" title="MessageQuese概念"></a><strong>MessageQuese概念</strong></h4><p>创建Topic时可以指定该Topic的queue数量，如16</p>
+<p><img src="/images/RocketMQ/3.png" alt></p>
+<p>这里指定的Queue还会根据Broker数量对Topic进行分片，因此一个Topic下的queue数量为指定的QueueNum*BrokerNum</p>
+<p><img src="/images/RocketMQ/4.png" alt></p>
+<p>可以在RocketMQ控制台查看Topic下的MessageQueu情况</p>
+<p><img src="/images/RocketMQ/5.png" alt></p>
+<hr>
+<h2 id="Spring-Cloud-Stream"><a href="#Spring-Cloud-Stream" class="headerlink" title="Spring Cloud Stream"></a><strong>Spring Cloud Stream</strong></h2><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a><strong>概述</strong></h4><ul>
+<li><p>Spring Cloud Stream 是一个用于构建<strong>基于消息的微服务应用框架</strong></p>
+</li>
+<li><p><strong>基于 SpringBoot</strong>来创建具有生产级别的单机 Spring 应用，并且使用 <strong>Spring Integration</strong>与 Broker 进行连接</p>
+</li>
+</ul>
+<h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a><strong>特点</strong></h4><p>提供了消息中间件配置的同一抽象，推出了 <code>publish-subscribe</code>、<code>consumer groups</code>、<code>partition</code> 这些统一的概念</p>
+<ul>
+<li><strong>Binder</strong>：跟外部消息中间件集成的组件，用来创建Binding</li>
+<li><strong>Binding</strong>：在消息中间件与应用程序提供的Provider 和Consumer之间提供了一个桥梁，包括InputBinding和OutputBinding</li>
+</ul>
+<p><img src="/images/RocketMQ/6.png" alt></p>
+<hr>
+<h2 id="实战代码"><a href="#实战代码" class="headerlink" title="实战代码"></a><strong>实战代码</strong></h2><ul>
+<li>Maven依赖</li>
+</ul>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">&lt;!--  RocketMQ  --&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span></span><br><span class="line">	<span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.rocketmq<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span></span><br><span class="line">	<span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>rocketmq-client<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>4.3.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>配置文件</li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">apache.rocketmq.nameservice.address=100.75.186.165:4308</span><br><span class="line">apache.rocketmq.producer.group=cmuop_app</span><br><span class="line">apache.rocketmq.consumer.group=cmuop_app</span><br><span class="line">apache.rocketmq.consumer.subscribe.topics=test-topic</span><br><span class="line">apache.rocketmq.consumer.subscribe.tags=*</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>ProducerService</li>
+</ul>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Service</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ProducerService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Value</span>(<span class="hljs-string">"$&#123;apache.rocketmq.nameservice.address&#125;"</span>)</span><br><span class="line">    <span class="hljs-keyword">private</span> String rocketmqNamesrvAddr;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Value</span>(<span class="hljs-string">"$&#123;apache.rocketmq.producer.group&#125;"</span>)</span><br><span class="line">    <span class="hljs-keyword">private</span> String rocketmqProducerGroup;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> ResponseData <span class="hljs-title">sendReliableMsg</span><span class="hljs-params">(String topic, String tag, String key, String Msg)</span></span>&#123;</span><br><span class="line">        <span class="hljs-comment">//通过ProducerGroupName初始化消息生产者</span></span><br><span class="line">        DefaultMQProducer producer = <span class="hljs-keyword">new</span> DefaultMQProducer(rocketmqProducerGroup);</span><br><span class="line">        <span class="hljs-comment">//设置MQ的NameSrv服务地址</span></span><br><span class="line">        producer.setNamesrvAddr(rocketmqNamesrvAddr);</span><br><span class="line">        <span class="hljs-comment">//关闭VIP通道，防止消息发送错误</span></span><br><span class="line">        producer.setVipChannelEnabled(<span class="hljs-keyword">false</span>);</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">//启动生产者实例</span></span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            producer.start();</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (MQClientException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">//创建消息对象，包括Topic、Tag、Key和传递的数据</span></span><br><span class="line">        <span class="hljs-comment">//初始化返回值</span></span><br><span class="line">        SendResult sendResult=<span class="hljs-keyword">null</span>;</span><br><span class="line">        Message msg = <span class="hljs-keyword">null</span>;</span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            msg = <span class="hljs-keyword">new</span> Message(topic, tag, key,Msg.getBytes(RemotingHelper.DEFAULT_CHARSET));</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (UnsupportedEncodingException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">//Reliable Synchronous方式发送消息到NameSrv下的某个broker实例并得到返回结果</span></span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            sendResult= producer.send(msg);</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (MQClientException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (RemotingException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (MQBrokerException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="hljs-keyword">finally</span> &#123;</span><br><span class="line">            <span class="hljs-comment">//关闭生产者实例</span></span><br><span class="line">            producer.shutdown();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">//判断消息是否发送成功</span></span><br><span class="line">        <span class="hljs-keyword">if</span>(Objects.nonNull(sendResult) || sendResult.getSendStatus().equals(SendStatus.SEND_OK))&#123;</span><br><span class="line">            <span class="hljs-comment">//消息发送成功</span></span><br><span class="line">            ResponseData&lt;Object&gt; responseData=<span class="hljs-keyword">new</span> ResponseData&lt;&gt;();</span><br><span class="line">            responseData.setCode(<span class="hljs-string">"1"</span>);</span><br><span class="line">            responseData.setData(sendResult);</span><br><span class="line">            <span class="hljs-keyword">return</span> responseData;</span><br><span class="line">        &#125;<span class="hljs-keyword">else</span>&#123;</span><br><span class="line">            <span class="hljs-comment">//消息发送失败</span></span><br><span class="line">            ResponseData&lt;Object&gt; responseData=<span class="hljs-keyword">new</span> ResponseData&lt;&gt;();</span><br><span class="line">            responseData.setCode(<span class="hljs-string">"0"</span>);</span><br><span class="line">            responseData.setData(sendResult);</span><br><span class="line">            <span class="hljs-keyword">return</span> responseData;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>ConsumerService</li>
+</ul>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> harvie</span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@version</span> $Id: ConsumerService.java, v 0.1 2019-10-17 15:48 Exp $$</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-meta">@Service</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConsumerService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Value</span>(<span class="hljs-string">"$&#123;apache.rocketmq.nameservice.address&#125;"</span>)</span><br><span class="line">    <span class="hljs-keyword">private</span> String rocketmqNamesrvAddr;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Value</span>(<span class="hljs-string">"$&#123;apache.rocketmq.consumer.group&#125;"</span>)</span><br><span class="line">    <span class="hljs-keyword">private</span> String rocketmqConsumerGroup;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Value</span>(<span class="hljs-string">"$&#123;apache.rocketmq.consumer.subscribe.topics&#125;"</span>)</span><br><span class="line">    <span class="hljs-keyword">private</span> String topics;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Value</span>(<span class="hljs-string">"$&#123;apache.rocketmq.consumer.subscribe.tags&#125;"</span>)</span><br><span class="line">    <span class="hljs-keyword">private</span> String tags;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@PostConstruct</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">asynConsumer</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">        <span class="hljs-comment">//通过ProducerGroupName初始化消息消费者</span></span><br><span class="line">        DefaultMQPushConsumer consumer = <span class="hljs-keyword">new</span> DefaultMQPushConsumer(rocketmqConsumerGroup);</span><br><span class="line">        <span class="hljs-comment">//设置MQ的NameSrv服务地址</span></span><br><span class="line">        consumer.setNamesrvAddr(rocketmqNamesrvAddr);</span><br><span class="line">        <span class="hljs-comment">//关闭VIP通道，防止消息发送错误</span></span><br><span class="line">        consumer.setVipChannelEnabled(<span class="hljs-keyword">false</span>);</span><br><span class="line">        <span class="hljs-comment">//消费消息方式 consumerGroup第一次启动 CONSUME_FROM_FIRST_OFFSET从消息队列头部消费</span></span><br><span class="line">        consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);</span><br><span class="line">        <span class="hljs-comment">//广播模式消费消息</span></span><br><span class="line">        consumer.setMessageModel(MessageModel.BROADCASTING);</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">//设置订阅的Topic和Tag</span></span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            consumer.subscribe(topics, tags);</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (MQClientException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">//设置消费类型 目前采取并发消费</span></span><br><span class="line">        <span class="hljs-comment">//并发消费 设置监听处理器</span></span><br><span class="line">        consumer.registerMessageListener(<span class="hljs-keyword">new</span> MessageListenerConcurrently() &#123;</span><br><span class="line">            <span class="hljs-meta">@Override</span></span><br><span class="line">            <span class="hljs-function"><span class="hljs-keyword">public</span> ConsumeConcurrentlyStatus <span class="hljs-title">consumeMessage</span><span class="hljs-params">(List&lt;MessageExt&gt; msgs, ConsumeConcurrentlyContext context)</span> </span>&#123;</span><br><span class="line">                <span class="hljs-keyword">return</span> consumerMsg(msgs,context);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">//        //顺序消费</span></span><br><span class="line"><span class="hljs-comment">//        //设置线程数 保证同一个Topic下的同一个MessageQueue里的消息不被并发消费</span></span><br><span class="line"><span class="hljs-comment">//        consumer.setConsumeThreadMin(1);</span></span><br><span class="line"><span class="hljs-comment">//        consumer.setConsumeThreadMax(1);</span></span><br><span class="line"><span class="hljs-comment">//        //设置监听处理器</span></span><br><span class="line"><span class="hljs-comment">//        consumer.registerMessageListener((MessageListenerOrderly) (msgs, context) -&gt; &#123;</span></span><br><span class="line"><span class="hljs-comment">//            return ConsumeOrderlyStatus.SUCCESS;</span></span><br><span class="line"><span class="hljs-comment">//        &#125;);</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">//启动消费者实例</span></span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            consumer.start();</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (MQClientException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-comment">//可以优化成Log</span></span><br><span class="line">        System.out.printf(<span class="hljs-string">"Consumer Started.%n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> ConsumeConcurrentlyStatus <span class="hljs-title">consumerMsg</span><span class="hljs-params">(List&lt;MessageExt&gt; msgs, ConsumeConcurrentlyContext context)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="hljs-string">"consumeMsg Thread : "</span>+Thread.currentThread());</span><br><span class="line">        msgs.stream().forEach(E-&gt;&#123;</span><br><span class="line">            System.out.println(<span class="hljs-string">"Fetch Msg Topic : "</span>+context.getMessageQueue().getTopic());</span><br><span class="line">            System.out.println(<span class="hljs-string">"Fetch Msg brokerName : "</span>+context.getMessageQueue().getBrokerName());</span><br><span class="line">            System.out.println(<span class="hljs-string">"Fetch Msg queueId : "</span>+context.getMessageQueue().getQueueId());</span><br><span class="line">            System.out.println(<span class="hljs-string">"Fetch Msg UniMsgId : "</span>+E.getMsgId());</span><br><span class="line">            System.out.println(<span class="hljs-string">"Fetch Msg Body : "</span>+<span class="hljs-keyword">new</span> String(E.getBody(), Charset.forName(RemotingHelper.DEFAULT_CHARSET)));</span><br><span class="line">            System.out.println(<span class="hljs-string">"Fetch Msg Tags : "</span>+E.getTags());</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="hljs-keyword">return</span> ConsumeConcurrentlyStatus.CONSUME_SUCCESS;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/RocketMQ/">RocketMQ</a>, <a class="has-link-grey -link" href="/tags/SpringBoot/">SpringBoot</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/11/03/Java8-1-概况/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Java8(一)概况</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/10/15/AgileDevOfScrum/">
+                <span class="level-item">精益敏捷开发和SCRUM框架</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/avatar.png" alt="Harvie">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        Harvie
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Programmer
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>深圳，广东</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        13
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        0
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        10
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/harvieAlwaysHere" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/harvieAlwaysHere">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Mail" href="mailto:707014137@qq.com">
+                
+                <i class="fa fa-envelope"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#RocketMQ安装">
+        <span class="has-mr-6">1</span>
+        <span>RocketMQ安装</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#添加Maven依赖">
+        <span class="has-mr-6">1.1</span>
+        <span>添加Maven依赖</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#消息示例-Topic">
+        <span class="has-mr-6">2</span>
+        <span>消息示例(Topic)</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#消息生产者">
+        <span class="has-mr-6">2.1</span>
+        <span>消息生产者</span>
+        </a></li><li>
+        <a class="is-flex" href="#消息消费者">
+        <span class="has-mr-6">2.2</span>
+        <span>消息消费者</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#顺序消息-Queue">
+        <span class="has-mr-6">3</span>
+        <span>顺序消息(Queue)</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#顺序消息生产者">
+        <span class="has-mr-6">3.1</span>
+        <span>顺序消息生产者</span>
+        </a></li><li>
+        <a class="is-flex" href="#顺序消息消费者">
+        <span class="has-mr-6">3.2</span>
+        <span>顺序消息消费者</span>
+        </a></li><li>
+        <a class="is-flex" href="#MessageQuese概念">
+        <span class="has-mr-6">3.3</span>
+        <span>MessageQuese概念</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#Spring-Cloud-Stream">
+        <span class="has-mr-6">4</span>
+        <span>Spring Cloud Stream</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#概述">
+        <span class="has-mr-6">4.1</span>
+        <span>概述</span>
+        </a></li><li>
+        <a class="is-flex" href="#特点">
+        <span class="has-mr-6">4.2</span>
+        <span>特点</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#实战代码">
+        <span class="has-mr-6">5</span>
+        <span>实战代码</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java8/" style="font-size: 13.33px;">Java8</a> <a href="/tags/RocketMQ/" style="font-size: 10px;">RocketMQ</a> <a href="/tags/SCRUM/" style="font-size: 10px;">SCRUM</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/Vue/" style="font-size: 16.67px;">Vue</a> <a href="/tags/前端/" style="font-size: 16.67px;">前端</a> <a href="/tags/开发模式/" style="font-size: 10px;">开发模式</a> <a href="/tags/敏捷开发/" style="font-size: 10px;">敏捷开发</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/11/03/Java8-2-行为参数化/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/Java8/1.jpg" alt="Java8(二)行为参数化">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T15:27:42.000Z">2019-11-03</time></div>
+                    <a href="/2019/11/03/Java8-2-行为参数化/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Java8(二)行为参数化</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/11/03/Java8-1-概况/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/Java8/1.jpg" alt="Java8(一)概况">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T15:27:41.000Z">2019-11-03</time></div>
+                    <a href="/2019/11/03/Java8-1-概况/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Java8(一)概况</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/11/03/RocketMQ/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/RocketMQ/1.png" alt="RocketMQ的安装与使用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T15:09:20.000Z">2019-11-03</time></div>
+                    <a href="/2019/11/03/RocketMQ/" class="title has-link-black-ter is-size-6 has-text-weight-normal">RocketMQ的安装与使用</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/10/15/AgileDevOfScrum/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/AgileDevOfScrum/1.jpg" alt="精益敏捷开发和SCRUM框架">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-14T17:03:54.000Z">2019-10-15</time></div>
+                    <a href="/2019/10/15/AgileDevOfScrum/" class="title has-link-black-ter is-size-6 has-text-weight-normal">精益敏捷开发和SCRUM框架</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/10/09/DesignPattern5-行为型模式/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/DesignPattern/designPattern.png" alt="设计模式（五）行为型模式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-08T16:23:56.000Z">2019-10-09</time></div>
+                    <a href="/2019/10/09/DesignPattern5-行为型模式/" class="title has-link-black-ter is-size-6 has-text-weight-normal">设计模式（五）行为型模式</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java8/">
+                        <span class="tag">Java8</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/RocketMQ/">
+                        <span class="tag">RocketMQ</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/SCRUM/">
+                        <span class="tag">SCRUM</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/SpringBoot/">
+                        <span class="tag">SpringBoot</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue/">
+                        <span class="tag">Vue</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/前端/">
+                        <span class="tag">前端</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/开发模式/">
+                        <span class="tag">开发模式</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/敏捷开发/">
+                        <span class="tag">敏捷开发</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/设计模式/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/11/03/Java8-2-行为参数化/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/Java8/1.jpg" alt="Java8(二)行为参数化">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T15:27:42.000Z">2019-11-03</time></div>
+                    <a href="/2019/11/03/Java8-2-行为参数化/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Java8(二)行为参数化</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/11/03/Java8-1-概况/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/Java8/1.jpg" alt="Java8(一)概况">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T15:27:41.000Z">2019-11-03</time></div>
+                    <a href="/2019/11/03/Java8-1-概况/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Java8(一)概况</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/11/03/RocketMQ/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/RocketMQ/1.png" alt="RocketMQ的安装与使用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T15:09:20.000Z">2019-11-03</time></div>
+                    <a href="/2019/11/03/RocketMQ/" class="title has-link-black-ter is-size-6 has-text-weight-normal">RocketMQ的安装与使用</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/10/15/AgileDevOfScrum/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/AgileDevOfScrum/1.jpg" alt="精益敏捷开发和SCRUM框架">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-14T17:03:54.000Z">2019-10-15</time></div>
+                    <a href="/2019/10/15/AgileDevOfScrum/" class="title has-link-black-ter is-size-6 has-text-weight-normal">精益敏捷开发和SCRUM框架</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/10/09/DesignPattern5-行为型模式/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/DesignPattern/designPattern.png" alt="设计模式（五）行为型模式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-08T16:23:56.000Z">2019-10-09</time></div>
+                    <a href="/2019/10/09/DesignPattern5-行为型模式/" class="title has-link-black-ter is-size-6 has-text-weight-normal">设计模式（五）行为型模式</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java8/">
+                        <span class="tag">Java8</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/RocketMQ/">
+                        <span class="tag">RocketMQ</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/SCRUM/">
+                        <span class="tag">SCRUM</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/SpringBoot/">
+                        <span class="tag">SpringBoot</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue/">
+                        <span class="tag">Vue</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/前端/">
+                        <span class="tag">前端</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/开发模式/">
+                        <span class="tag">开发模式</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/敏捷开发/">
+                        <span class="tag">敏捷开发</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/设计模式/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/HarvieNotFraid.png" alt="RocketMQ的安装与使用" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 Harvie&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/harvieAlwaysHere">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Pre-Blog" href="https://harviealwayshere.github.io/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

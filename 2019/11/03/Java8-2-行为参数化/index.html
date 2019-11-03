@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.9.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>Java8(二)行为参数化 - Harvie&#39;s House</title>
+
+
+    <meta name="description" content="行为参数化将代码块作为参数传递给一个方法，是一种处理频繁变更需求的软件开发模式">
+<meta name="keywords" content="Java8">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java8(二)行为参数化">
+<meta property="og:url" content="https://HarvieNotFraid.github.io/2019/11/03/Java8-2-行为参数化/index.html">
+<meta property="og:site_name" content="Harvie&#39;s House">
+<meta property="og:description" content="行为参数化将代码块作为参数传递给一个方法，是一种处理频繁变更需求的软件开发模式">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://harvienotfraid.github.io/images/Java8/1.jpg">
+<meta property="og:updated_time" content="2019-11-03T15:37:20.952Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java8(二)行为参数化">
+<meta name="twitter:description" content="行为参数化将代码块作为参数传递给一个方法，是一种处理频繁变更需求的软件开发模式">
+<meta name="twitter:image" content="https://harvienotfraid.github.io/images/Java8/1.jpg">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/polygon.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/HarvieNotFraid.png" alt="Java8(二)行为参数化" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">Home</a>
+                
+                <a class="navbar-item"
+                href="/archives">Archives</a>
+                
+                <a class="navbar-item"
+                href="/categories">Categories</a>
+                
+                <a class="navbar-item"
+                href="/tags">Tags</a>
+                
+                <a class="navbar-item"
+                href="https://harviealwayshere.github.io/">Pre-Blog</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/images/Java8/1.jpg" alt="Java8(二)行为参数化">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-11-03T15:27:42.000Z">2019-11-03</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    16 分钟 读完 (大约 2400 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Java8(二)行为参数化
+            
+        </h1>
+        <div class="content">
+            <h2 id="行为参数化"><a href="#行为参数化" class="headerlink" title="行为参数化"></a><strong>行为参数化</strong></h2><p>将代码块作为参数传递给一个方法，是一种处理频繁变更需求的软件开发模式</p>
+<a id="more"></a>
+
+<h4 id="演变历史"><a href="#演变历史" class="headerlink" title="演变历史"></a><strong>演变历史</strong></h4><p>方法的代码逻辑的实现方式</p>
+<ul>
+<li><strong>常量</strong>实现(写死)</li>
+<li><strong>单参数</strong>实现(需求变化需修改)</li>
+<li><strong>多参数</strong>实现(复杂、不灵活)</li>
+<li><strong>接口作为参数</strong>实现(行为参数化)</li>
+</ul>
+<h4 id="详解"><a href="#详解" class="headerlink" title="详解"></a><strong>详解</strong></h4><p>方法以接口作为参数，通过接口的实现类的方法实现代码逻辑，这种方式使方法的行为取决于接口对象传递的代码，即将方法的行为参数化</p>
+<h4 id="简化"><a href="#简化" class="headerlink" title="简化"></a><strong>简化</strong></h4><p>当方法将行为参数化后，每当有新的行为就需要增加新的接口实现类，还是十分繁琐</p>
+<ul>
+<li><strong>匿名类</strong><ul>
+<li>简化声明和实例化类的过程，允许你同时声明并实例化一个类，并且不需要指定类名</li>
+<li>但匿名类往往很笨重，占用许多代码空间，存在许多模板代码可以优化</li>
+</ul>
+</li>
+<li><strong>Lambda表达式</strong><ul>
+<li>优化了匿名类的模板代码，仅保留方法参数、代码块</li>
+</ul>
+</li>
+</ul>
+<h4 id="样例代码-Comparator排序"><a href="#样例代码-Comparator排序" class="headerlink" title="样例代码-Comparator排序"></a><strong>样例代码-Comparator排序</strong></h4><p>对集合进行排序，Java8中List自带的sort方法可以用Comparator接口对象进行行为参数化</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//java.util.Comparator</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Comparator</span>&lt;<span class="hljs-title">T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">compare</span><span class="hljs-params">(T o1, T o2)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">//行为参数化List.sort方法 </span></span><br><span class="line">inventory.sort(<span class="hljs-keyword">new</span> Comparator&lt;User&gt;() &#123;     </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">compare</span><span class="hljs-params">(User u1, User u2)</span></span>&#123;         </span><br><span class="line">        <span class="hljs-keyword">return</span> u1.getWeight().compareTo(u2.getWeight());     </span><br><span class="line">    &#125; </span><br><span class="line">&#125;);</span><br><span class="line"><span class="hljs-comment">//Lambda表达式优化</span></span><br><span class="line">UserList.sort((User u1, User u2) -&gt; u1.getWeight().compareTo(u2.getWeight()));</span><br></pre></td></tr></table></figure>
+
+<h4 id="样例代码-Runnable执行代码块"><a href="#样例代码-Runnable执行代码块" class="headerlink" title="样例代码-Runnable执行代码块"></a><strong>样例代码-Runnable执行代码块</strong></h4><p>线程的执行代码块可以使用Runnable接口对象进行行为参数化</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// java.lang.Runnable </span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Runnable</span></span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span></span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="hljs-comment">//行为参数化Thread的构建方法</span></span><br><span class="line">Thread t = <span class="hljs-keyword">new</span> Thread(<span class="hljs-keyword">new</span> Runnable() &#123;     </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span></span>&#123;         </span><br><span class="line">        System.out.println(<span class="hljs-string">"Hello world"</span>);     </span><br><span class="line">    &#125; </span><br><span class="line">&#125;); </span><br><span class="line"><span class="hljs-comment">//Lambda表达式优化</span></span><br><span class="line">Thread t = <span class="hljs-keyword">new</span> Thread(() -&gt; System.out.println(<span class="hljs-string">"Hello world"</span>));</span><br></pre></td></tr></table></figure>
+
+<h4 id="样例代码-GUI事件处理"><a href="#样例代码-GUI事件处理" class="headerlink" title="样例代码-GUI事件处理"></a><strong>样例代码-GUI事件处理</strong></h4><p>GUI编程的响应代码块可以使用EventHandler接口对象进行行为参数化</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Button button = <span class="hljs-keyword">new</span> Button(<span class="hljs-string">"Send"</span>); </span><br><span class="line"><span class="hljs-comment">//行为参数化Button.setOnAction方法</span></span><br><span class="line">button.setOnAction(<span class="hljs-keyword">new</span> EventHandler&lt;ActionEvent&gt;() &#123;     </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">handle</span><span class="hljs-params">(ActionEvent event)</span> </span>&#123;         </span><br><span class="line">        label.setText(<span class="hljs-string">"Sent!!"</span>);     </span><br><span class="line">    &#125; </span><br><span class="line">&#125;); </span><br><span class="line"><span class="hljs-comment">//Lambda表达式优化</span></span><br><span class="line">button.setOnAction((ActionEvent event) -&gt; label.setText(<span class="hljs-string">"Sent!!"</span>));</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Lambda表达式"><a href="#Lambda表达式" class="headerlink" title="Lambda表达式"></a><strong>Lambda表达式</strong></h2><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a><strong>概述</strong></h4><p>简洁地表示可传递的匿名函数，仅包含参数列表、函数主体、返回类型和可抛出的异常列表(可选)</p>
+<ul>
+<li>简洁：优化省去匿名类的模板代码</li>
+<li>传递：可作为参数传递给方法或存储在变量中</li>
+<li>匿名：不需要方法名称和方法声明</li>
+<li>函数：不像方法一样属于某个特定的类，但和方法一样有参数列表、函数主体、返回类型和可抛出的异常列表(可选)</li>
+</ul>
+<h4 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a><strong>基本语法</strong></h4><blockquote>
+<p>(parameters) -&gt; expression</p>
+</blockquote>
+<p>或者</p>
+<blockquote>
+<p>(parameters) -&gt; {statements; }</p>
+</blockquote>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a><strong>示例</strong></h4><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//布尔表达式</span></span><br><span class="line">(Apple a) -&gt; a.getWeight() &gt; <span class="hljs-number">150</span></span><br><span class="line"><span class="hljs-comment">//创建对象</span></span><br><span class="line">() -&gt; <span class="hljs-keyword">new</span> Apple(<span class="hljs-number">150</span>)</span><br><span class="line"><span class="hljs-comment">//消费对象</span></span><br><span class="line">(Apple a) -&gt; &#123;</span><br><span class="line">     System.out.println(<span class="hljs-string">"Apple Weight:"</span>);</span><br><span class="line">     System.out.println(a.getWeight());</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">//单对象选择/提取</span></span><br><span class="line">(String s) -&gt; s.length()</span><br><span class="line"><span class="hljs-comment">//组合多对象</span></span><br><span class="line">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b) -&gt; a * b</span><br><span class="line"><span class="hljs-comment">//比较两个对象</span></span><br><span class="line">(Apple a1, Apple a2) -&gt; a1.getWeight().compareTo(a2.getWeight())</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用场景-函数式接口"><a href="#使用场景-函数式接口" class="headerlink" title="使用场景-函数式接口"></a><strong>使用场景-函数式接口</strong></h4><ul>
+<li><p><strong>定义</strong></p>
+<p>只定义了一个抽象方法的接口</p>
+</li>
+<li><p><strong>场景</strong></p>
+<p>Lambda表达式可以直接以内联的形式为函数式接口的抽象方法提供实现，并把整个表达式作为函数式接口的实例</p>
+</li>
+<li><p><strong>标记</strong></p>
+<blockquote>
+<p>@FunctionalInterface</p>
+</blockquote>
+</li>
+<li><p><strong>示例</strong></p>
+</li>
+</ul>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//函数式接口：java.lang.Runnable</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Runnable</span></span>&#123;      </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span></span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="hljs-comment">//行为参数化的方法</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">process</span><span class="hljs-params">(Runnable r)</span></span>&#123;     </span><br><span class="line">    r.run(); </span><br><span class="line">&#125; </span><br><span class="line"><span class="hljs-comment">//Lambda表达式为函数式接口的抽象方法提供实现</span></span><br><span class="line">process(() -&gt; System.out.println(<span class="hljs-string">"Hello World"</span>));</span><br></pre></td></tr></table></figure>
+
+<h4 id="检测格式-函数描述符"><a href="#检测格式-函数描述符" class="headerlink" title="检测格式-函数描述符"></a><strong>检测格式-函数描述符</strong></h4><ul>
+<li><p><strong>定义</strong></p>
+<p>函数式接口的抽象方法的签名</p>
+</li>
+<li><p><strong>表达</strong></p>
+<blockquote>
+<p>(parameters) -&gt; returnType</p>
+</blockquote>
+</li>
+<li><p><strong>用途</strong></p>
+<p>可用于检测Lambda表达式的使用是否正确</p>
+</li>
+<li><p><strong>示例</strong></p>
+</li>
+</ul>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//Lambda正确示例</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> Callable&lt;String&gt; <span class="hljs-title">fetch</span><span class="hljs-params">()</span> </span>&#123;         </span><br><span class="line">    <span class="hljs-keyword">return</span> () -&gt; <span class="hljs-string">"Tricky example  ;-)"</span>;</span><br><span class="line">&#125; </span><br><span class="line"><span class="hljs-comment">//fetch()的返回类型Callable&lt;String&gt;的函数描述符是()-&gt;String</span></span><br><span class="line"><span class="hljs-comment">//Lambda表达式的函数描述符是()-&gt;String</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">//Lambda错误示例</span></span><br><span class="line">Predicate&lt;Apple&gt; p = (Apple a) -&gt; a.getWeight(); </span><br><span class="line"><span class="hljs-comment">//Predicate&lt;Apple&gt;的函数描述符是(Apple)-&gt;boolean</span></span><br><span class="line"><span class="hljs-comment">//Lambda表达式的函数描述符是(Apple)-&gt;Integer</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Lambda表达式背后的原理"><a href="#Lambda表达式背后的原理" class="headerlink" title="Lambda表达式背后的原理"></a><strong>Lambda表达式背后的原理</strong></h4><ul>
+<li><p><strong>类型检查</strong></p>
+<p>Lambda表达式的返回类型是从对应函数式接口的抽象方法的返回值中推理得出，因此不需要显式指定</p>
+</li>
+<li><p><strong>Lambda对应的函数式接口可有多个</strong></p>
+<p>由于许多函数式接口存在抽象方法返回泛型T，因此同一个Lambda表达式可以应用于多个函数式接口</p>
+</li>
+<li><p><strong>类型推断</strong></p>
+<p>Java编辑器会从上下文推断出Lambda表达式对应的函数式接口的抽象方法的参数类型，因此Lambda表达式可以省略参数类型，如E -&gt; E.getLength()</p>
+</li>
+<li><p><strong>局部变量</strong></p>
+<p>Lambda表达式允许访问显式声明为final的局部变量，这种模式易于Lambda表达式做到并行处理</p>
+</li>
+</ul>
+<hr>
+<h2 id="函数式接口"><a href="#函数式接口" class="headerlink" title="函数式接口"></a><strong>函数式接口</strong></h2><p>除了Java API中已经存在的Comparable/Runnable/Callable的函数式接口，Java8的java.util.function包中还引入了常用的函数式接口</p>
+<p><img src="/images/Java8/5.png" alt></p>
+<h4 id="原始类型特化"><a href="#原始类型特化" class="headerlink" title="原始类型特化"></a><strong>原始类型特化</strong></h4><p>泛型函数式接口由于其通用性使用了泛型，但泛型只能绑定到引用类型，Java中的装箱拆箱能将原始类型与引用类型相互转换，但在性能方面需付出代价，因为装箱(原始-&gt;引用)后的值需要更多的内存</p>
+<p>因此针对专门的输入参数类型的函数式接口的都有原始类型特化的函数式接口，起到提高性能的作用</p>
+<h4 id="异常"><a href="#异常" class="headerlink" title="异常"></a><strong>异常</strong></h4><p>默认的函数式接口均不允许抛出受检异常(Checked Exception)，若需要抛出异常，有两种方法</p>
+<ul>
+<li><p>自定义函数式接口，并声明受检异常</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//自定义函数式接口</span></span><br><span class="line"><span class="hljs-meta">@FunctionalInterface</span> </span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">BufferedReaderProcessor</span> </span>&#123;     </span><br><span class="line">    <span class="hljs-function">String <span class="hljs-title">process</span><span class="hljs-params">(BufferedReader b)</span> <span class="hljs-keyword">throws</span> IOException</span>; <span class="hljs-comment">//声明受检异常</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Lambda表达式中使用try-catch块，显式捕捉受检异常</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Function&lt;BufferedReader, String&gt; f = (BufferedReader b) -&gt; &#123;     </span><br><span class="line">    <span class="hljs-keyword">try</span> &#123;         </span><br><span class="line">        <span class="hljs-keyword">return</span> b.readLine();     </span><br><span class="line">    &#125; <span class="hljs-keyword">catch</span>(IOException e) &#123;         </span><br><span class="line">        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(e);     </span><br><span class="line">    &#125; </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
+<h2 id="方法引用"><a href="#方法引用" class="headerlink" title="方法引用"></a><strong>方法引用</strong></h2><p>调用仅涉及单一方法的Lambda表达式的快捷写法</p>
+<ul>
+<li><p><strong>语法</strong></p>
+<blockquote>
+<p>ClassName::MethodName</p>
+</blockquote>
+</li>
+<li><p><strong>示例</strong></p>
+<p><img src="/images/Java8/6.png" alt></p>
+</li>
+<li><p><strong>类别</strong></p>
+<ul>
+<li><p><strong>静态方法的方法引用</strong></p>
+<ul>
+<li><p>Lambda</p>
+<blockquote>
+<p>(args) -&gt; ClassName.staticMethod(args)</p>
+</blockquote>
+</li>
+<li><p>方法引用</p>
+<blockquote>
+<p>ClassName::staticMethod</p>
+</blockquote>
+</li>
+<li><p>示例</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//Lambda</span></span><br><span class="line">(String s) -&gt; Integer.parseInt(s)</span><br><span class="line"><span class="hljs-comment">//方法引用</span></span><br><span class="line">Integer::parseInt</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>任意类型实例方法的方法引用</strong></p>
+<ul>
+<li><p>Lambda</p>
+<blockquote>
+<p>(args, rest) -&gt; args.instanceMethod(rest)</p>
+</blockquote>
+</li>
+<li><p>方法引用</p>
+<blockquote>
+<p>ClassName::instanceMethod</p>
+</blockquote>
+</li>
+<li><p>示例</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//Lambda</span></span><br><span class="line">(String s, <span class="hljs-keyword">int</span> i) -&gt; s.substring(i)</span><br><span class="line"><span class="hljs-comment">//方法引用</span></span><br><span class="line">String::substring</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>外部局部对象的实例方法的方法引用</strong></p>
+<ul>
+<li><p>Lambda</p>
+<blockquote>
+<p>(args) -&gt; expr.instanceMethod(args)</p>
+</blockquote>
+</li>
+<li><p>方法引用</p>
+<blockquote>
+<p>expr::instanceMethod</p>
+</blockquote>
+</li>
+<li><p>示例</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//外部局部对象</span></span><br><span class="line">Thread currentThread = Thread.currentThread();</span><br><span class="line"><span class="hljs-comment">//Lambda</span></span><br><span class="line">() -&gt; currentThread.dumpStack() </span><br><span class="line"><span class="hljs-comment">//方法引用</span></span><br><span class="line">currentThread::dumpStack</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>对象的构造函数的方法引用</strong></p>
+<p>对于无参、一个参数、两个参数的构造函数，均有默认的函数式接口有对应，因此均可以使用方法引用</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//无参构造函数 Supplier接口</span></span><br><span class="line">Apple::<span class="hljs-keyword">new</span> == () -&gt; <span class="hljs-keyword">new</span> Apple()</span><br><span class="line"><span class="hljs-comment">//一个参数的构造函数 Function接口</span></span><br><span class="line">Apple::<span class="hljs-keyword">new</span> == (args0) -&gt; <span class="hljs-keyword">new</span> Apple(args0)</span><br><span class="line"><span class="hljs-comment">//两个参数的构造函数 BiFunction接口</span></span><br><span class="line">Apple::<span class="hljs-keyword">new</span> == (args0, args1) -&gt; <span class="hljs-keyword">new</span> Apple(args0, args1)</span><br></pre></td></tr></table></figure>
+
+<p>对于三个参数以上的构造函数，Java8并没有提供与构造函数引用的签名匹配的函数式接口，因此需要自定义编写</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//自定义三个参数的函数式接口 </span></span><br><span class="line"><span class="hljs-meta">@FunctionalInterface</span> </span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">TriFunction</span>&lt;<span class="hljs-title">T</span>, <span class="hljs-title">U</span>, <span class="hljs-title">V</span>, <span class="hljs-title">R</span>&gt;</span>&#123;     </span><br><span class="line">    <span class="hljs-function">R <span class="hljs-title">apply</span><span class="hljs-params">(T t, U u, V v)</span></span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="hljs-comment">//方法引用</span></span><br><span class="line">TriFunction&lt;Integer, Integer, Integer, Color&gt; colorFactory = Color::<span class="hljs-keyword">new</span>;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="Lambda表达式实践"><a href="#Lambda表达式实践" class="headerlink" title="Lambda表达式实践"></a><strong>Lambda表达式实践</strong></h2><p>在实践中使用行为参数化、函数式接口、Lambda表达式、方法引用使代码更简洁灵活</p>
+<h4 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a><strong>示例代码</strong></h4><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">processFile</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;     </span><br><span class="line">    <span class="hljs-keyword">try</span> (BufferedReader br =             </span><br><span class="line">         <span class="hljs-keyword">new</span> BufferedReader(<span class="hljs-keyword">new</span> FileReader(<span class="hljs-string">"data.txt"</span>))) &#123;         </span><br><span class="line">        <span class="hljs-keyword">return</span> br.readLine();     </span><br><span class="line">    &#125;     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="简化流程"><a href="#简化流程" class="headerlink" title="简化流程"></a><strong>简化流程</strong></h4><ul>
+<li><p><strong>行为参数化</strong></p>
+<p>示例代码仅能读取文件第一行，若是需求变更需要读取文件的前两行则需要修改源代码，因此我们考虑使用行为参数化来传递行为</p>
+</li>
+<li><p><strong>函数式接口传递行为</strong></p>
+<p>根据示例代码，我们需要创建一个函数描述符为(BufferedReader) -&gt; String的函数式接口，并可以抛出IOException异常</p>
+</li>
+<li><p><strong>Lambda表达式实例化函数式接口</strong></p>
+<p>使用Lambda表达式为函数式接口的抽象方法提供实现，可以根据需求灵活地重用processFile方法</p>
+</li>
+<li><p><strong>方法引用简化Lambda表达式</strong></p>
+<p>使用方法引用优化Lambda表达式</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//函数式接口</span></span><br><span class="line"><span class="hljs-meta">@FunctionalInterface</span> </span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">BufferedReaderProcessor</span> </span>&#123;     </span><br><span class="line">    <span class="hljs-function">String <span class="hljs-title">process</span><span class="hljs-params">(BufferedReader b)</span> <span class="hljs-keyword">throws</span> IOException</span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="hljs-comment">//行为参数化的示例代码</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">processFile</span><span class="hljs-params">(BufferedReaderProcessor p)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123; </span><br><span class="line">    <span class="hljs-keyword">try</span> (BufferedReader br =             </span><br><span class="line">         <span class="hljs-keyword">new</span> BufferedReader(<span class="hljs-keyword">new</span> FileReader(<span class="hljs-string">"data.txt"</span>))) &#123;         </span><br><span class="line">        <span class="hljs-keyword">return</span> p.process(br);  <span class="hljs-comment">//行为参数化     </span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">//Lambda实例化函数式接口，灵活使用方法</span></span><br><span class="line">String oneLine =  processFile((BufferedReader br) -&gt; br.readLine()); </span><br><span class="line">String twoLines = processFile((BufferedReader br) -&gt; br.readLine() + br.readLine()); </span><br><span class="line"><span class="hljs-comment">//方法引用简化特定的Lambda表达式</span></span><br><span class="line">String oneLine =  processFile(BufferedReader::readLine);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
+<h2 id="复合Lambda表达式"><a href="#复合Lambda表达式" class="headerlink" title="复合Lambda表达式"></a><strong>复合Lambda表达式</strong></h2><p>函数式接口可以提供默认方法将Lambda表达式复合成更高级的复杂的表达式</p>
+<ul>
+<li><p><strong>比较器复合</strong></p>
+<p>函数式接口Comparator&lt;T&gt;提供了默认方法reversed、thenComparing</p>
+<ul>
+<li><p>逆序</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">appleList.sort(comparing(Apple::getWeight).reversed());</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>比较器链</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">appleList.sort(comparing(Apple::getWeight).thenComparing(Apple::getCountry));</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>谓词复合</strong></p>
+<p>函数式接口Predicate&lt;T&gt;提供默认方法negate、and、or</p>
+<ul>
+<li><p>组合谓词</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Predicate&lt;Apple&gt; redAndHeavyAppleOrGreen = redApple</span><br><span class="line">				.and(a -&gt; a.getWeight() &gt; <span class="hljs-number">150</span>)             </span><br><span class="line">				.or(a -&gt; <span class="hljs-string">"green"</span>.equals(a.getColor()));</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>函数复合</strong></p>
+<p>函数式接口Function&lt;T,T&gt;提供默认方法andThen、compose</p>
+<ul>
+<li><p>转换流水线</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Function&lt;String, String&gt; addHeader = Letter::addHeader; </span><br><span class="line">Function&lt;String, String&gt; transformationPipeline = addHeader</span><br><span class="line">				.andThen(Letter::checkSpelling)                </span><br><span class="line">    			.andThen(Letter::addFooter);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a><strong>小结</strong></h2><p><img src="/images/Java8/7.png" alt></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Java8/">Java8</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/11/03/Java8-1-概况/">
+                <span class="level-item">Java8(一)概况</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/avatar.png" alt="Harvie">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        Harvie
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Programmer
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>深圳，广东</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        13
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        0
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        10
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/harvieAlwaysHere" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/harvieAlwaysHere">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Mail" href="mailto:707014137@qq.com">
+                
+                <i class="fa fa-envelope"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#行为参数化">
+        <span class="has-mr-6">1</span>
+        <span>行为参数化</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#演变历史">
+        <span class="has-mr-6">1.1</span>
+        <span>演变历史</span>
+        </a></li><li>
+        <a class="is-flex" href="#详解">
+        <span class="has-mr-6">1.2</span>
+        <span>详解</span>
+        </a></li><li>
+        <a class="is-flex" href="#简化">
+        <span class="has-mr-6">1.3</span>
+        <span>简化</span>
+        </a></li><li>
+        <a class="is-flex" href="#样例代码-Comparator排序">
+        <span class="has-mr-6">1.4</span>
+        <span>样例代码-Comparator排序</span>
+        </a></li><li>
+        <a class="is-flex" href="#样例代码-Runnable执行代码块">
+        <span class="has-mr-6">1.5</span>
+        <span>样例代码-Runnable执行代码块</span>
+        </a></li><li>
+        <a class="is-flex" href="#样例代码-GUI事件处理">
+        <span class="has-mr-6">1.6</span>
+        <span>样例代码-GUI事件处理</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#Lambda表达式">
+        <span class="has-mr-6">2</span>
+        <span>Lambda表达式</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#概述">
+        <span class="has-mr-6">2.1</span>
+        <span>概述</span>
+        </a></li><li>
+        <a class="is-flex" href="#基本语法">
+        <span class="has-mr-6">2.2</span>
+        <span>基本语法</span>
+        </a></li><li>
+        <a class="is-flex" href="#示例">
+        <span class="has-mr-6">2.3</span>
+        <span>示例</span>
+        </a></li><li>
+        <a class="is-flex" href="#使用场景-函数式接口">
+        <span class="has-mr-6">2.4</span>
+        <span>使用场景-函数式接口</span>
+        </a></li><li>
+        <a class="is-flex" href="#检测格式-函数描述符">
+        <span class="has-mr-6">2.5</span>
+        <span>检测格式-函数描述符</span>
+        </a></li><li>
+        <a class="is-flex" href="#Lambda表达式背后的原理">
+        <span class="has-mr-6">2.6</span>
+        <span>Lambda表达式背后的原理</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#函数式接口">
+        <span class="has-mr-6">3</span>
+        <span>函数式接口</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#原始类型特化">
+        <span class="has-mr-6">3.1</span>
+        <span>原始类型特化</span>
+        </a></li><li>
+        <a class="is-flex" href="#异常">
+        <span class="has-mr-6">3.2</span>
+        <span>异常</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#方法引用">
+        <span class="has-mr-6">4</span>
+        <span>方法引用</span>
+        </a></li><li>
+        <a class="is-flex" href="#Lambda表达式实践">
+        <span class="has-mr-6">5</span>
+        <span>Lambda表达式实践</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#示例代码">
+        <span class="has-mr-6">5.1</span>
+        <span>示例代码</span>
+        </a></li><li>
+        <a class="is-flex" href="#简化流程">
+        <span class="has-mr-6">5.2</span>
+        <span>简化流程</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#复合Lambda表达式">
+        <span class="has-mr-6">6</span>
+        <span>复合Lambda表达式</span>
+        </a></li><li>
+        <a class="is-flex" href="#小结">
+        <span class="has-mr-6">7</span>
+        <span>小结</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java8/" style="font-size: 13.33px;">Java8</a> <a href="/tags/RocketMQ/" style="font-size: 10px;">RocketMQ</a> <a href="/tags/SCRUM/" style="font-size: 10px;">SCRUM</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/Vue/" style="font-size: 16.67px;">Vue</a> <a href="/tags/前端/" style="font-size: 16.67px;">前端</a> <a href="/tags/开发模式/" style="font-size: 10px;">开发模式</a> <a href="/tags/敏捷开发/" style="font-size: 10px;">敏捷开发</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/11/03/Java8-2-行为参数化/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/Java8/1.jpg" alt="Java8(二)行为参数化">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T15:27:42.000Z">2019-11-03</time></div>
+                    <a href="/2019/11/03/Java8-2-行为参数化/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Java8(二)行为参数化</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/11/03/Java8-1-概况/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/Java8/1.jpg" alt="Java8(一)概况">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T15:27:41.000Z">2019-11-03</time></div>
+                    <a href="/2019/11/03/Java8-1-概况/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Java8(一)概况</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/11/03/RocketMQ/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/RocketMQ/1.png" alt="RocketMQ的安装与使用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T15:09:20.000Z">2019-11-03</time></div>
+                    <a href="/2019/11/03/RocketMQ/" class="title has-link-black-ter is-size-6 has-text-weight-normal">RocketMQ的安装与使用</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/10/15/AgileDevOfScrum/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/AgileDevOfScrum/1.jpg" alt="精益敏捷开发和SCRUM框架">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-14T17:03:54.000Z">2019-10-15</time></div>
+                    <a href="/2019/10/15/AgileDevOfScrum/" class="title has-link-black-ter is-size-6 has-text-weight-normal">精益敏捷开发和SCRUM框架</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/10/09/DesignPattern5-行为型模式/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/DesignPattern/designPattern.png" alt="设计模式（五）行为型模式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-08T16:23:56.000Z">2019-10-09</time></div>
+                    <a href="/2019/10/09/DesignPattern5-行为型模式/" class="title has-link-black-ter is-size-6 has-text-weight-normal">设计模式（五）行为型模式</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java8/">
+                        <span class="tag">Java8</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/RocketMQ/">
+                        <span class="tag">RocketMQ</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/SCRUM/">
+                        <span class="tag">SCRUM</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/SpringBoot/">
+                        <span class="tag">SpringBoot</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue/">
+                        <span class="tag">Vue</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/前端/">
+                        <span class="tag">前端</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/开发模式/">
+                        <span class="tag">开发模式</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/敏捷开发/">
+                        <span class="tag">敏捷开发</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/设计模式/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/11/03/Java8-2-行为参数化/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/Java8/1.jpg" alt="Java8(二)行为参数化">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T15:27:42.000Z">2019-11-03</time></div>
+                    <a href="/2019/11/03/Java8-2-行为参数化/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Java8(二)行为参数化</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/11/03/Java8-1-概况/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/Java8/1.jpg" alt="Java8(一)概况">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T15:27:41.000Z">2019-11-03</time></div>
+                    <a href="/2019/11/03/Java8-1-概况/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Java8(一)概况</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/11/03/RocketMQ/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/RocketMQ/1.png" alt="RocketMQ的安装与使用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T15:09:20.000Z">2019-11-03</time></div>
+                    <a href="/2019/11/03/RocketMQ/" class="title has-link-black-ter is-size-6 has-text-weight-normal">RocketMQ的安装与使用</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/10/15/AgileDevOfScrum/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/AgileDevOfScrum/1.jpg" alt="精益敏捷开发和SCRUM框架">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-14T17:03:54.000Z">2019-10-15</time></div>
+                    <a href="/2019/10/15/AgileDevOfScrum/" class="title has-link-black-ter is-size-6 has-text-weight-normal">精益敏捷开发和SCRUM框架</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/10/09/DesignPattern5-行为型模式/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/DesignPattern/designPattern.png" alt="设计模式（五）行为型模式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-08T16:23:56.000Z">2019-10-09</time></div>
+                    <a href="/2019/10/09/DesignPattern5-行为型模式/" class="title has-link-black-ter is-size-6 has-text-weight-normal">设计模式（五）行为型模式</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java8/">
+                        <span class="tag">Java8</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/RocketMQ/">
+                        <span class="tag">RocketMQ</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/SCRUM/">
+                        <span class="tag">SCRUM</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/SpringBoot/">
+                        <span class="tag">SpringBoot</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue/">
+                        <span class="tag">Vue</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/前端/">
+                        <span class="tag">前端</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/开发模式/">
+                        <span class="tag">开发模式</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/敏捷开发/">
+                        <span class="tag">敏捷开发</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/设计模式/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/HarvieNotFraid.png" alt="Java8(二)行为参数化" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 Harvie&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/harvieAlwaysHere">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Pre-Blog" href="https://harviealwayshere.github.io/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
