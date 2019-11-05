@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.9.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>Java8(三)流 - Harvie&#39;s House</title>
+
+
+    <meta name="description" content="函数式数据处理-流概述首先谈谈集合，Collection API是Java中最频繁使用的API，Java程序通常都在制造和处理集合，但在Java8以前集合操作并不完美，包括无法声明式地指定操作和无法简洁地并行处理大量集合元素 Java8提供了新的Stram API采用简洁、灵活且高效的方式处理数据集">
+<meta name="keywords" content="Java8">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java8(三)流">
+<meta property="og:url" content="https://HarvieNotFraid.github.io/2019/11/03/Java8-3-流/index.html">
+<meta property="og:site_name" content="Harvie&#39;s House">
+<meta property="og:description" content="函数式数据处理-流概述首先谈谈集合，Collection API是Java中最频繁使用的API，Java程序通常都在制造和处理集合，但在Java8以前集合操作并不完美，包括无法声明式地指定操作和无法简洁地并行处理大量集合元素 Java8提供了新的Stram API采用简洁、灵活且高效的方式处理数据集">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://harvienotfraid.github.io/images/Java8/1.jpg">
+<meta property="og:updated_time" content="2019-11-05T15:47:20.605Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java8(三)流">
+<meta name="twitter:description" content="函数式数据处理-流概述首先谈谈集合，Collection API是Java中最频繁使用的API，Java程序通常都在制造和处理集合，但在Java8以前集合操作并不完美，包括无法声明式地指定操作和无法简洁地并行处理大量集合元素 Java8提供了新的Stram API采用简洁、灵活且高效的方式处理数据集">
+<meta name="twitter:image" content="https://harvienotfraid.github.io/images/Java8/1.jpg">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/polygon.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/HarvieNotFraid.png" alt="Java8(三)流" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">Home</a>
+                
+                <a class="navbar-item"
+                href="/archives">Archives</a>
+                
+                <a class="navbar-item"
+                href="/categories">Categories</a>
+                
+                <a class="navbar-item"
+                href="/tags">Tags</a>
+                
+                <a class="navbar-item"
+                href="https://harviealwayshere.github.io/">Pre-Blog</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/images/Java8/1.jpg" alt="Java8(三)流">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-11-03T15:27:43.000Z">2019-11-03</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    35 分钟 读完 (大约 5241 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Java8(三)流
+            
+        </h1>
+        <div class="content">
+            <h2 id="函数式数据处理-流"><a href="#函数式数据处理-流" class="headerlink" title="函数式数据处理-流"></a><strong>函数式数据处理-流</strong></h2><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a><strong>概述</strong></h4><p>首先谈谈集合，Collection API是Java中最频繁使用的API，Java程序通常都在制造和处理集合，但在Java8以前集合操作并不完美，包括无法声明式地指定操作和无法简洁地并行处理大量集合元素</p>
+<p>Java8提供了新的Stram API采用简洁、灵活且高效的方式处理数据集</p>
+<a id="more"></a>
+
+<ul>
+<li><p><strong>声明性(简洁)</strong></p>
+<p>Stram API的方法以声明性方式编写目的性明确，加上行为参数化可以让方法应对任何变化的需求，同时保持代码清晰可读</p>
+</li>
+<li><p><strong>链式(灵活)</strong></p>
+<p>Stram API可以将几个基础操作方法链式编写来表达复杂的数据处理流水线，代码编写更加灵活</p>
+</li>
+<li><p><strong>并行(高效)</strong></p>
+<p>Stream API的方法是与线程模型无关的高层次构件，可以充分利用多核架构进行任务并行处理而不需要担心线程和锁</p>
+</li>
+</ul>
+<h4 id="流定义"><a href="#流定义" class="headerlink" title="流定义"></a><strong>流定义</strong></h4><p>从支持数据处理操作的源生成的元素序列</p>
+<ul>
+<li><p><strong>数据处理操作</strong></p>
+<p>类似函数式编程语言中的常用操作，如filter、map、reduce、find、match、sort等，可顺序也可并行执行</p>
+</li>
+<li><p><strong>源</strong></p>
+<p>提供数据的源，如集合、数组或I/O资源</p>
+</li>
+<li><p><strong>元素序列</strong></p>
+<p>流内部提供了接口用于访问特定元素类型的一组有序值</p>
+</li>
+</ul>
+<h4 id="流的重要特点"><a href="#流的重要特点" class="headerlink" title="流的重要特点"></a><strong>流的重要特点</strong></h4><ul>
+<li><p><strong>流水线</strong></p>
+<p>流的内部操作本身会返回一个流，这样多个操作连接形成一个复杂的数据处理流水线，可以进行延迟、短路等优化操作</p>
+</li>
+<li><p><strong>内部迭代</strong></p>
+<p>流的迭代不同于集合使用迭代器的显式迭代</p>
+</li>
+</ul>
+<h4 id="流与集合"><a href="#流与集合" class="headerlink" title="流与集合"></a><strong>流与集合</strong></h4><ul>
+<li><p><strong>急切创建与按需创建</strong></p>
+<p>集合是急切创建的，需要确定集合的所有元素的值才能将其添加到集合中，而流是按需创建的，流会根据用户的要求才会计算元素的值</p>
+</li>
+<li><p><strong>遍历次数</strong></p>
+<p>流类似集合的迭代器，只能遍历一次，遍历完成后流就被消费而释放了</p>
+</li>
+<li><p><strong>迭代方式</strong></p>
+<p>集合需要用户显式取出元素再加以处理，即外部迭代，流则是声明性操作由Stram库决定迭代方式，即内部迭代，这样程序可以并行处理、优化处理顺序等</p>
+</li>
+</ul>
+<h4 id="流操作"><a href="#流操作" class="headerlink" title="流操作"></a><strong>流操作</strong></h4><p>java.util.stream.Stream中的Stream接口定义了流操作，类似构建器模式，调用链设置一套配置(流的中间操作链)，最后调用build方法构建对象(流的终端操作)</p>
+<ul>
+<li><p><strong>中间操作</strong></p>
+<p>返回一个流对象可用于多个操作连接形成一个复杂的流水线操作，中间操作不会执行任何处理，而是在流水线的终端操作时一次性全部处理</p>
+<ul>
+<li><p><strong>优化特性</strong></p>
+<p>中间操作利用了流的延迟性质可以做相关优化，如limit操作的<strong>短路</strong>优化、独立操作的<strong>循环合并</strong>优化</p>
+</li>
+</ul>
+</li>
+<li><p><strong>终端操作</strong></p>
+<p>从流的流水线生成结果，结果可以是集合类、基本类甚至是void</p>
+</li>
+<li><p><strong>示例</strong></p>
+<p><img src="/images/Java8/9.png" alt></p>
+</li>
+</ul>
+<hr>
+<h2 id="流的使用"><a href="#流的使用" class="headerlink" title="流的使用"></a><strong>流的使用</strong></h2><p>流可以从多种源创建，如数值流、文件流、数组流、无限流(函数流)等</p>
+<p>流通过内部迭代可以快速完成复杂的数据处理，如筛选、切片、映射、查找、匹配和归约等</p>
+<h4 id="流操作-1"><a href="#流操作-1" class="headerlink" title="流操作"></a><strong>流操作</strong></h4><ul>
+<li><p><strong>筛选</strong></p>
+<ul>
+<li><p><strong>filter方法</strong></p>
+<p>接受一个谓词(T -&gt; boolean)作为参数，返回一个包括所有符合谓词元素的流</p>
+</li>
+<li><p><strong>distinct方法</strong></p>
+<p>无参数，返回一个元素各异(根据流元素的hashCode和equals方法去重)的流</p>
+</li>
+</ul>
+</li>
+<li><p><strong>切片</strong></p>
+<ul>
+<li><p><strong>limit方法</strong></p>
+<p>接受一个int参数，返回一个不超过给定int值长度的流，若流是有序的则返回前int个元素</p>
+</li>
+<li><p><strong>skip方法</strong></p>
+<p>接受一个int参数，返回一个去除前int个元素的流，若流中元素小于int则返回空流</p>
+</li>
+</ul>
+</li>
+<li><p><strong>映射</strong></p>
+<ul>
+<li><p><strong>map方法</strong></p>
+<p>接受一个函数(T -&gt; R)作为参数，该函数会被应用到流的每个元素上并映射成一个新的元素(创建)，返回由新的元素组成的流</p>
+</li>
+<li><p><strong>flatMap方法</strong></p>
+<p>流的扁平化(降维)，将每个元素映射成单个流的内容后合并成一个流，接受一个映射函数作为参数，如使用Arrays.stream()方法作为参数将一个数组映射成一个流</p>
+<p><img src="/images/Java8/10.png" alt="1572593847615"></p>
+</li>
+</ul>
+</li>
+<li><p><strong>匹配</strong></p>
+<ul>
+<li><p><strong>anyMatch方法</strong></p>
+<p>接受一个谓词(T -&gt; boolean)作为参数，返回流中是否存在符合谓词的一个元素的boolean结果，终端操作</p>
+</li>
+<li><p><strong>allMatch方法</strong></p>
+<p>接受一个谓词(T -&gt; boolean)作为参数，返回流中是否所有元素均符合谓词的boolean结果，终端操作</p>
+</li>
+<li><p><strong>noneMatch方法</strong></p>
+<p>接受一个谓词(T -&gt; boolean)作为参数，返回流中是否所有元素均不符合谓词的boolean结果，终端操作</p>
+</li>
+</ul>
+</li>
+<li><p><strong>查找</strong></p>
+<ul>
+<li><p><strong>findAny方法</strong></p>
+<p>无参数，返回当前流中的任意元素，返回类型为Option&lt;T&gt;，终端操作</p>
+</li>
+<li><p><strong>findFirst方法</strong></p>
+<p>无参数，返回有序流中的第一个元素，返回类型为Option&lt;T&gt;，终端操作</p>
+</li>
+</ul>
+</li>
+<li><p><strong>归约(折叠)</strong></p>
+<p>将一个流中的所有元素组合起来</p>
+<ul>
+<li><strong>reduce方法</strong><ul>
+<li>接受两个参数，初始值和BinaryOperator&lt;T&gt;函数式接口参数，分别用来存储返回结果和定义两个元素结合的方式</li>
+<li>接受一个参数，不接受初始值，但会返回一个Optional&lt;T&gt;对象</li>
+<li>特例，最大值/最小值，可用reduce(Integer::max)/reduce(Integer::min)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/Java8/11.png" alt></p>
+<h4 id="流操作的内部优化"><a href="#流操作的内部优化" class="headerlink" title="流操作的内部优化"></a><strong>流操作的内部优化</strong></h4><p>流操作内部存在一些自动优化</p>
+<ul>
+<li><p><strong>短路</strong></p>
+<p>有些流操作不需要处理整个流就能得到结果，如匹配、查找操作</p>
+</li>
+<li><p><strong>并行</strong></p>
+<p>有些流操作的内部迭代实现可以选择并行执行，将输入分块并行执行再合并起来，提升性能，如查找、归约操作</p>
+</li>
+</ul>
+<h4 id="数值流"><a href="#数值流" class="headerlink" title="数值流"></a><strong>数值流</strong></h4><p>流操作中的计算如reduce对于基本数据类型暗含了拆箱装箱的成本，Java8引入了三个原始类型特化流接口，分别是<strong>IntStream、DoubleStream</strong>和<strong>LongStream</strong>，将流中的包装类元素转换成基本类型元素，并提供了常用数值归约的新方法，提升了流计算的效率</p>
+<ul>
+<li><p><strong>映射到数值流</strong></p>
+<p>mapToInt、mapToDouble和mapToLong方法，类似map方法，接受一个(T -&gt; R)的函数式接口作为参数，返回对应的原始类型特化的数值流</p>
+</li>
+<li><p><strong>转换回对象流</strong></p>
+<p>boxed方法，无参数，会将数值流转换成对应的包装类的一般流</p>
+</li>
+<li><p><strong>数值流的数值计算方法</strong></p>
+<ul>
+<li>sum：返回对应流的基本类型的数值，空流默认返回0</li>
+<li>max/min/average：返回泛型为对应基本类型的Optional&lt;T&gt;，避免空流引起误会</li>
+</ul>
+</li>
+<li><p><strong>数值范围流</strong></p>
+<p>Java8提供IntStream和LongStream的静态方法range和rangeClosed用来构建数值范围流，接受(int,int)参数，表示起始值和结束值，但range方法不包含结束值</p>
+</li>
+</ul>
+<hr>
+<h2 id="创建流"><a href="#创建流" class="headerlink" title="创建流"></a><strong>创建流</strong></h2><p>除了使用stream方法从集合生成流和根据数值范围创建流外，还有许多方法可以创建流</p>
+<h4 id="值创建流"><a href="#值创建流" class="headerlink" title="值创建流"></a><strong>值创建流</strong></h4><p>Stream.of静态函数，其可以接受任意数量的值参数</p>
+<h4 id="数组创建流"><a href="#数组创建流" class="headerlink" title="数组创建流"></a><strong>数组创建流</strong></h4><p>Arrays.stream静态函数，其接受一个数组作为参数</p>
+<h4 id="文件创建流"><a href="#文件创建流" class="headerlink" title="文件创建流"></a><strong>文件创建流</strong></h4><p>Java中用于文件处理的I/O操作的NIO API如java.nio.file.Files中很多静态方法都会返回一个流，如Files.lines返回指定文件中的各行构成的字符串流</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">long</span> uniqueWords = <span class="hljs-number">0</span>;</span><br><span class="line"><span class="hljs-comment">//Java7中的try()&#123;&#125;语句用于自动关闭(释放)资源</span></span><br><span class="line"><span class="hljs-keyword">try</span>(  </span><br><span class="line">    Stream&lt;String&gt; lines = Files.lines(Paths.get(<span class="hljs-string">"data.txt"</span>), Charset.defaultCharset())</span><br><span class="line">)&#123;</span><br><span class="line">    <span class="hljs-comment">//生成单词流-&gt;去重-&gt;统计数量</span></span><br><span class="line">    uniqueWords = lines.flatMap(line -&gt; Arrays.stream(line.split(<span class="hljs-string">" "</span>))).distinct().count();</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-keyword">catch</span>(IOException e)&#123;</span><br><span class="line">	<span class="hljs-comment">//处理打开文件时出现的异常</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="函数创建流-无限流"><a href="#函数创建流-无限流" class="headerlink" title="函数创建流-无限流"></a><strong>函数创建流-无限流</strong></h4><p>Stream API提供两个静态方法用于从函数生成流，函数生成的流具备无限长度，即无限流，因此一般使用limit()方法来对无限流加以限制</p>
+<ul>
+<li><p><strong>Stream.iterate(T,UnaryOperator&lt;T&gt;)</strong></p>
+<ul>
+<li><p>T为初始值，UnaryOperator&lt;T&gt;为函数式接口(T-&gt;T)用于计算依赖于旧值产生的新值</p>
+</li>
+<li><p>例子</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//生成斐波那契数组 (0,1)(1,1)(1,2)(2,3)..</span></span><br><span class="line">Stream&lt;<span class="hljs-keyword">int</span>[]&gt; fibonacciArrays = </span><br><span class="line">    Stream.iterate(<span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;<span class="hljs-number">0</span>, <span class="hljs-number">1</span>&#125;, E -&gt; <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;E[<span class="hljs-number">1</span>], E[<span class="hljs-number">0</span>] + E[<span class="hljs-number">1</span>]&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>Stream.generate(Supplier&lt;T&gt;)</strong></p>
+<ul>
+<li><p>Supplier&lt;T&gt;为函数式接口(()-&gt;T)用于生成新值</p>
+</li>
+<li><p>例子</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//生成随机双精度数</span></span><br><span class="line">Stream&lt;Double&gt; randomStream = Stream.generate(Math::random);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="流的收集"><a href="#流的收集" class="headerlink" title="流的收集"></a><strong>流的收集</strong></h2><p>流的操作类似于数据集迭代器用于处理数据，最后通常需要将流中的元素汇总成一个可用的数据结构</p>
+<h4 id="收集器概述"><a href="#收集器概述" class="headerlink" title="收集器概述"></a><strong>收集器概述</strong></h4><p>先看一个收集器的例子</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//将交易（Transaction）按照货币(Transaction.Currency)分组</span></span><br><span class="line">Map&lt;Currency, List&lt;Transaction&gt;&gt; transactionsByCurrencies =         transactions.stream().collect(groupingBy(Transaction::getCurrency));</span><br></pre></td></tr></table></figure>
+
+<p>区别于外部迭代的<strong>指令式编程</strong>，这种收集器的编程方法称为<strong>函数式编程</strong></p>
+<p>函数式编程可以简洁灵活地对流调用collect方法对流中的元素触发归约操作(Collector参数化)</p>
+<p><img src="/images/Java8/12.png" alt></p>
+<ul>
+<li><p><strong>collect()方法</strong></p>
+<p>Stream的终端操作方法，用于对流中的元素进行汇总</p>
+</li>
+<li><p><strong>Collector接口</strong></p>
+<p>收集器，其中方法的实现决定了如何对流执行归约操作，即定义了转换函数</p>
+</li>
+<li><p><strong>Collectors工具类</strong></p>
+<p>提供了许多静态工厂方法用于创建常用的收集器实例，如Collectors.toList()</p>
+</li>
+</ul>
+<hr>
+<h2 id="预定义收集器-Collectors工具类"><a href="#预定义收集器-Collectors工具类" class="headerlink" title="预定义收集器-Collectors工具类"></a><strong>预定义收集器-Collectors工具类</strong></h2><p>即可以从Collectors工具类提供的静态工厂方法创建的收集器，主要提供了三大收集方式，归约汇总、分组和分区</p>
+<h4 id="归约汇总"><a href="#归约汇总" class="headerlink" title="归约汇总"></a><strong>归约汇总</strong></h4><p>将流中的所有元素合并成一个结果</p>
+<ul>
+<li><p><strong>元素数值数据</strong></p>
+<p>如元素数量、最大值、最小值、求和、平均值等</p>
+<ul>
+<li><p><strong>counting()</strong></p>
+<p>元素数量，返回long</p>
+</li>
+<li><p><strong>maxBy(Comparator&lt;T&gt;)/minBy(Comparator&lt;T&gt;)</strong></p>
+<p>元素最小值，接受一个比较器参数，返回Optional&lt;T&gt;</p>
+</li>
+<li><p><strong>summingInt(T-&gt;int)</strong></p>
+<p>元素的和，接受一个将流中的元素映射为一个值的函数式接口，返回求和值，还有对应的long/double方法</p>
+</li>
+<li><p><strong>averagingInt(T-&gt;int)</strong></p>
+<p>元素的平均值，接受一个将流中的元素映射为一个值的函数式接口，返回平均值，还有对应的long/double方法</p>
+</li>
+<li><p><strong>summarizingInt(T-&gt;int)</strong></p>
+<p>元素的汇总数据，接受一个将流中的元素映射为一个值的函数式接口，返回IntSummaryStatistics对象包含流元素的数量、和、最小值、平均值、最大值，还有对应的long/double方法</p>
+</li>
+</ul>
+</li>
+<li><p><strong>连接字符串</strong></p>
+<ul>
+<li><p><strong>joining()</strong></p>
+<p>将流中的元素调用toString()方法得到字符串并逐个连接起来</p>
+</li>
+<li><p><strong>joining(String split)</strong></p>
+<p>将流中的元素调用toString()方法得到字符串并用分隔符split逐个连接起来</p>
+</li>
+</ul>
+</li>
+<li><p><strong>广义的归约汇总</strong></p>
+<p><strong>Collectors.reducing(R, T-&gt;R, BinaryOperator&lt;R,R,R&gt;)</strong></p>
+<p>所有的归约汇总函数均可一般化为reducing方法</p>
+<ul>
+<li>第一个参数，R，初始值，归约操作的起始值或者空流的返回值</li>
+<li>第二个参数，T-&gt;R函数式接口，转换函数，用于将对象转换成用于归约的数据类型</li>
+<li>第三个参数，BinaryOperator&lt;R,R,R&gt;，累积函数</li>
+</ul>
+<p><img src="/images/Java8/13.png" alt></p>
+</li>
+</ul>
+<h4 id="分组"><a href="#分组" class="headerlink" title="分组"></a><strong>分组</strong></h4><p>将流中的元素通过属性进行分组</p>
+<ul>
+<li><p><strong>groupingBy(T-&gt;R)</strong></p>
+<p>单级分组，将流中的元素通过分类函数T-&gt;R映射得到分组的Key，返回Map&lt;R, List&lt;T&gt;&gt;</p>
+<p><img src="/images/Java8/14.png" alt></p>
+</li>
+<li><p><strong>groupingBy(T-&gt;R, groupingBy(T-&gt;E))</strong></p>
+<p>多级分组，嵌套调用groupingBy()函数，返回Map&lt;R, Map&lt;E, List&lt;T&gt;&gt;&gt;</p>
+<p><img src="/images/Java8/15.png" alt></p>
+</li>
+<li><p><strong>groupingBy(T-&gt;R, E)</strong></p>
+<p>将分组方法一般化，实质上参数E可以是任何类型的收集器，如Collectors.counting()、Collectors.toList()，即可以将收集器嵌套起来使用</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//嵌套的映射收集器</span></span><br><span class="line">.collect(groupingBy(Dish::getType,</span><br><span class="line">                    summingInt(Dish::getCalories)));  </span><br><span class="line"><span class="hljs-comment">//mapping(T-&gt;R,E)方法可生成对输入元素映射的指定收集对象的收集器</span></span><br><span class="line">.collect(groupingBy(Dish::getType, mapping(  </span><br><span class="line">        dish -&gt; &#123;  <span class="hljs-comment">//对输入元素映射</span></span><br><span class="line">            <span class="hljs-keyword">if</span> (dish.getCalories() &lt;= <span class="hljs-number">400</span>) <span class="hljs-keyword">return</span> CaloricLevel.DIET;             </span><br><span class="line">            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (dish.getCalories() &lt;= <span class="hljs-number">700</span>) <span class="hljs-keyword">return</span> CaloricLevel.NORMAL;       </span><br><span class="line">            <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> CaloricLevel.FAT; </span><br><span class="line">        &#125;,     </span><br><span class="line">        toCollection(HashSet::<span class="hljs-keyword">new</span>)))  <span class="hljs-comment">//指定收集对象</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="分区"><a href="#分区" class="headerlink" title="分区"></a><strong>分区</strong></h4><p>分组的特殊情况，按照指定谓词(T-&gt;Boolean)作为分区函数进行分组，即将元素分为两组</p>
+<ul>
+<li><p><strong>partitioningBy(T-&gt;Boolean, E)</strong></p>
+<p>类似分组方法，第一个参数是谓词，第二个参数E可以是任何类型的收集器，用于嵌套分区</p>
+</li>
+</ul>
+<h4 id="预定义收集器总结"><a href="#预定义收集器总结" class="headerlink" title="预定义收集器总结"></a><strong>预定义收集器总结</strong></h4><p><img src="/images/Java8/16.png" alt></p>
+<hr>
+<h2 id="自定义收集器-Collector接口"><a href="#自定义收集器-Collector接口" class="headerlink" title="自定义收集器-Collector接口"></a><strong>自定义收集器-Collector接口</strong></h2><p>实质上Collectors工具类的工厂方法生产的收集器均是实现了Collector接口进行归约收集，因此知晓Collector接口的定义、接口的方法如何被Stream.collect方法所调用对我们实现自定义收集器十分重要</p>
+<h4 id="Collector接口的定义"><a href="#Collector接口的定义" class="headerlink" title="Collector接口的定义"></a><strong>Collector接口的定义</strong></h4><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Collector</span>&lt;<span class="hljs-title">T</span>, <span class="hljs-title">A</span>, <span class="hljs-title">R</span>&gt; </span>&#123;     </span><br><span class="line">    <span class="hljs-function">Supplier&lt;A&gt; <span class="hljs-title">supplier</span><span class="hljs-params">()</span></span>;     </span><br><span class="line">    <span class="hljs-function">BiConsumer&lt;A, T&gt; <span class="hljs-title">accumulator</span><span class="hljs-params">()</span></span>;     </span><br><span class="line">    <span class="hljs-function">Function&lt;A, R&gt; <span class="hljs-title">finisher</span><span class="hljs-params">()</span></span>;     </span><br><span class="line">    <span class="hljs-function">BinaryOperator&lt;A&gt; <span class="hljs-title">combiner</span><span class="hljs-params">()</span></span>;     </span><br><span class="line">    <span class="hljs-function">Set&lt;Characteristics&gt; <span class="hljs-title">characteristics</span><span class="hljs-params">()</span></span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>接口申明</strong></p>
+<ul>
+<li>T是流中要收集的元素的泛型</li>
+<li>A是累加器的类型，用于收集过程中累积部分结果</li>
+<li>R是收集操作得到的对象的类型，通常但不一定是集合</li>
+</ul>
+</li>
+<li><p><strong>方法声明</strong></p>
+<p>阅读Stream.collect方法可知supplier、accumulator、finisher和combiner方法均被collect方法调用，而characteristics则提供了一个列表用于提示collect方法执行归约操作时的优化方式，如并行化</p>
+<ul>
+<li><p><strong>supplier</strong></p>
+<p>建立新的结果容器，即创建一个空的累加器实例，用于数据收集过程使用</p>
+</li>
+<li><p><strong>accumulator</strong></p>
+<p>将元素添加到结果容器，即将第n个元素添加到前1-n个元素的累加器中</p>
+</li>
+<li><p><strong>finisher</strong></p>
+<p>对结果容器应用最终转换，遍历完流之后返回累积过程最后一个调用的函数，用于将累加器对象转换为整个集合操作的最终对象</p>
+</li>
+<li><p><strong>combiner</strong></p>
+<p>合并两个结果容器，并行规约时对流各个子部分的累加器进行合并</p>
+</li>
+<li><p><strong>characteristics</strong></p>
+<p>定义收集器的优化行为</p>
+<ul>
+<li><p><strong>UNORDERED</strong></p>
+<p>归约结果不受流中项目的遍历和累积顺序的影响</p>
+</li>
+<li><p><strong>CONCURRENT</strong></p>
+<p>accumulator累积器可以多线程同时调用，即该收集器可以并行归约流</p>
+</li>
+<li><p><strong>IDENTITY_FINISH</strong></p>
+<p>finisher完成器返回的是恒等函数，累加器对象不加检查直接用作归约过程的最终结果</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="自定义收集器示例"><a href="#自定义收集器示例" class="headerlink" title="自定义收集器示例"></a><strong>自定义收集器示例</strong></h4><p>开发一个ToListCollector收集器将流中的数据归约成List&lt;T&gt;</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ToListCollector</span>&lt;<span class="hljs-title">T</span>&gt; <span class="hljs-keyword">implements</span> <span class="hljs-title">Collector</span>&lt;<span class="hljs-title">T</span>, <span class="hljs-title">List</span>&lt;<span class="hljs-title">T</span>&gt;, <span class="hljs-title">List</span>&lt;<span class="hljs-title">T</span>&gt;&gt; </span>&#123; </span><br><span class="line"> </span><br><span class="line">    <span class="hljs-meta">@Override</span>     <span class="hljs-comment">//建立新的结果容器ArrayList</span></span><br><span class="line">    <span class="hljs-keyword">public</span> Supplier&lt;List&lt;T&gt;&gt; supplier() &#123;         </span><br><span class="line">        <span class="hljs-keyword">return</span> ArrayList::<span class="hljs-keyword">new</span>;                 </span><br><span class="line">    &#125; </span><br><span class="line"> </span><br><span class="line">    <span class="hljs-meta">@Override</span>     <span class="hljs-comment">//通过add()方法将元素添加到结果容器</span></span><br><span class="line">    <span class="hljs-keyword">public</span> BiConsumer&lt;List&lt;T&gt;, T&gt; accumulator() &#123;         </span><br><span class="line">        <span class="hljs-keyword">return</span> List::add;                       </span><br><span class="line">    &#125; </span><br><span class="line"> </span><br><span class="line">    <span class="hljs-meta">@Override</span>     <span class="hljs-comment">//恒等函数 累加器对象直接用作归约过程的最终结果</span></span><br><span class="line">    <span class="hljs-keyword">public</span> Function&lt;List&lt;T&gt;, List&lt;T&gt;&gt; finisher() &#123;         </span><br><span class="line">        <span class="hljs-keyword">return</span> Function.indentity();           </span><br><span class="line">    &#125; </span><br><span class="line"> </span><br><span class="line">    <span class="hljs-meta">@Override</span>     <span class="hljs-comment">//合并累加器</span></span><br><span class="line">    <span class="hljs-keyword">public</span> BinaryOperator&lt;List&lt;T&gt;&gt; combiner() &#123;         </span><br><span class="line">        <span class="hljs-keyword">return</span> (list1, list2) -&gt; &#123;             </span><br><span class="line">            list1.addAll(list2);              </span><br><span class="line">            <span class="hljs-keyword">return</span> list1;          </span><br><span class="line">        &#125;;         </span><br><span class="line">    &#125;     </span><br><span class="line"> </span><br><span class="line">    <span class="hljs-meta">@Override</span>     <span class="hljs-comment">//为收集器添加IDENTITY_FINISH和CONCURRENT标志</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Set&lt;Characteristics&gt; <span class="hljs-title">characteristics</span><span class="hljs-params">()</span> </span>&#123;         </span><br><span class="line">        <span class="hljs-keyword">return</span> Collections.unmodifiableSet(EnumSet.of(             </span><br><span class="line">            IDENTITY_FINISH, CONCURRENT));      </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="并行流"><a href="#并行流" class="headerlink" title="并行流"></a><strong>并行流</strong></h2><h4 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a><strong>概述</strong></h4><p>并行流就是将一个内容分成多个数据块，并用不同的线程分别处理每个数据块的流</p>
+<p>Stream API接口允许声明性地将顺序流变为并行流，本质上是通过应用Java7引入的分支/合并框架实现，这让并行(多线程)处理数据集合变得轻松灵活，但只有了解了如何划分并行流才能避免误用产生的意外</p>
+<p>可以通过对收集源调用parallelStream方法将集合转换为并行流，或者通过对流对象调用parallel方法将流转换为并行流</p>
+<h4 id="测试并行流性能示例"><a href="#测试并行流性能示例" class="headerlink" title="测试并行流性能示例"></a><strong>测试并行流性能示例</strong></h4><p>通过实现累加器函数(给定n，返回[1,n]的和)测试并行流性能</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//for迭代版本累加器</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">long</span> <span class="hljs-title">iterativeSum</span><span class="hljs-params">(<span class="hljs-keyword">long</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">long</span> result = <span class="hljs-number">0</span>;</span><br><span class="line">    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">long</span> i = <span class="hljs-number">1L</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        result += i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">//顺序流累加器</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">long</span> <span class="hljs-title">sequentialSum</span><span class="hljs-params">(<span class="hljs-keyword">long</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> Stream.iterate(<span class="hljs-number">1L</span>, i -&gt; i + <span class="hljs-number">1</span>)</span><br><span class="line">        .limit(n)</span><br><span class="line">        .reduce(<span class="hljs-number">0L</span>, Long::sum);</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">//并行流累加器</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">long</span> <span class="hljs-title">parallelSum</span><span class="hljs-params">(<span class="hljs-keyword">long</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> Stream.iterate(<span class="hljs-number">1L</span>, i -&gt; i + <span class="hljs-number">1</span>)</span><br><span class="line">        .limit(n)</span><br><span class="line">        .parallel()</span><br><span class="line">        .reduce(<span class="hljs-number">0L</span>, Long::sum);</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">//测试性能函数 调用10次函数取最短执行时间返回</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">long</span> <span class="hljs-title">measureSumPerf</span><span class="hljs-params">(Function&lt;Long, Long&gt; adder, <span class="hljs-keyword">long</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">long</span> fastest = Long.MAX_VALUE;</span><br><span class="line">    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) &#123;</span><br><span class="line">        <span class="hljs-keyword">long</span> start = System.nanoTime();</span><br><span class="line">        <span class="hljs-keyword">long</span> sum = adder.apply(n);</span><br><span class="line">        <span class="hljs-keyword">long</span> duration = (System.nanoTime() - start) / <span class="hljs-number">1_000_000</span>;</span><br><span class="line">        System.out.println(<span class="hljs-string">"Result: "</span> + sum);</span><br><span class="line">        <span class="hljs-keyword">if</span> (duration &lt; fastest) fastest = duration;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> fastest;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">//测试</span></span><br><span class="line">measureSumPerf(GuavaController::iterativeSum, <span class="hljs-number">100000000</span>);   <span class="hljs-comment">//40</span></span><br><span class="line">measureSumPerf(GuavaController::sequentialSum, <span class="hljs-number">100000000</span>);  <span class="hljs-comment">//2433</span></span><br><span class="line">measureSumPerf(GuavaController::parallelSum, <span class="hljs-number">100000000</span>);    <span class="hljs-comment">//18044</span></span><br></pre></td></tr></table></figure>
+
+<p>分析结果得知for迭代性能&gt;顺序流性能&gt;并行流性能，究其缘由有两个因素</p>
+<ul>
+<li>因为顺序流性能弱于For迭代性能，可能是iterate生成的无限流的元素对象是Long包装类对象，需要拆箱成数字才能求和，影响性能</li>
+<li>因为并行流性能小于顺序流，可能式iterate生成的无限流并没有拆分成多个独立块并行执行</li>
+</ul>
+<p>针对这两个因素，我们可以应用LongStream.rangeClosed方法解决</p>
+<ul>
+<li>LongStream.rangeClosed直接产生原始类型的数值流，没有拆箱装箱开销</li>
+<li>LongStream.rangeClosed会产生数字范围，易拆分成独立的小块并行处理</li>
+</ul>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//优化后的顺序流原始类型累加器</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">long</span> <span class="hljs-title">rangedSum</span><span class="hljs-params">(<span class="hljs-keyword">long</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> LongStream.rangeClosed(<span class="hljs-number">1</span>, n)</span><br><span class="line">        .reduce(<span class="hljs-number">0L</span>, Long::sum);</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">//优化后的并行流范围累加器</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">long</span> <span class="hljs-title">parallelRangedSum</span><span class="hljs-params">(<span class="hljs-keyword">long</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> LongStream.rangeClosed(<span class="hljs-number">1</span>, n)</span><br><span class="line">        .parallel()</span><br><span class="line">        .reduce(<span class="hljs-number">0L</span>, Long::sum);</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">//测试</span></span><br><span class="line">measureSumPerf(GuavaController::iterativeSum, <span class="hljs-number">100000000</span>);   <span class="hljs-comment">//40</span></span><br><span class="line">measureSumPerf(GuavaController::rangedSum, <span class="hljs-number">100000000</span>);  <span class="hljs-comment">//463</span></span><br><span class="line">measureSumPerf(GuavaController::parallelRangedSum, <span class="hljs-number">100000000</span>);    <span class="hljs-comment">//90</span></span><br></pre></td></tr></table></figure>
+
+<p>分析结果得知</p>
+<ul>
+<li>数值流避免了拆箱装箱开销增强了性能，因此有时候选择恰当的数据结构往往比并行化算法更重要</li>
+<li>由于并行化过程本身需要对流进行递归划分分配子流到不同线程执行并归约结果，因此选择方便划分的流与独立的流操作才能保证并行化提升性能</li>
+</ul>
+<h4 id="并行流的典型错误"><a href="#并行流的典型错误" class="headerlink" title="并行流的典型错误"></a><strong>并行流的典型错误</strong></h4><p>并行流的流操作不可用于改变某些共享状态，这会得到错误的执行结果，因为并行流中没有同步机制</p>
+<h4 id="并行流的使用方案"><a href="#并行流的使用方案" class="headerlink" title="并行流的使用方案"></a><strong>并行流的使用方案</strong></h4><p>关于使用并行流的定量建议毫无意义，因为这关乎到硬件、业务逻辑、执行代码等动态因素，但有一些并行流的定性建议可以帮助决定特定情况下是否有必要使用并行流优化代码</p>
+<ul>
+<li><p><strong>测试</strong></p>
+<p>顺序流转换成并行流十分简单，但考虑使用顺序流还是并行流时，用适当的基准代码来检查其性能比无谓的性能分析要实用的多</p>
+</li>
+<li><p><strong>留意装箱开箱</strong></p>
+<p>自动装箱开箱操作会大大降低性能，Java8中有数值流来避免这种操作</p>
+</li>
+<li><p><strong>流操作的可并行性</strong></p>
+<p>一些流操作不具备可并行性，如limit和findFirst等依赖于元素顺序的操作，并行化执行的代价十分大，如需求中对元素顺序不敏感，可调用unordered方法将顺序流转化成无序流用作无序流操作的并行化执行</p>
+</li>
+<li><p><strong>单元素的流水线处理成本</strong></p>
+<p>一个元素的流水线处理成本越大，并行流时性能好的可能性比较大</p>
+</li>
+<li><p><strong>处理元素的总数</strong></p>
+<p>处理元素的总数越大，并行流时性能好的可能性比较大</p>
+</li>
+<li><p><strong>流数据源的可分解性</strong></p>
+<p>流数据源的数据结构是否易于分解，如ArrayList流的拆分效率高于LinkedList流，因为ArrayList流无需遍历即可平均拆分，而后者需要遍历，如range工厂方法创建的数值流也可以快速分解</p>
+<p><img src="/images/Java8/17.png" alt></p>
+</li>
+</ul>
+<h4 id="并行流的拆分原理"><a href="#并行流的拆分原理" class="headerlink" title="并行流的拆分原理"></a><strong>并行流的拆分原理</strong></h4><p>并行流的基础架构是Java7引入的分支/合并框架，其可以以递归的方式将可以并行的任务拆分成更小的任务，然后将每个子任务的结果合并成整体结果</p>
+<p>并行流的工作原理基于Java8中新加入的Spliterator接口，即可分迭代器，用于并行遍历数据源中的元素，Java8已经为集合框架中的所有数据结构提供了一个默认的Spliterator实现</p>
+<hr>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a><strong>小结</strong></h2><p><img src="/images/Java8/18.png" alt></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Java8/">Java8</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/11/03/Java8-2-行为参数化/">
+                <span class="level-item">Java8(二)行为参数化</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/avatar.png" alt="Harvie">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        Harvie
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Programmer
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>深圳，广东</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        14
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        0
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        10
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/harvieAlwaysHere" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/harvieAlwaysHere">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Mail" href="mailto:707014137@qq.com">
+                
+                <i class="fa fa-envelope"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#函数式数据处理-流">
+        <span class="has-mr-6">1</span>
+        <span>函数式数据处理-流</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#概述">
+        <span class="has-mr-6">1.1</span>
+        <span>概述</span>
+        </a></li><li>
+        <a class="is-flex" href="#流定义">
+        <span class="has-mr-6">1.2</span>
+        <span>流定义</span>
+        </a></li><li>
+        <a class="is-flex" href="#流的重要特点">
+        <span class="has-mr-6">1.3</span>
+        <span>流的重要特点</span>
+        </a></li><li>
+        <a class="is-flex" href="#流与集合">
+        <span class="has-mr-6">1.4</span>
+        <span>流与集合</span>
+        </a></li><li>
+        <a class="is-flex" href="#流操作">
+        <span class="has-mr-6">1.5</span>
+        <span>流操作</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#流的使用">
+        <span class="has-mr-6">2</span>
+        <span>流的使用</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#流操作-1">
+        <span class="has-mr-6">2.1</span>
+        <span>流操作</span>
+        </a></li><li>
+        <a class="is-flex" href="#流操作的内部优化">
+        <span class="has-mr-6">2.2</span>
+        <span>流操作的内部优化</span>
+        </a></li><li>
+        <a class="is-flex" href="#数值流">
+        <span class="has-mr-6">2.3</span>
+        <span>数值流</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#创建流">
+        <span class="has-mr-6">3</span>
+        <span>创建流</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#值创建流">
+        <span class="has-mr-6">3.1</span>
+        <span>值创建流</span>
+        </a></li><li>
+        <a class="is-flex" href="#数组创建流">
+        <span class="has-mr-6">3.2</span>
+        <span>数组创建流</span>
+        </a></li><li>
+        <a class="is-flex" href="#文件创建流">
+        <span class="has-mr-6">3.3</span>
+        <span>文件创建流</span>
+        </a></li><li>
+        <a class="is-flex" href="#函数创建流-无限流">
+        <span class="has-mr-6">3.4</span>
+        <span>函数创建流-无限流</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#流的收集">
+        <span class="has-mr-6">4</span>
+        <span>流的收集</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#收集器概述">
+        <span class="has-mr-6">4.1</span>
+        <span>收集器概述</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#预定义收集器-Collectors工具类">
+        <span class="has-mr-6">5</span>
+        <span>预定义收集器-Collectors工具类</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#归约汇总">
+        <span class="has-mr-6">5.1</span>
+        <span>归约汇总</span>
+        </a></li><li>
+        <a class="is-flex" href="#分组">
+        <span class="has-mr-6">5.2</span>
+        <span>分组</span>
+        </a></li><li>
+        <a class="is-flex" href="#分区">
+        <span class="has-mr-6">5.3</span>
+        <span>分区</span>
+        </a></li><li>
+        <a class="is-flex" href="#预定义收集器总结">
+        <span class="has-mr-6">5.4</span>
+        <span>预定义收集器总结</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#自定义收集器-Collector接口">
+        <span class="has-mr-6">6</span>
+        <span>自定义收集器-Collector接口</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Collector接口的定义">
+        <span class="has-mr-6">6.1</span>
+        <span>Collector接口的定义</span>
+        </a></li><li>
+        <a class="is-flex" href="#自定义收集器示例">
+        <span class="has-mr-6">6.2</span>
+        <span>自定义收集器示例</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#并行流">
+        <span class="has-mr-6">7</span>
+        <span>并行流</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#概述-1">
+        <span class="has-mr-6">7.1</span>
+        <span>概述</span>
+        </a></li><li>
+        <a class="is-flex" href="#测试并行流性能示例">
+        <span class="has-mr-6">7.2</span>
+        <span>测试并行流性能示例</span>
+        </a></li><li>
+        <a class="is-flex" href="#并行流的典型错误">
+        <span class="has-mr-6">7.3</span>
+        <span>并行流的典型错误</span>
+        </a></li><li>
+        <a class="is-flex" href="#并行流的使用方案">
+        <span class="has-mr-6">7.4</span>
+        <span>并行流的使用方案</span>
+        </a></li><li>
+        <a class="is-flex" href="#并行流的拆分原理">
+        <span class="has-mr-6">7.5</span>
+        <span>并行流的拆分原理</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#小结">
+        <span class="has-mr-6">8</span>
+        <span>小结</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java8/" style="font-size: 13.33px;">Java8</a> <a href="/tags/RocketMQ/" style="font-size: 10px;">RocketMQ</a> <a href="/tags/SCRUM/" style="font-size: 10px;">SCRUM</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/Vue/" style="font-size: 16.67px;">Vue</a> <a href="/tags/前端/" style="font-size: 16.67px;">前端</a> <a href="/tags/开发模式/" style="font-size: 10px;">开发模式</a> <a href="/tags/敏捷开发/" style="font-size: 10px;">敏捷开发</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/11/03/Java8-3-流/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/Java8/1.jpg" alt="Java8(三)流">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T15:27:43.000Z">2019-11-03</time></div>
+                    <a href="/2019/11/03/Java8-3-流/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Java8(三)流</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/11/03/Java8-2-行为参数化/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/Java8/1.jpg" alt="Java8(二)行为参数化">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T15:27:42.000Z">2019-11-03</time></div>
+                    <a href="/2019/11/03/Java8-2-行为参数化/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Java8(二)行为参数化</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/11/03/Java8-1-概况/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/Java8/1.jpg" alt="Java8(一)概况">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T15:27:41.000Z">2019-11-03</time></div>
+                    <a href="/2019/11/03/Java8-1-概况/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Java8(一)概况</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/11/03/RocketMQ/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/RocketMQ/1.png" alt="RocketMQ的安装与使用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T15:09:20.000Z">2019-11-03</time></div>
+                    <a href="/2019/11/03/RocketMQ/" class="title has-link-black-ter is-size-6 has-text-weight-normal">RocketMQ的安装与使用</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/10/15/AgileDevOfScrum/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/AgileDevOfScrum/1.jpg" alt="精益敏捷开发和SCRUM框架">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-14T17:03:54.000Z">2019-10-15</time></div>
+                    <a href="/2019/10/15/AgileDevOfScrum/" class="title has-link-black-ter is-size-6 has-text-weight-normal">精益敏捷开发和SCRUM框架</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java8/">
+                        <span class="tag">Java8</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/RocketMQ/">
+                        <span class="tag">RocketMQ</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/SCRUM/">
+                        <span class="tag">SCRUM</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/SpringBoot/">
+                        <span class="tag">SpringBoot</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue/">
+                        <span class="tag">Vue</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/前端/">
+                        <span class="tag">前端</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/开发模式/">
+                        <span class="tag">开发模式</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/敏捷开发/">
+                        <span class="tag">敏捷开发</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/设计模式/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/11/03/Java8-3-流/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/Java8/1.jpg" alt="Java8(三)流">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T15:27:43.000Z">2019-11-03</time></div>
+                    <a href="/2019/11/03/Java8-3-流/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Java8(三)流</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/11/03/Java8-2-行为参数化/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/Java8/1.jpg" alt="Java8(二)行为参数化">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T15:27:42.000Z">2019-11-03</time></div>
+                    <a href="/2019/11/03/Java8-2-行为参数化/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Java8(二)行为参数化</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/11/03/Java8-1-概况/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/Java8/1.jpg" alt="Java8(一)概况">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T15:27:41.000Z">2019-11-03</time></div>
+                    <a href="/2019/11/03/Java8-1-概况/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Java8(一)概况</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/11/03/RocketMQ/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/RocketMQ/1.png" alt="RocketMQ的安装与使用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-03T15:09:20.000Z">2019-11-03</time></div>
+                    <a href="/2019/11/03/RocketMQ/" class="title has-link-black-ter is-size-6 has-text-weight-normal">RocketMQ的安装与使用</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/10/15/AgileDevOfScrum/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/AgileDevOfScrum/1.jpg" alt="精益敏捷开发和SCRUM框架">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-14T17:03:54.000Z">2019-10-15</time></div>
+                    <a href="/2019/10/15/AgileDevOfScrum/" class="title has-link-black-ter is-size-6 has-text-weight-normal">精益敏捷开发和SCRUM框架</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java8/">
+                        <span class="tag">Java8</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/RocketMQ/">
+                        <span class="tag">RocketMQ</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/SCRUM/">
+                        <span class="tag">SCRUM</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/SpringBoot/">
+                        <span class="tag">SpringBoot</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue/">
+                        <span class="tag">Vue</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/前端/">
+                        <span class="tag">前端</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/开发模式/">
+                        <span class="tag">开发模式</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/敏捷开发/">
+                        <span class="tag">敏捷开发</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/设计模式/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/HarvieNotFraid.png" alt="Java8(三)流" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 Harvie&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/harvieAlwaysHere">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Pre-Blog" href="https://harviealwayshere.github.io/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
